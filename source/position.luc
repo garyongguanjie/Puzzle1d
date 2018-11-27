@@ -1,0 +1,34 @@
+module position (
+    input clk,  // clock
+    input rst,  // reset
+    input move[5],
+    output out[6]
+  ) {
+  
+  dff pos[6](.clk(clk), .rst(rst));
+  always {
+    if (pos.q==0){
+      pos.d=pos.q+1;
+    }
+    if (move==4){
+      if(pos.q + 1 > 49){}
+      else{        
+        pos.d = pos.q+1;}
+}  if (move==0){
+      if(pos.q - 7 < 1){}
+      else{
+        pos.d = pos.q-7;}
+    }
+    if (move==2){
+      if(pos.q + 7 > 49){}
+      else{
+        pos.d = pos.q+7;}
+    }
+    if (move==3){
+      if(pos.q - 1 < 1){}
+      else{
+        pos.d = pos.q-1;}
+    }        
+    out = pos.q;
+  }
+}

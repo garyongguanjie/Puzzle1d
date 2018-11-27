@@ -1,0 +1,8 @@
+verilog work "E:/Documents/mojo/puzzleboard1d/work/planAhead/puzzleboard1d/puzzleboard1d.srcs/sources_1/imports/verilog/pipeline_12.v"
+verilog work "E:/Documents/mojo/puzzleboard1d/work/planAhead/puzzleboard1d/puzzleboard1d.srcs/sources_1/imports/verilog/counter_16.v"
+verilog work "E:/Documents/mojo/puzzleboard1d/work/planAhead/puzzleboard1d/puzzleboard1d.srcs/sources_1/imports/verilog/reset_conditioner_1.v"
+verilog work "E:/Documents/mojo/puzzleboard1d/work/planAhead/puzzleboard1d/puzzleboard1d.srcs/sources_1/imports/verilog/position_11.v"
+verilog work "E:/Documents/mojo/puzzleboard1d/work/planAhead/puzzleboard1d/puzzleboard1d.srcs/sources_1/imports/verilog/edge_detector_2.v"
+verilog work "E:/Documents/mojo/puzzleboard1d/work/planAhead/puzzleboard1d/puzzleboard1d.srcs/sources_1/imports/verilog/display_10.v"
+verilog work "E:/Documents/mojo/puzzleboard1d/work/planAhead/puzzleboard1d/puzzleboard1d.srcs/sources_1/imports/verilog/button_conditioner_3.v"
+verilog work "E:/Documents/mojo/puzzleboard1d/work/planAhead/puzzleboard1d/puzzleboard1d.srcs/sources_1/imports/verilog/mojo_top_0.v"

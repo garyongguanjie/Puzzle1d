@@ -1,0 +1,46 @@
+/*
+
+   How to use:
+     initialze in assignment block(before always) with clk and rst
+         display display(.clk(clk),.rst(rst));
+     in always block
+     display.blue = {7b000000,7b0000000}
+     ......
+     blue = display.out_blue
+     note 1 is on for both color and row as i inverted the logi 
+*/
+module display (
+    input clk,  // clock
+    input rst,  // reset
+    input blue[7][7],
+    input green[7][7],
+    output rows[7],
+    output out_blue[7],
+    output out_green[7]
+  ) {
+    counter mycounter (.clk(clk),.rst(rst),#SIZE(3), #DIV(16), #TOP(6));
+    //DIV indicates how many cycles in cpu before it increments in this case 2^16
+    //TOP indicates max value 0-6 for 7 rows
+    //SIZE -> no of bits
+    
+  var j;
+  always {
+     //initiailize default outputs
+    rows = 7b0000000;
+    out_blue = 7b1111111;
+    out_green =7b1111111;
+    
+    rows[mycounter.value]=1;//selects a row based on mycounter and turns it on 
+    
+    
+    //each cycle a row is selected
+    //for every led in each row get the input and turn it on
+    
+    //~negates the values so 1 is on
+      out_blue = ~blue[mycounter.value];
+      out_green = ~green[mycounter.value];
+    
+    
+         
+  }
+}

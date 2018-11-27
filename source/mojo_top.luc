@@ -1,0 +1,576 @@
+module mojo_top (
+    input clk,              // 50MHz clock
+    input rst_n,            // reset button (active low)
+    output led [8],         // 8 user controllable LEDs
+    input cclk,             // configuration clock, AVR ready when high
+    output spi_miso,        // AVR SPI MISO
+    input spi_ss,           // AVR SPI Slave Select
+    input spi_mosi,         // AVR SPI MOSI
+    input spi_sck,          // AVR SPI Clock
+    output spi_channel [4], // AVR general purpose pins (used by default to select ADC channel)
+    input avr_tx,           // AVR TX (FPGA RX)
+    output avr_rx,          // AVR RX (FPGA TX)
+    input io_button [5],
+    input io_dip [3][8],     // DIP switches on IO Shield
+    input avr_rx_busy,       // AVR RX buffer full
+    input button_right,
+    input button_up,
+    input button_down,
+    input button_left,
+    
+    output rows[7],
+    //output red[7],
+    output green[7],
+    output blue[7]
+  ) {
+  
+  sig rst;                  // reset signal
+  
+  
+  
+  .clk(clk) {
+    // The reset conditioner is used to synchronize the reset signal to the FPGA
+    // clock. This ensures the entire FPGA comes out of reset at the same time.
+    reset_conditioner reset_cond;
+    edge_detector edge_detector_right(#RISE(1), #FALL(0));
+    button_conditioner button_cond_right;
+    edge_detector edge_detector_up(#RISE(1), #FALL(0));
+    button_conditioner button_cond_up;
+    edge_detector edge_detector_down(#RISE(1), #FALL(0));
+    button_conditioner button_cond_down;
+    edge_detector edge_detector_left(#RISE(1), #FALL(0));
+    button_conditioner button_cond_left;
+    
+    
+    .rst(rst){
+      display display;
+      position position;
+      dff row_1[7];
+      dff row_2[7];
+      dff row_3[7];
+      dff row_4[7];
+      dff row_5[7];
+      dff row_6[7];
+      dff row_7[7];
+      dff check[1];
+      fsm state = {IDLE, FIRST, GAME};
+    }
+    
+    
+  }
+  
+  always {
+    button_cond_right.in = button_right;
+    edge_detector_right.in = button_cond_right.out;
+    button_cond_up.in = button_up;
+    edge_detector_up.in = button_cond_up.out;
+    button_cond_down.in = button_down;
+    edge_detector_down.in = button_cond_down.out;
+    button_cond_left.in = button_left;
+    edge_detector_left.in = button_cond_left.out;
+    reset_cond.in = ~rst_n; // input raw inverted reset signal
+    rst = reset_cond.out;   // conditioned reset
+    
+    led = 8h00;             // turn LEDs off
+    spi_miso = bz;          // not using SPI
+    spi_channel = bzzzz;    // not using flags
+    avr_rx = bz;            // not using serial port
+    
+    position.move = 8;
+    
+    if(check.q==0)
+    {
+      state.d= state.FIRST;
+    }else{
+      state.d = state.GAME;}
+    case(state.q){
+      state.FIRST:
+        row_1.d = 7b0011100;
+        row_2.d = 7b0011100;
+        row_3.d = 7b1111111;
+        row_4.d = 7b1110111;
+        row_5.d = 7b1111111;
+        row_6.d = 7b0011100;
+        row_7.d = 7b0011100;
+        check.d = 1;
+        
+      state.GAME:
+        
+        if(edge_detector_up.out){//up
+          position.move = 0;}
+        if(edge_detector_down.out){//down
+          position.move = 2;}
+        if(edge_detector_right.out){//right
+          position.move = 4;}
+        if(edge_detector_left.out){//left
+          position.move = 3;}
+      
+    }
+    
+    
+    display.blue[0] = row_1.q;
+    display.blue[1] = row_2.q;
+    display.blue[2] = row_3.q;
+    display.blue[3] = row_4.q;
+    display.blue[4] = row_5.q;
+    display.blue[5] = row_6.q;
+    display.blue[6] = row_7.q;
+    display.green[0] = 7b0000000;
+    display.green[1] = 7b0000000;
+    display.green[2] = 7b0000000;
+    display.green[3] = 7b0000000;
+    display.green[4] = 7b0000000;
+    display.green[5] = 7b0000000;
+    display.green[6] = 7b0000000;
+    
+    
+
+    if (position.out==1){
+      display.green[0] = 7b1000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==2){
+      display.green[0] = 7b0100000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==3){
+      display.green[0] = 7b0010000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==4){
+      display.green[0] = 7b0001000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==5){
+      display.green[0] = 7b0000100;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==6){
+      display.green[0] = 7b0000010;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==7){
+      display.green[0] = 7b0000001;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }if (position.out==8){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b1000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==9){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0100000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==10){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0010000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==11){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0001000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==12){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000100;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==13){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000010;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==14){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000001;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==15){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b1000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==16){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0100000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==17){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0010000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==18){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0001000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==19){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000100;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==20){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000010;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==21){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000001;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==22){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b1000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==23){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0100000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==24){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0010000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==25){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0001000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==26){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000100;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==27){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000010;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==28){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000001;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==29){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b1000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==30){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0100000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==31){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0010000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==32){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0001000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==33){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000100;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==34){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000010;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==35){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000001;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==36){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b1000000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==37){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0100000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==38){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0010000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==39){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0001000;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==40){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000100;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==41){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000010;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==42){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000001;
+      display.green[6] = 7b0000000;
+    }
+    if (position.out==43){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b1000000;
+    }
+    if (position.out==44){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0100000;
+    }
+    if (position.out==45){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0010000;
+    }
+    if (position.out==46){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0001000;
+    }
+    if (position.out==47){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000100;
+    }
+    if (position.out==48){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000010;
+    }
+    if (position.out==49){
+      display.green[0] = 7b0000000;
+      display.green[1] = 7b0000000;
+      display.green[2] = 7b0000000;
+      display.green[3] = 7b0000000;
+      display.green[4] = 7b0000000;
+      display.green[5] = 7b0000000;
+      display.green[6] = 7b0000001;
+    }
+    
+    
+    green = display.out_green;
+    blue = display.out_blue;
+    rows = display.rows; 
+
+    
+  }
+}
