@@ -36,3 +36,4 @@ NET "button_right" LOC = P58 | IOSTANDARD = LVTTL | PULLUP;
 NET "button_up" LOC = P67 | IOSTANDARD = LVTTL | PULLUP;
 NET "button_down" LOC = P75 | IOSTANDARD = LVTTL | PULLUP;
 NET "button_left" LOC = P79 | IOSTANDARD = LVTTL | PULLUP;
+NET "button_select" LOC = P81 | IOSTANDARD = LVTTL | PULLUP;

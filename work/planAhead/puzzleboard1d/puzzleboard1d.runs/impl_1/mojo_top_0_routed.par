@@ -1,7 +1,7 @@
 Release 14.7 par P.20131013 (nt)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-DESKTOP-DKNN9N4::  Mon Nov 26 13:37:31 2018
+DESKTOP-DKNN9N4::  Mon Dec 03 13:30:39 2018
 
 par -intstyle pa -w -mt on mojo_top_0.ncd mojo_top_0_routed.ncd 
 
@@ -171,7 +171,7 @@ All signals are completely routed.
 WARNING:Par:283 - There are 6 loadless signals in this design. This design will cause Bitgen to issue DRC warnings.
 
 Total REAL time to PAR completion: 5 secs 
-Total CPU time to PAR completion (all processors): 6 secs 
+Total CPU time to PAR completion (all processors): 5 secs 
 
 Peak Memory Usage:  377 MB
 
