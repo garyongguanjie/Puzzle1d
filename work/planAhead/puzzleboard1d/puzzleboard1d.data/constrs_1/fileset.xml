@@ -5,7 +5,7 @@
     <File Path="$PSRCDIR/constrs_1/imports/output_pins.ucf">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../../constraint/output_pins.ucf"/>
-        <Attr Name="ImportTime" Val="1543377890"/>
+        <Attr Name="ImportTime" Val="1543815622"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
       </FileInfo>

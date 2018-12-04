@@ -65,3 +65,6 @@ NET "button_down" PULLUP;
 NET "button_left" LOC = P79;
 NET "button_left" IOSTANDARD = LVTTL;
 NET "button_left" PULLUP;
+NET "button_select" LOC = P81;
+NET "button_select" IOSTANDARD = LVTTL;
+NET "button_select" PULLUP;

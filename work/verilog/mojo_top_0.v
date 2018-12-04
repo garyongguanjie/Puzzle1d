@@ -16,13 +16,12 @@ module mojo_top_0 (
     output reg [3:0] spi_channel,
     input avr_tx,
     output reg avr_rx,
-    input [4:0] io_button,
-    input [23:0] io_dip,
     input avr_rx_busy,
     input button_right,
     input button_up,
     input button_down,
     input button_left,
+    input button_select,
     output reg [6:0] rows,
     output reg [6:0] green,
     output reg [6:0] blue
@@ -95,12 +94,26 @@ module mojo_top_0 (
     .in(M_button_cond_left_in),
     .out(M_button_cond_left_out)
   );
+  wire [1-1:0] M_edge_detector_select_out;
+  reg [1-1:0] M_edge_detector_select_in;
+  edge_detector_2 edge_detector_select (
+    .clk(clk),
+    .in(M_edge_detector_select_in),
+    .out(M_edge_detector_select_out)
+  );
+  wire [1-1:0] M_button_cond_select_out;
+  reg [1-1:0] M_button_cond_select_in;
+  button_conditioner_3 button_cond_select (
+    .clk(clk),
+    .in(M_button_cond_select_in),
+    .out(M_button_cond_select_out)
+  );
   wire [7-1:0] M_display_rows;
   wire [7-1:0] M_display_out_blue;
   wire [7-1:0] M_display_out_green;
   reg [49-1:0] M_display_blue;
   reg [49-1:0] M_display_green;
-  display_10 display (
+  display_12 display (
     .clk(clk),
     .rst(rst),
     .blue(M_display_blue),
@@ -109,38 +122,26 @@ module mojo_top_0 (
     .out_blue(M_display_out_blue),
     .out_green(M_display_out_green)
   );
-  wire [6-1:0] M_position_out;
+  wire [49-1:0] M_position_green;
+  wire [3-1:0] M_position_row;
+  wire [3-1:0] M_position_column;
   reg [5-1:0] M_position_move;
-  position_11 position (
+  position_13 position (
     .clk(clk),
     .rst(rst),
     .move(M_position_move),
-    .out(M_position_out)
+    .green(M_position_green),
+    .row(M_position_row),
+    .column(M_position_column)
   );
-  reg [6:0] M_row_1_d, M_row_1_q = 1'h0;
-  reg [6:0] M_row_2_d, M_row_2_q = 1'h0;
-  reg [6:0] M_row_3_d, M_row_3_q = 1'h0;
-  reg [6:0] M_row_4_d, M_row_4_q = 1'h0;
-  reg [6:0] M_row_5_d, M_row_5_q = 1'h0;
-  reg [6:0] M_row_6_d, M_row_6_q = 1'h0;
-  reg [6:0] M_row_7_d, M_row_7_q = 1'h0;
-  reg [0:0] M_check_d, M_check_q = 1'h0;
-  localparam IDLE_state = 2'd0;
-  localparam FIRST_state = 2'd1;
-  localparam GAME_state = 2'd2;
-  
-  reg [1:0] M_state_d, M_state_q = IDLE_state;
+  reg [48:0] M_row_d, M_row_q = 1'h0;
+  reg [1:0] M_check_d, M_check_q = 1'h0;
+  reg [5:0] M_move_counter_d, M_move_counter_q = 1'h0;
   
   always @* begin
-    M_state_d = M_state_q;
-    M_row_5_d = M_row_5_q;
-    M_row_6_d = M_row_6_q;
-    M_row_7_d = M_row_7_q;
     M_check_d = M_check_q;
-    M_row_2_d = M_row_2_q;
-    M_row_1_d = M_row_1_q;
-    M_row_4_d = M_row_4_q;
-    M_row_3_d = M_row_3_q;
+    M_move_counter_d = M_move_counter_q;
+    M_row_d = M_row_q;
     
     M_button_cond_right_in = button_right;
     M_edge_detector_right_in = M_button_cond_right_out;
@@ -150,6 +151,8 @@ module mojo_top_0 (
     M_edge_detector_down_in = M_button_cond_down_out;
     M_button_cond_left_in = button_left;
     M_edge_detector_left_in = M_button_cond_left_out;
+    M_button_cond_select_in = button_select;
+    M_edge_detector_select_in = M_button_cond_select_out;
     M_reset_cond_in = ~rst_n;
     rst = M_reset_cond_out;
     led = 8'h00;
@@ -158,492 +161,818 @@ module mojo_top_0 (
     avr_rx = 1'bz;
     M_position_move = 4'h8;
     if (M_check_q == 1'h0) begin
-      M_state_d = FIRST_state;
-    end else begin
-      M_state_d = GAME_state;
+      M_row_d[0+6-:7] = 7'h1c;
+      M_row_d[7+6-:7] = 7'h1c;
+      M_row_d[14+6-:7] = 7'h7f;
+      M_row_d[21+6-:7] = 7'h77;
+      M_row_d[28+6-:7] = 7'h7f;
+      M_row_d[35+6-:7] = 7'h1c;
+      M_row_d[42+6-:7] = 7'h1c;
+      M_check_d = 1'h1;
     end
-    
-    case (M_state_q)
-      FIRST_state: begin
-        M_row_1_d = 7'h1c;
-        M_row_2_d = 7'h1c;
-        M_row_3_d = 7'h7f;
-        M_row_4_d = 7'h77;
-        M_row_5_d = 7'h7f;
-        M_row_6_d = 7'h1c;
-        M_row_7_d = 7'h1c;
+    if (M_check_q == 1'h1) begin
+      if (M_edge_detector_up_out) begin
+        M_position_move = 1'h1;
+      end
+      if (M_edge_detector_down_out) begin
+        M_position_move = 2'h2;
+      end
+      if (M_edge_detector_right_out) begin
+        M_position_move = 2'h3;
+      end
+      if (M_edge_detector_left_out) begin
+        M_position_move = 3'h4;
+      end
+      if (M_edge_detector_select_out) begin
+        M_check_d = 2'h2;
+      end
+    end
+    if (M_check_q == 2'h2) begin
+      if (M_position_row == 1'h1 && M_position_column == 1'h1) begin
         M_check_d = 1'h1;
       end
-      GAME_state: begin
+      if (M_position_row == 1'h1 && M_position_column == 2'h2) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 1'h1 && M_position_column == 3'h6) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 1'h1 && M_position_column == 3'h7) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 2'h2 && M_position_column == 1'h1) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 2'h2 && M_position_column == 2'h2) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 2'h2 && M_position_column == 3'h6) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 2'h2 && M_position_column == 3'h7) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 3'h6 && M_position_column == 1'h1) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 3'h6 && M_position_column == 2'h2) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 3'h6 && M_position_column == 3'h6) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 3'h6 && M_position_column == 3'h7) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 3'h7 && M_position_column == 1'h1) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 3'h7 && M_position_column == 2'h2) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 3'h7 && M_position_column == 3'h6) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 3'h7 && M_position_column == 3'h7) begin
+        M_check_d = 1'h1;
+      end
+      if (M_position_row == 1'h1 && M_position_column == 2'h3) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
         if (M_edge_detector_up_out) begin
-          M_position_move = 1'h0;
+          M_check_d = 1'h1;
         end
         if (M_edge_detector_down_out) begin
-          M_position_move = 2'h2;
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
         end
         if (M_edge_detector_right_out) begin
-          M_position_move = 3'h4;
+          if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
         end
         if (M_edge_detector_left_out) begin
-          M_position_move = 2'h3;
+          M_check_d = 1'h1;
         end
       end
-    endcase
-    M_display_blue[0+6-:7] = M_row_1_q;
-    M_display_blue[7+6-:7] = M_row_2_q;
-    M_display_blue[14+6-:7] = M_row_3_q;
-    M_display_blue[21+6-:7] = M_row_4_q;
-    M_display_blue[28+6-:7] = M_row_5_q;
-    M_display_blue[35+6-:7] = M_row_6_q;
-    M_display_blue[42+6-:7] = M_row_7_q;
-    M_display_green[0+6-:7] = 7'h00;
-    M_display_green[7+6-:7] = 7'h00;
-    M_display_green[14+6-:7] = 7'h00;
-    M_display_green[21+6-:7] = 7'h00;
-    M_display_green[28+6-:7] = 7'h00;
-    M_display_green[35+6-:7] = 7'h00;
-    M_display_green[42+6-:7] = 7'h00;
-    if (M_position_out == 1'h1) begin
-      M_display_green[0+6-:7] = 7'h40;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
+      if (M_position_row == 1'h1 && M_position_column == 3'h4) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 1'h1 && M_position_column == 3'h5) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+      end
+      if (M_position_row == 2'h2 && M_position_column == 2'h3) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_right_out) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 2'h2 && M_position_column == 3'h4) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 2'h2 && M_position_column == 3'h5) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+      end
+      if (M_position_row == 2'h3 && M_position_column == 1'h1) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_right_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 2'h3 && M_position_column == 2'h2) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_right_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 3'h4 && M_position_column == 1'h1) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 3'h4 && M_position_column == 2'h2) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 3'h5 && M_position_column == 1'h1) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 3'h5 && M_position_column == 2'h2) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 3'h6 && M_position_column == 2'h3) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 3'h6 && M_position_column == 3'h4) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 3'h6 && M_position_column == 3'h5) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+      end
+      if (M_position_row == 3'h7 && M_position_column == 2'h3) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 3'h7 && M_position_column == 3'h4) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          M_check_d = 1'h1;
+        end
+      end
+      if (M_position_row == 3'h7 && M_position_column == 3'h5) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+      end
+      if (M_position_row == 2'h3 && M_position_column == 3'h6) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+      end
+      if (M_position_row == 2'h3 && M_position_column == 3'h7) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+      end
+      if (M_position_row == 3'h4 && M_position_column == 3'h6) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+      end
+      if (M_position_row == 3'h4 && M_position_column == 3'h7) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+      end
+      if (M_position_row == 3'h5 && M_position_column == 3'h6) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+      end
+      if (M_position_row == 3'h5 && M_position_column == 3'h7) begin
+        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_up_out) begin
+          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+        if (M_edge_detector_down_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_right_out) begin
+          M_check_d = 1'h1;
+        end
+        if (M_edge_detector_left_out) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+            M_move_counter_d = M_move_counter_q + 1'h1;
+            M_check_d = 1'h1;
+          end else begin
+            M_check_d = 1'h1;
+          end
+        end
+      end
     end
-    if (M_position_out == 2'h2) begin
-      M_display_green[0+6-:7] = 7'h20;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 2'h3) begin
-      M_display_green[0+6-:7] = 7'h10;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 3'h4) begin
-      M_display_green[0+6-:7] = 7'h08;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 3'h5) begin
-      M_display_green[0+6-:7] = 7'h04;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 3'h6) begin
-      M_display_green[0+6-:7] = 7'h02;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 3'h7) begin
-      M_display_green[0+6-:7] = 7'h01;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 4'h8) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h40;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 4'h9) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h20;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 4'ha) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h10;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 4'hb) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h08;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 4'hc) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h04;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 4'hd) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h02;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 4'he) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h01;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 4'hf) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h40;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h10) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h20;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h11) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h10;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h12) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h08;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h13) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h04;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h14) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h02;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h15) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h01;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h16) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h40;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h17) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h20;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h18) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h10;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h19) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h08;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h1a) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h04;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h1b) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h02;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h1c) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h01;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h1d) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h40;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h1e) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h20;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 5'h1f) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h10;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h20) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h08;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h21) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h04;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h22) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h02;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h23) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h01;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h24) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h40;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h25) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h20;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h26) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h10;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h27) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h08;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h28) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h04;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h29) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h02;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h2a) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h01;
-      M_display_green[42+6-:7] = 7'h00;
-    end
-    if (M_position_out == 6'h2b) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h40;
-    end
-    if (M_position_out == 6'h2c) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h20;
-    end
-    if (M_position_out == 6'h2d) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h10;
-    end
-    if (M_position_out == 6'h2e) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h08;
-    end
-    if (M_position_out == 6'h2f) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h04;
-    end
-    if (M_position_out == 6'h30) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h02;
-    end
-    if (M_position_out == 6'h31) begin
-      M_display_green[0+6-:7] = 7'h00;
-      M_display_green[7+6-:7] = 7'h00;
-      M_display_green[14+6-:7] = 7'h00;
-      M_display_green[21+6-:7] = 7'h00;
-      M_display_green[28+6-:7] = 7'h00;
-      M_display_green[35+6-:7] = 7'h00;
-      M_display_green[42+6-:7] = 7'h01;
-    end
+    M_display_blue[0+6-:7] = M_row_q[0+6-:7];
+    M_display_blue[7+6-:7] = M_row_q[7+6-:7];
+    M_display_blue[14+6-:7] = M_row_q[14+6-:7];
+    M_display_blue[21+6-:7] = M_row_q[21+6-:7];
+    M_display_blue[28+6-:7] = M_row_q[28+6-:7];
+    M_display_blue[35+6-:7] = M_row_q[35+6-:7];
+    M_display_blue[42+6-:7] = M_row_q[42+6-:7];
+    M_display_green = M_position_green;
     green = M_display_out_green;
     blue = M_display_out_blue;
     rows = M_display_rows;
@@ -651,25 +980,13 @@ module mojo_top_0 (
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_row_1_q <= 1'h0;
-      M_row_2_q <= 1'h0;
-      M_row_3_q <= 1'h0;
-      M_row_4_q <= 1'h0;
-      M_row_5_q <= 1'h0;
-      M_row_6_q <= 1'h0;
-      M_row_7_q <= 1'h0;
+      M_row_q <= 1'h0;
       M_check_q <= 1'h0;
-      M_state_q <= 1'h0;
+      M_move_counter_q <= 1'h0;
     end else begin
-      M_row_1_q <= M_row_1_d;
-      M_row_2_q <= M_row_2_d;
-      M_row_3_q <= M_row_3_d;
-      M_row_4_q <= M_row_4_d;
-      M_row_5_q <= M_row_5_d;
-      M_row_6_q <= M_row_6_d;
-      M_row_7_q <= M_row_7_d;
+      M_row_q <= M_row_d;
       M_check_q <= M_check_d;
-      M_state_q <= M_state_d;
+      M_move_counter_q <= M_move_counter_d;
     end
   end
   

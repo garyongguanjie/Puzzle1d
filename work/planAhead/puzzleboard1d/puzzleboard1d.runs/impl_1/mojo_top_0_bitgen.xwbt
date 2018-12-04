@@ -1,8 +1,0 @@
-INTSTYLE=pa
-INFILE=E:\Downloads\Puzzle1d\work\planAhead\puzzleboard1d\puzzleboard1d.runs\impl_1\mojo_top_0_routed.ncd
-OUTFILE=E:\Downloads\Puzzle1d\work\planAhead\puzzleboard1d\puzzleboard1d.runs\impl_1\mojo_top_0.bit
-FAMILY=Spartan6
-PART=xc6slx9-2tqg144
-WORKINGDIR=E:\Downloads\Puzzle1d\work\planAhead\puzzleboard1d\puzzleboard1d.runs\impl_1
-LICENSE=WebPack
-USER_INFO=211605429_0_0_551

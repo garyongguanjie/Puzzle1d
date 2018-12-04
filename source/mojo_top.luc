@@ -6,13 +6,11 @@ module mojo_top (
     output spi_miso,        // AVR SPI MISO
     input spi_ss,           // AVR SPI Slave Select
     input spi_mosi,         // AVR SPI MOSI
-    input spi_sck,          // AVR SPI Clock
+    input spi_sck,          // AVR SPI Clock    
     output spi_channel [4], // AVR general purpose pins (used by default to select ADC channel)
-    input avr_tx,           // AVR TX (FPGA RX)
+    input avr_tx,           // AVR TX (FPGA RX)    
     output avr_rx,          // AVR RX (FPGA TX)
-    input io_button [5],
-    input io_dip [3][8],     // DIP switches on IO Shield
-    input avr_rx_busy,       // AVR RX buffer full
+    input avr_rx_busy,       // AVR RX buffer full    
     input button_right,
     input button_up,
     input button_down,
@@ -49,7 +47,8 @@ module mojo_top (
       display display;
       position position;
       dff row[7][7];
-      dff check[2];      
+      dff check[2];  
+      dff move_counter[6];    
       //fsm state = {IDLE, FIRST, GAME, SELECT};
     }
     
@@ -135,17 +134,892 @@ module mojo_top (
         if(position.row==7 && position.column==7){
             check.d = 1;}
         
-        //test
-        if(position.row==4 && position.column==2){
-            if(edge_detector_right.out){//right
-                if(row.q[position.row-1][position.column]==1 && row.q[position.row-1][position.column+1]==0){
-                     row.d[position.row-1][position.column] = 0;
-                     row.d[position.row-1][position.column+1] = 1;
-                     row.d[position.row-1][position.column-1] = 0;
+      
+        //edge
+        if(position.row==1 && position.column==3){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
                      check.d = 1;
-                }
-            }
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row-1][6-position.column]==1 && row.q[position.row-1][5-position.column]==0){
+                     row.d[position.row-1][6-position.column] = 0;
+                     row.d[position.row-1][5-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                check.d=1;}
           }
+          
+          if(position.row==1 && position.column==4){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+          
+          if(position.row==1 && position.column==5){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+          if(position.row==2 && position.column==3){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row-1][6-position.column]==1 && row.q[position.row-1][5-position.column]==0){
+                     row.d[position.row-1][6-position.column] = 0;
+                     row.d[position.row-1][5-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+          
+          if(position.row==2 && position.column==4){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+          
+          if(position.row==2 && position.column==5){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+       
+          if(position.row==3 && position.column==1){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+      
+          if(position.row==3 && position.column==2){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+      
+          if(position.row==4 && position.column==1){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+      
+          if(position.row==4 && position.column==2){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+      
+          if(position.row==5 && position.column==1){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+      
+          if(position.row==5 && position.column==2){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+      
+          if(position.row==6 && position.column==3){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+      
+          if(position.row==6 && position.column==4){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+      
+          if(position.row==6 && position.column==5){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+          if(position.row==7 && position.column==3){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+      
+          if(position.row==7 && position.column==4){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+      
+          if(position.row==7 && position.column==5){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                 if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+          if(position.row==3 && position.column==6){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+          if(position.row==3 && position.column==7){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+          if(position.row==4 && position.column==6){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+          if(position.row==4 && position.column==7){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                check.d=1;}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+          if(position.row==5 && position.column==6){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+          if(position.row==5 && position.column==7){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+      
+          if(position.row==3 && position.column==3){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+          if(position.row==3 && position.column==4){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+          if(position.row==3 && position.column==5){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+          if(position.row==4 && position.column==3){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+          if(position.row==4 && position.column==4){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+          if(position.row==4 && position.column==5){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+          if(position.row==5 && position.column==3){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+          if(position.row==5 && position.column==4){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+          if(position.row==5 && position.column==5){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
+                     row.d[position.row][7-position.column] = 0;
+                     row.d[position.row+1][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+      
+      
+          
+      
     }     
 
          
