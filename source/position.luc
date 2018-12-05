@@ -7,7 +7,7 @@ module position (
     output column[3]
   ) {
   
-  dff pos[6](.clk(clk), .rst(rst));
+  dff pos[7](.clk(clk), .rst(rst));
   always {
       green[0] = 7b1000001;
       green[1] = 7b0000000;

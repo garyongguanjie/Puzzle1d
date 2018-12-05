@@ -23,22 +23,22 @@ To see the details of these <arg fmt="%s" index="4">info</arg> messages, please 
 <msg type="info" file="MapLib" num="562" delta="new" >No environment variables are currently set.
 </msg>
 
+<msg type="warning" file="MapLib" num="701" delta="new" >Signal <arg fmt="%s" index="1">avr_rx</arg> connected to top level port <arg fmt="%s" index="2">avr_rx</arg> has been removed.
+</msg>
+
 <msg type="warning" file="MapLib" num="701" delta="new" >Signal <arg fmt="%s" index="1">spi_channel[1]</arg> connected to top level port <arg fmt="%s" index="2">spi_channel(1)</arg> has been removed.
 </msg>
 
 <msg type="warning" file="MapLib" num="701" delta="new" >Signal <arg fmt="%s" index="1">spi_miso</arg> connected to top level port <arg fmt="%s" index="2">spi_miso</arg> has been removed.
 </msg>
 
-<msg type="warning" file="MapLib" num="701" delta="new" >Signal <arg fmt="%s" index="1">spi_channel[2]</arg> connected to top level port <arg fmt="%s" index="2">spi_channel(2)</arg> has been removed.
-</msg>
-
-<msg type="warning" file="MapLib" num="701" delta="new" >Signal <arg fmt="%s" index="1">avr_rx</arg> connected to top level port <arg fmt="%s" index="2">avr_rx</arg> has been removed.
-</msg>
-
 <msg type="warning" file="MapLib" num="701" delta="new" >Signal <arg fmt="%s" index="1">spi_channel[3]</arg> connected to top level port <arg fmt="%s" index="2">spi_channel(3)</arg> has been removed.
 </msg>
 
 <msg type="warning" file="MapLib" num="701" delta="new" >Signal <arg fmt="%s" index="1">spi_channel[0]</arg> connected to top level port <arg fmt="%s" index="2">spi_channel(0)</arg> has been removed.
+</msg>
+
+<msg type="warning" file="MapLib" num="701" delta="new" >Signal <arg fmt="%s" index="1">spi_channel[2]</arg> connected to top level port <arg fmt="%s" index="2">spi_channel(2)</arg> has been removed.
 </msg>
 
 <msg type="info" file="LIT" num="244" delta="new" >All of the single ended outputs in this design are using slew rate limited output drivers. The delay on speed critical single ended outputs can be dramatically reduced by designating them as fast outputs.
@@ -50,11 +50,11 @@ To see the details of these <arg fmt="%s" index="4">info</arg> messages, please 
 <msg type="info" file="Pack" num="1720" delta="new" >Initializing voltage to <arg fmt="%0.3f" index="1">1.140</arg> Volts. (default - Range: <arg fmt="%0.3f" index="2">1.140</arg> to <arg fmt="%0.3f" index="3">1.260</arg> Volts)
 </msg>
 
-<msg type="error" file="Pack" num="2412" delta="new" >The number of logical LUT blocks exceeds the capacity for the target device.
+<msg type="info" file="Map" num="215" delta="new" >The Interim Design Summary has been generated in the MAP Report (.mrp).
 </msg>
 
-<msg type="error" file="Map" num="237" delta="new" >The design is too large to fit the device.  Please check the Design Summary section to see which resource requirement for your design exceeds the resources available in the device. Note that the number of slices reported may not be reflected accurately as their packing might not have been completed.
- </msg>
+<msg type="info" file="Pack" num="1650" delta="new" >Map created a placed design.
+</msg>
 
 </messages>
 

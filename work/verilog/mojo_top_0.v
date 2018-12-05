@@ -190,777 +190,863 @@ module mojo_top_0 (
     if (M_check_q == 2'h2) begin
       if (M_position_row == 1'h1 && M_position_column == 1'h1) begin
         M_check_d = 1'h1;
-      end
-      if (M_position_row == 1'h1 && M_position_column == 2'h2) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 1'h1 && M_position_column == 3'h6) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 1'h1 && M_position_column == 3'h7) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 2'h2 && M_position_column == 1'h1) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 2'h2 && M_position_column == 2'h2) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 2'h2 && M_position_column == 3'h6) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 2'h2 && M_position_column == 3'h7) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 3'h6 && M_position_column == 1'h1) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 3'h6 && M_position_column == 2'h2) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 3'h6 && M_position_column == 3'h6) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 3'h6 && M_position_column == 3'h7) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 3'h7 && M_position_column == 1'h1) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 3'h7 && M_position_column == 2'h2) begin
-        M_check_d = 1'h1;
-      end
-      if (M_position_row == 3'h7 && M_position_column == 3'h6) begin
-        M_check_d = 1'h1;
+      end else begin
+        if (M_position_row == 1'h1 && M_position_column == 2'h2) begin
+          M_check_d = 1'h1;
+        end else begin
+          if (M_position_row == 1'h1 && M_position_column == 3'h6) begin
+            M_check_d = 1'h1;
+          end else begin
+            if (M_position_row == 1'h1 && M_position_column == 3'h7) begin
+              M_check_d = 1'h1;
+            end else begin
+              if (M_position_row == 2'h2 && M_position_column == 1'h1) begin
+                M_check_d = 1'h1;
+              end else begin
+                if (M_position_row == 2'h2 && M_position_column == 2'h2) begin
+                  M_check_d = 1'h1;
+                end else begin
+                  if (M_position_row == 2'h2 && M_position_column == 3'h6) begin
+                    M_check_d = 1'h1;
+                  end else begin
+                    if (M_position_row == 2'h2 && M_position_column == 3'h7) begin
+                      M_check_d = 1'h1;
+                    end else begin
+                      if (M_position_row == 3'h6 && M_position_column == 1'h1) begin
+                        M_check_d = 1'h1;
+                      end else begin
+                        if (M_position_row == 3'h6 && M_position_column == 2'h2) begin
+                          M_check_d = 1'h1;
+                        end else begin
+                          if (M_position_row == 3'h6 && M_position_column == 3'h6) begin
+                            M_check_d = 1'h1;
+                          end else begin
+                            if (M_position_row == 3'h6 && M_position_column == 3'h7) begin
+                              M_check_d = 1'h1;
+                            end else begin
+                              if (M_position_row == 3'h7 && M_position_column == 1'h1) begin
+                                M_check_d = 1'h1;
+                              end else begin
+                                if (M_position_row == 3'h7 && M_position_column == 2'h2) begin
+                                  M_check_d = 1'h1;
+                                end else begin
+                                  if (M_position_row == 3'h7 && M_position_column == 3'h6) begin
+                                    M_check_d = 1'h1;
+                                  end
+                                end
+                              end
+                            end
+                          end
+                        end
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
       end
       if (M_position_row == 3'h7 && M_position_column == 3'h7) begin
         M_check_d = 1'h1;
-      end
-      if (M_position_row == 1'h1 && M_position_column == 2'h3) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
+      end else begin
+        if (M_position_row == 1'h1 && M_position_column == 2'h3) begin
+          if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
             M_check_d = 1'h1;
           end
-        end
-        if (M_edge_detector_right_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
+          if (M_edge_detector_up_out) begin
             M_check_d = 1'h1;
           end
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 1'h1 && M_position_column == 3'h4) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
+          if (M_edge_detector_down_out) begin
+            if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+              M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+              M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+              M_move_counter_d = M_move_counter_q + 1'h1;
+              M_check_d = 1'h1;
+            end else begin
+              M_check_d = 1'h1;
+            end
+          end
+          if (M_edge_detector_right_out) begin
+            if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+              M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+              M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+              M_move_counter_d = M_move_counter_q + 1'h1;
+              M_check_d = 1'h1;
+            end else begin
+              M_check_d = 1'h1;
+            end
+          end
+          if (M_edge_detector_left_out) begin
             M_check_d = 1'h1;
           end
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 1'h1 && M_position_column == 3'h5) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
+        end else begin
+          if (M_position_row == 1'h1 && M_position_column == 3'h4) begin
+            if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+              M_check_d = 1'h1;
+            end
+            if (M_edge_detector_up_out) begin
+              M_check_d = 1'h1;
+            end
+            if (M_edge_detector_down_out) begin
+              if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                M_move_counter_d = M_move_counter_q + 1'h1;
+                M_check_d = 1'h1;
+              end else begin
+                M_check_d = 1'h1;
+              end
+            end
+            if (M_edge_detector_right_out) begin
+              M_check_d = 1'h1;
+            end
+            if (M_edge_detector_left_out) begin
+              M_check_d = 1'h1;
+            end
           end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-      end
-      if (M_position_row == 2'h2 && M_position_column == 2'h3) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_right_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 2'h2 && M_position_column == 3'h4) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 2'h2 && M_position_column == 3'h5) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-      end
-      if (M_position_row == 2'h3 && M_position_column == 1'h1) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_right_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 2'h3 && M_position_column == 2'h2) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_right_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 3'h4 && M_position_column == 1'h1) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 3'h4 && M_position_column == 2'h2) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 3'h5 && M_position_column == 1'h1) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 3'h5 && M_position_column == 2'h2) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 3'h6 && M_position_column == 2'h3) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 3'h6 && M_position_column == 3'h4) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 3'h6 && M_position_column == 3'h5) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-      end
-      if (M_position_row == 3'h7 && M_position_column == 2'h3) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 3'h7 && M_position_column == 3'h4) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          M_check_d = 1'h1;
-        end
-      end
-      if (M_position_row == 3'h7 && M_position_column == 3'h5) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-      end
-      if (M_position_row == 2'h3 && M_position_column == 3'h6) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-      end
-      if (M_position_row == 2'h3 && M_position_column == 3'h7) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-      end
-      if (M_position_row == 3'h4 && M_position_column == 3'h6) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-      end
-      if (M_position_row == 3'h4 && M_position_column == 3'h7) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-      end
-      if (M_position_row == 3'h5 && M_position_column == 3'h6) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-      end
-      if (M_position_row == 3'h5 && M_position_column == 3'h7) begin
-        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_up_out) begin
-          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
-          end
-        end
-        if (M_edge_detector_down_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_right_out) begin
-          M_check_d = 1'h1;
-        end
-        if (M_edge_detector_left_out) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-            M_move_counter_d = M_move_counter_q + 1'h1;
-            M_check_d = 1'h1;
-          end else begin
-            M_check_d = 1'h1;
+            if (M_position_row == 1'h1 && M_position_column == 3'h5) begin
+              if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                M_check_d = 1'h1;
+              end
+              if (M_edge_detector_up_out) begin
+                M_check_d = 1'h1;
+              end
+              if (M_edge_detector_down_out) begin
+                if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                  M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                  M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                  M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                  M_move_counter_d = M_move_counter_q + 1'h1;
+                  M_check_d = 1'h1;
+                end else begin
+                  M_check_d = 1'h1;
+                end
+              end
+              if (M_edge_detector_right_out) begin
+                M_check_d = 1'h1;
+              end
+              if (M_edge_detector_left_out) begin
+                if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                  M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                  M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                  M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                  M_move_counter_d = M_move_counter_q + 1'h1;
+                  M_check_d = 1'h1;
+                end else begin
+                  M_check_d = 1'h1;
+                end
+              end
+            end else begin
+              if (M_position_row == 2'h2 && M_position_column == 2'h3) begin
+                if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                  M_check_d = 1'h1;
+                end
+                if (M_edge_detector_up_out) begin
+                  M_check_d = 1'h1;
+                end
+                if (M_edge_detector_down_out) begin
+                  if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                    M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                    M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                    M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                    M_move_counter_d = M_move_counter_q + 1'h1;
+                    M_check_d = 1'h1;
+                  end else begin
+                    M_check_d = 1'h1;
+                  end
+                end
+                if (M_edge_detector_right_out) begin
+                  if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                    M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                    M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                    M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                    M_move_counter_d = M_move_counter_q + 1'h1;
+                    M_check_d = 1'h1;
+                  end else begin
+                    M_check_d = 1'h1;
+                  end
+                end
+                if (M_edge_detector_left_out) begin
+                  M_check_d = 1'h1;
+                end
+              end else begin
+                if (M_position_row == 2'h2 && M_position_column == 3'h4) begin
+                  if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                    M_check_d = 1'h1;
+                  end
+                  if (M_edge_detector_up_out) begin
+                    M_check_d = 1'h1;
+                  end
+                  if (M_edge_detector_down_out) begin
+                    if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                      M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                      M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                      M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                      M_move_counter_d = M_move_counter_q + 1'h1;
+                      M_check_d = 1'h1;
+                    end else begin
+                      M_check_d = 1'h1;
+                    end
+                  end
+                  if (M_edge_detector_right_out) begin
+                    M_check_d = 1'h1;
+                  end
+                  if (M_edge_detector_left_out) begin
+                    M_check_d = 1'h1;
+                  end
+                end else begin
+                  if (M_position_row == 2'h2 && M_position_column == 3'h5) begin
+                    if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                      M_check_d = 1'h1;
+                    end
+                    if (M_edge_detector_up_out) begin
+                      M_check_d = 1'h1;
+                    end
+                    if (M_edge_detector_down_out) begin
+                      if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                        M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                        M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                        M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                        M_move_counter_d = M_move_counter_q + 1'h1;
+                        M_check_d = 1'h1;
+                      end else begin
+                        M_check_d = 1'h1;
+                      end
+                    end
+                    if (M_edge_detector_right_out) begin
+                      M_check_d = 1'h1;
+                    end
+                    if (M_edge_detector_left_out) begin
+                      if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                        M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                        M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                        M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                        M_move_counter_d = M_move_counter_q + 1'h1;
+                        M_check_d = 1'h1;
+                      end else begin
+                        M_check_d = 1'h1;
+                      end
+                    end
+                  end else begin
+                    if (M_position_row == 2'h3 && M_position_column == 1'h1) begin
+                      if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                        M_check_d = 1'h1;
+                      end
+                      if (M_edge_detector_up_out) begin
+                        M_check_d = 1'h1;
+                      end
+                      if (M_edge_detector_down_out) begin
+                        if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                          M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                          M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                          M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                          M_move_counter_d = M_move_counter_q + 1'h1;
+                          M_check_d = 1'h1;
+                        end else begin
+                          M_check_d = 1'h1;
+                        end
+                      end
+                      if (M_edge_detector_right_out) begin
+                        if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                          M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                          M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                          M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                          M_move_counter_d = M_move_counter_q + 1'h1;
+                          M_check_d = 1'h1;
+                        end else begin
+                          M_check_d = 1'h1;
+                        end
+                      end
+                      if (M_edge_detector_left_out) begin
+                        M_check_d = 1'h1;
+                      end
+                    end else begin
+                      if (M_position_row == 2'h3 && M_position_column == 2'h2) begin
+                        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                          M_check_d = 1'h1;
+                        end
+                        if (M_edge_detector_up_out) begin
+                          M_check_d = 1'h1;
+                        end
+                        if (M_edge_detector_down_out) begin
+                          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                            M_move_counter_d = M_move_counter_q + 1'h1;
+                            M_check_d = 1'h1;
+                          end else begin
+                            M_check_d = 1'h1;
+                          end
+                        end
+                        if (M_edge_detector_right_out) begin
+                          if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                            M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                            M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                            M_move_counter_d = M_move_counter_q + 1'h1;
+                            M_check_d = 1'h1;
+                          end else begin
+                            M_check_d = 1'h1;
+                          end
+                        end
+                        if (M_edge_detector_left_out) begin
+                          M_check_d = 1'h1;
+                        end
+                      end else begin
+                        if (M_position_row == 3'h4 && M_position_column == 1'h1) begin
+                          if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                            M_check_d = 1'h1;
+                          end
+                          if (M_edge_detector_up_out) begin
+                            M_check_d = 1'h1;
+                          end
+                          if (M_edge_detector_down_out) begin
+                            M_check_d = 1'h1;
+                          end
+                          if (M_edge_detector_right_out) begin
+                            if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                              M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                              M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                              M_move_counter_d = M_move_counter_q + 1'h1;
+                              M_check_d = 1'h1;
+                            end else begin
+                              M_check_d = 1'h1;
+                            end
+                          end
+                          if (M_edge_detector_left_out) begin
+                            M_check_d = 1'h1;
+                          end
+                        end else begin
+                          if (M_position_row == 3'h4 && M_position_column == 2'h2) begin
+                            if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                              M_check_d = 1'h1;
+                            end
+                            if (M_edge_detector_up_out) begin
+                              M_check_d = 1'h1;
+                            end
+                            if (M_edge_detector_down_out) begin
+                              M_check_d = 1'h1;
+                            end
+                            if (M_edge_detector_right_out) begin
+                              if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                                M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                                M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                                M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                M_move_counter_d = M_move_counter_q + 1'h1;
+                                M_check_d = 1'h1;
+                              end else begin
+                                M_check_d = 1'h1;
+                              end
+                            end
+                            if (M_edge_detector_left_out) begin
+                              M_check_d = 1'h1;
+                            end
+                          end else begin
+                            if (M_position_row == 3'h5 && M_position_column == 1'h1) begin
+                              if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                M_check_d = 1'h1;
+                              end
+                              if (M_edge_detector_up_out) begin
+                                if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                  M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                  M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                  M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                  M_move_counter_d = M_move_counter_q + 1'h1;
+                                  M_check_d = 1'h1;
+                                end else begin
+                                  M_check_d = 1'h1;
+                                end
+                              end
+                              if (M_edge_detector_down_out) begin
+                                M_check_d = 1'h1;
+                              end
+                              if (M_edge_detector_right_out) begin
+                                if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                                  M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                                  M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                                  M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                  M_move_counter_d = M_move_counter_q + 1'h1;
+                                  M_check_d = 1'h1;
+                                end else begin
+                                  M_check_d = 1'h1;
+                                end
+                              end
+                              if (M_edge_detector_left_out) begin
+                                M_check_d = 1'h1;
+                              end
+                            end else begin
+                              if (M_position_row == 3'h5 && M_position_column == 2'h2) begin
+                                if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                  M_check_d = 1'h1;
+                                end
+                                if (M_edge_detector_up_out) begin
+                                  if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                    M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                    M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                    M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                    M_move_counter_d = M_move_counter_q + 1'h1;
+                                    M_check_d = 1'h1;
+                                  end else begin
+                                    M_check_d = 1'h1;
+                                  end
+                                end
+                                if (M_edge_detector_down_out) begin
+                                  M_check_d = 1'h1;
+                                end
+                                if (M_edge_detector_right_out) begin
+                                  if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                                    M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                                    M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                                    M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                    M_move_counter_d = M_move_counter_q + 1'h1;
+                                    M_check_d = 1'h1;
+                                  end else begin
+                                    M_check_d = 1'h1;
+                                  end
+                                end
+                                if (M_edge_detector_left_out) begin
+                                  M_check_d = 1'h1;
+                                end
+                              end else begin
+                                if (M_position_row == 3'h6 && M_position_column == 2'h3) begin
+                                  if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                    M_check_d = 1'h1;
+                                  end
+                                  if (M_edge_detector_up_out) begin
+                                    if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                      M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                      M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                      M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                      M_move_counter_d = M_move_counter_q + 1'h1;
+                                      M_check_d = 1'h1;
+                                    end else begin
+                                      M_check_d = 1'h1;
+                                    end
+                                  end
+                                  if (M_edge_detector_down_out) begin
+                                    M_check_d = 1'h1;
+                                  end
+                                  if (M_edge_detector_right_out) begin
+                                    if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                                      M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                                      M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                                      M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                      M_move_counter_d = M_move_counter_q + 1'h1;
+                                      M_check_d = 1'h1;
+                                    end else begin
+                                      M_check_d = 1'h1;
+                                    end
+                                  end
+                                  if (M_edge_detector_left_out) begin
+                                    M_check_d = 1'h1;
+                                  end
+                                end else begin
+                                  if (M_position_row == 3'h6 && M_position_column == 3'h4) begin
+                                    if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                      M_check_d = 1'h1;
+                                    end
+                                    if (M_edge_detector_up_out) begin
+                                      if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                        M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                        M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                        M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                        M_move_counter_d = M_move_counter_q + 1'h1;
+                                        M_check_d = 1'h1;
+                                      end else begin
+                                        M_check_d = 1'h1;
+                                      end
+                                    end
+                                    if (M_edge_detector_down_out) begin
+                                      M_check_d = 1'h1;
+                                    end
+                                    if (M_edge_detector_right_out) begin
+                                      M_check_d = 1'h1;
+                                    end
+                                    if (M_edge_detector_left_out) begin
+                                      M_check_d = 1'h1;
+                                    end
+                                  end else begin
+                                    if (M_position_row == 3'h6 && M_position_column == 3'h5) begin
+                                      if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                        M_check_d = 1'h1;
+                                      end
+                                      if (M_edge_detector_up_out) begin
+                                        if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                          M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                          M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                          M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                          M_move_counter_d = M_move_counter_q + 1'h1;
+                                          M_check_d = 1'h1;
+                                        end else begin
+                                          M_check_d = 1'h1;
+                                        end
+                                      end
+                                      if (M_edge_detector_down_out) begin
+                                        M_check_d = 1'h1;
+                                      end
+                                      if (M_edge_detector_right_out) begin
+                                        M_check_d = 1'h1;
+                                      end
+                                      if (M_edge_detector_left_out) begin
+                                        if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                          M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                          M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                          M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                          M_move_counter_d = M_move_counter_q + 1'h1;
+                                          M_check_d = 1'h1;
+                                        end else begin
+                                          M_check_d = 1'h1;
+                                        end
+                                      end
+                                    end else begin
+                                      if (M_position_row == 3'h7 && M_position_column == 2'h3) begin
+                                        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                          M_check_d = 1'h1;
+                                        end
+                                        if (M_edge_detector_up_out) begin
+                                          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                            M_move_counter_d = M_move_counter_q + 1'h1;
+                                            M_check_d = 1'h1;
+                                          end else begin
+                                            M_check_d = 1'h1;
+                                          end
+                                        end
+                                        if (M_edge_detector_down_out) begin
+                                          M_check_d = 1'h1;
+                                        end
+                                        if (M_edge_detector_right_out) begin
+                                          if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                                            M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                                            M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                            M_move_counter_d = M_move_counter_q + 1'h1;
+                                            M_check_d = 1'h1;
+                                          end else begin
+                                            M_check_d = 1'h1;
+                                          end
+                                        end
+                                        if (M_edge_detector_left_out) begin
+                                          M_check_d = 1'h1;
+                                        end
+                                      end else begin
+                                        if (M_position_row == 3'h7 && M_position_column == 3'h4) begin
+                                          if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                            M_check_d = 1'h1;
+                                          end
+                                          if (M_edge_detector_up_out) begin
+                                            if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                              M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                              M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                              M_move_counter_d = M_move_counter_q + 1'h1;
+                                              M_check_d = 1'h1;
+                                            end else begin
+                                              M_check_d = 1'h1;
+                                            end
+                                          end
+                                          if (M_edge_detector_down_out) begin
+                                            M_check_d = 1'h1;
+                                          end
+                                          if (M_edge_detector_right_out) begin
+                                            M_check_d = 1'h1;
+                                          end
+                                          if (M_edge_detector_left_out) begin
+                                            M_check_d = 1'h1;
+                                          end
+                                        end else begin
+                                          if (M_position_row == 3'h7 && M_position_column == 3'h5) begin
+                                            if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                              M_check_d = 1'h1;
+                                            end
+                                            if (M_edge_detector_up_out) begin
+                                              if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                M_move_counter_d = M_move_counter_q + 1'h1;
+                                                M_check_d = 1'h1;
+                                              end else begin
+                                                M_check_d = 1'h1;
+                                              end
+                                            end
+                                            if (M_edge_detector_down_out) begin
+                                              M_check_d = 1'h1;
+                                            end
+                                            if (M_edge_detector_right_out) begin
+                                              M_check_d = 1'h1;
+                                            end
+                                            if (M_edge_detector_left_out) begin
+                                              if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                                M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                                M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                M_move_counter_d = M_move_counter_q + 1'h1;
+                                                M_check_d = 1'h1;
+                                              end else begin
+                                                M_check_d = 1'h1;
+                                              end
+                                            end
+                                          end else begin
+                                            if (M_position_row == 2'h3 && M_position_column == 3'h6) begin
+                                              if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                M_check_d = 1'h1;
+                                              end
+                                              if (M_edge_detector_up_out) begin
+                                                M_check_d = 1'h1;
+                                              end
+                                              if (M_edge_detector_down_out) begin
+                                                if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                  M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                  M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                  M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                  M_move_counter_d = M_move_counter_q + 1'h1;
+                                                  M_check_d = 1'h1;
+                                                end else begin
+                                                  M_check_d = 1'h1;
+                                                end
+                                              end
+                                              if (M_edge_detector_right_out) begin
+                                                M_check_d = 1'h1;
+                                              end
+                                              if (M_edge_detector_left_out) begin
+                                                if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                  M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                                  M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                                  M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                  M_move_counter_d = M_move_counter_q + 1'h1;
+                                                  M_check_d = 1'h1;
+                                                end else begin
+                                                  M_check_d = 1'h1;
+                                                end
+                                              end
+                                            end else begin
+                                              if (M_position_row == 2'h3 && M_position_column == 3'h7) begin
+                                                if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                  M_check_d = 1'h1;
+                                                end
+                                                if (M_edge_detector_up_out) begin
+                                                  M_check_d = 1'h1;
+                                                end
+                                                if (M_edge_detector_down_out) begin
+                                                  if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                    M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                    M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                    M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                    M_move_counter_d = M_move_counter_q + 1'h1;
+                                                    M_check_d = 1'h1;
+                                                  end else begin
+                                                    M_check_d = 1'h1;
+                                                  end
+                                                end
+                                                if (M_edge_detector_right_out) begin
+                                                  M_check_d = 1'h1;
+                                                end
+                                                if (M_edge_detector_left_out) begin
+                                                  if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                    M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                                    M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                                    M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                    M_move_counter_d = M_move_counter_q + 1'h1;
+                                                    M_check_d = 1'h1;
+                                                  end else begin
+                                                    M_check_d = 1'h1;
+                                                  end
+                                                end
+                                              end else begin
+                                                if (M_position_row == 3'h4 && M_position_column == 3'h6) begin
+                                                  if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                    M_check_d = 1'h1;
+                                                  end
+                                                  if (M_edge_detector_up_out) begin
+                                                    M_check_d = 1'h1;
+                                                  end
+                                                  if (M_edge_detector_down_out) begin
+                                                    M_check_d = 1'h1;
+                                                  end
+                                                  if (M_edge_detector_right_out) begin
+                                                    M_check_d = 1'h1;
+                                                  end
+                                                  if (M_edge_detector_left_out) begin
+                                                    if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                      M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                                      M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                                      M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                      M_move_counter_d = M_move_counter_q + 1'h1;
+                                                      M_check_d = 1'h1;
+                                                    end else begin
+                                                      M_check_d = 1'h1;
+                                                    end
+                                                  end
+                                                end else begin
+                                                  if (M_position_row == 3'h4 && M_position_column == 3'h7) begin
+                                                    if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                      M_check_d = 1'h1;
+                                                    end
+                                                    if (M_edge_detector_up_out) begin
+                                                      M_check_d = 1'h1;
+                                                    end
+                                                    if (M_edge_detector_down_out) begin
+                                                      M_check_d = 1'h1;
+                                                    end
+                                                    if (M_edge_detector_right_out) begin
+                                                      M_check_d = 1'h1;
+                                                    end
+                                                    if (M_edge_detector_left_out) begin
+                                                      if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                        M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                                        M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                                        M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                        M_move_counter_d = M_move_counter_q + 1'h1;
+                                                        M_check_d = 1'h1;
+                                                      end else begin
+                                                        M_check_d = 1'h1;
+                                                      end
+                                                    end
+                                                  end else begin
+                                                    if (M_position_row == 3'h5 && M_position_column == 3'h6) begin
+                                                      if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                        M_check_d = 1'h1;
+                                                      end
+                                                      if (M_edge_detector_up_out) begin
+                                                        if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                          M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                          M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                          M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                          M_move_counter_d = M_move_counter_q + 1'h1;
+                                                          M_check_d = 1'h1;
+                                                        end else begin
+                                                          M_check_d = 1'h1;
+                                                        end
+                                                      end
+                                                      if (M_edge_detector_down_out) begin
+                                                        M_check_d = 1'h1;
+                                                      end
+                                                      if (M_edge_detector_right_out) begin
+                                                        M_check_d = 1'h1;
+                                                      end
+                                                      if (M_edge_detector_left_out) begin
+                                                        if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                          M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                                          M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                                          M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                          M_move_counter_d = M_move_counter_q + 1'h1;
+                                                          M_check_d = 1'h1;
+                                                        end else begin
+                                                          M_check_d = 1'h1;
+                                                        end
+                                                      end
+                                                    end else begin
+                                                      if (M_position_row == 3'h5 && M_position_column == 3'h7) begin
+                                                        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                          M_check_d = 1'h1;
+                                                        end
+                                                        if (M_edge_detector_up_out) begin
+                                                          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_move_counter_d = M_move_counter_q + 1'h1;
+                                                            M_check_d = 1'h1;
+                                                          end else begin
+                                                            M_check_d = 1'h1;
+                                                          end
+                                                        end
+                                                        if (M_edge_detector_down_out) begin
+                                                          M_check_d = 1'h1;
+                                                        end
+                                                        if (M_edge_detector_right_out) begin
+                                                          M_check_d = 1'h1;
+                                                        end
+                                                        if (M_edge_detector_left_out) begin
+                                                          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_move_counter_d = M_move_counter_q + 1'h1;
+                                                            M_check_d = 1'h1;
+                                                          end else begin
+                                                            M_check_d = 1'h1;
+                                                          end
+                                                        end
+                                                      end else begin
+                                                        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                          M_check_d = 1'h1;
+                                                        end
+                                                        if (M_edge_detector_up_out) begin
+                                                          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_move_counter_d = M_move_counter_q + 1'h1;
+                                                            M_check_d = 1'h1;
+                                                          end else begin
+                                                            M_check_d = 1'h1;
+                                                          end
+                                                        end
+                                                        if (M_edge_detector_down_out) begin
+                                                          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_move_counter_d = M_move_counter_q + 1'h1;
+                                                            M_check_d = 1'h1;
+                                                          end else begin
+                                                            M_check_d = 1'h1;
+                                                          end
+                                                        end
+                                                        if (M_edge_detector_right_out) begin
+                                                          if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_move_counter_d = M_move_counter_q + 1'h1;
+                                                            M_check_d = 1'h1;
+                                                          end else begin
+                                                            M_check_d = 1'h1;
+                                                          end
+                                                        end
+                                                        if (M_edge_detector_left_out) begin
+                                                          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                            M_move_counter_d = M_move_counter_q + 1'h1;
+                                                            M_check_d = 1'h1;
+                                                          end else begin
+                                                            M_check_d = 1'h1;
+                                                          end
+                                                        end
+                                                      end
+                                                    end
+                                                  end
+                                                end
+                                              end
+                                            end
+                                          end
+                                        end
+                                      end
+                                    end
+                                  end
+                                end
+                              end
+                            end
+                          end
+                        end
+                      end
+                    end
+                  end
+                end
+              end
+            end
           end
         end
       end

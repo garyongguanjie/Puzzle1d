@@ -58,38 +58,52 @@ WARNING:Xst:647 - Input <avr_tx> is never used. This port will be preserved and 
 WARNING:Xst:647 - Input <avr_rx_busy> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
     Found 2-bit register for signal <M_check_q>.
     Found 49-bit register for signal <M_row_q>.
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_63_OUT> created at line 240.
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_65_OUT> created at line 240.
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_116_OUT> created at line 259.
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_121_OUT> created at line 260.
-    Found 5-bit subtractor for signal <GND_1_o_GND_1_o_sub_241_OUT> created at line 320.
-    Found 5-bit subtractor for signal <GND_1_o_GND_1_o_sub_246_OUT> created at line 321.
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_730_OUT> created at line 543.
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_735_OUT> created at line 544.
-    Found 32-bit adder for signal <n6340> created at line 240.
-    Found 32-bit adder for signal <n6347> created at line 248.
-    Found 4-bit adder for signal <n6637> created at line 249.
-    Found 32-bit adder for signal <n6351> created at line 249.
-    Found 32-bit adder for signal <n6360> created at line 259.
-    Found 32-bit adder for signal <n6363> created at line 260.
-    Found 32-bit adder for signal <n6389> created at line 320.
-    Found 32-bit adder for signal <n6392> created at line 321.
-    Found 32-bit adder for signal <n6475> created at line 543.
-    Found 32-bit adder for signal <n6479> created at line 544.
-    Found 32x3-bit multiplier for signal <n6338> created at line 240.
-    Found 97-bit shifter logical right for signal <n6341> created at line 240
-    Found 97-bit shifter logical right for signal <n6344> created at line 247
-    Found 97-bit shifter logical right for signal <n6345> created at line 247
-    Found 3x3-bit multiplier for signal <M_position_row[2]_PWR_1_o_MuLt_81_OUT> created at line 248.
-    Found 4x3-bit multiplier for signal <BUS_0006_PWR_1_o_MuLt_86_OUT> created at line 249.
-    Found 97-bit shifter logical right for signal <n6357> created at line 258
-    Found 97-bit shifter logical right for signal <n6358> created at line 258
-    Found 97-bit shifter logical right for signal <n6386> created at line 319
-    Found 97-bit shifter logical right for signal <n6387> created at line 319
-    Found 97-bit shifter logical right for signal <n6471> created at line 542
-    Found 97-bit shifter logical right for signal <n6472> created at line 542
-    Found 32x3-bit multiplier for signal <n6474> created at line 543.
-    Found 32x3-bit multiplier for signal <n6478> created at line 544.
+    Found finite state machine <FSM_0> for signal <M_check_q>.
+    -----------------------------------------------------------------------
+    | States             | 3                                              |
+    | Transitions        | 26                                             |
+    | Inputs             | 14                                             |
+    | Outputs            | 3                                              |
+    | Clock              | clk (rising_edge)                              |
+    | Reset              | M_reset_cond_out (positive)                    |
+    | Reset type         | synchronous                                    |
+    | Reset State        | 00                                             |
+    | Power Up State     | 00                                             |
+    | Encoding           | auto                                           |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1632_OUT> created at line 981.
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1634_OUT> created at line 981.
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1651_OUT> created at line 986.
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1656_OUT> created at line 987.
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1717_OUT> created at line 1008.
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1722_OUT> created at line 1009.
+    Found 5-bit subtractor for signal <GND_1_o_GND_1_o_sub_1750_OUT> created at line 1019.
+    Found 5-bit subtractor for signal <GND_1_o_GND_1_o_sub_1755_OUT> created at line 1020.
+    Found 32-bit adder for signal <n1918> created at line 981.
+    Found 32-bit adder for signal <n1925> created at line 986.
+    Found 32-bit adder for signal <n1929> created at line 987.
+    Found 32-bit adder for signal <n1938> created at line 997.
+    Found 4-bit adder for signal <n2046> created at line 998.
+    Found 32-bit adder for signal <n1942> created at line 998.
+    Found 32-bit adder for signal <n1950> created at line 1008.
+    Found 32-bit adder for signal <n1953> created at line 1009.
+    Found 32-bit adder for signal <n1961> created at line 1019.
+    Found 32-bit adder for signal <n1964> created at line 1020.
+    Found 32x3-bit multiplier for signal <n1916> created at line 981.
+    Found 97-bit shifter logical right for signal <n1919> created at line 981
+    Found 97-bit shifter logical right for signal <n1921> created at line 985
+    Found 97-bit shifter logical right for signal <n1922> created at line 985
+    Found 32x3-bit multiplier for signal <n1924> created at line 986.
+    Found 32x3-bit multiplier for signal <n1928> created at line 987.
+    Found 97-bit shifter logical right for signal <n1935> created at line 996
+    Found 97-bit shifter logical right for signal <n1936> created at line 996
+    Found 3x3-bit multiplier for signal <M_position_row[2]_PWR_1_o_MuLt_1682_OUT> created at line 997.
+    Found 4x3-bit multiplier for signal <BUS_0296_PWR_1_o_MuLt_1687_OUT> created at line 998.
+    Found 97-bit shifter logical right for signal <n1947> created at line 1007
+    Found 97-bit shifter logical right for signal <n1948> created at line 1007
+    Found 97-bit shifter logical right for signal <n1958> created at line 1018
+    Found 97-bit shifter logical right for signal <n1959> created at line 1018
     Found 1-bit tristate buffer for signal <spi_miso> created at line 141
     Found 1-bit tristate buffer for signal <spi_channel<3>> created at line 141
     Found 1-bit tristate buffer for signal <spi_channel<2>> created at line 141
@@ -99,10 +113,11 @@ WARNING:Xst:647 - Input <avr_rx_busy> is never used. This port will be preserved
     Summary:
 	inferred   5 Multiplier(s).
 	inferred  18 Adder/Subtractor(s).
-	inferred  51 D-type flip-flop(s).
-	inferred 6153 Multiplexer(s).
+	inferred  49 D-type flip-flop(s).
+	inferred 1698 Multiplexer(s).
 	inferred   9 Combinational logic shifter(s).
 	inferred   6 Tristate(s).
+	inferred   1 Finite State Machine(s).
 Unit <mojo_top_0> synthesized.
 
 Synthesizing Unit <reset_conditioner_1>.
@@ -158,27 +173,27 @@ Unit <counter_19> synthesized.
 
 Synthesizing Unit <position_13>.
     Related source file is "E:/Downloads/Puzzle1d/work/planAhead/puzzleboard1d/puzzleboard1d.srcs/sources_1/imports/verilog/position_13.v".
-    Found 6-bit register for signal <M_pos_q>.
-    Found 6-bit subtractor for signal <M_pos_q[5]_GND_9_o_sub_7_OUT> created at line 39.
-    Found 6-bit subtractor for signal <M_pos_q[5]_GND_9_o_sub_25_OUT> created at line 60.
-    Found 6-bit adder for signal <M_pos_q[5]_GND_9_o_add_1_OUT> created at line 33.
-    Found 6-bit adder for signal <M_pos_q[5]_GND_9_o_add_12_OUT> created at line 46.
-    Found 64x49-bit Read Only RAM for signal <green>
-    Found 6-bit 7-to-1 multiplexer for signal <_n0975> created at line 56.
-    Found 6-bit 4-to-1 multiplexer for signal <_n0978> created at line 42.
-    Found 6-bit 4-to-1 multiplexer for signal <_n0981> created at line 49.
-    Found 6-bit 4-to-1 multiplexer for signal <_n0984> created at line 42.
-    Found 6-bit comparator greater for signal <M_pos_q[5]_GND_9_o_LessThan_6_o> created at line 36
-    Found 6-bit comparator greater for signal <PWR_9_o_M_pos_q[5]_LessThan_12_o> created at line 43
-    Found 6-bit comparator greater for signal <PWR_9_o_M_pos_q[5]_LessThan_18_o> created at line 50
-    Found 6-bit comparator greater for signal <M_pos_q[5]_GND_9_o_LessThan_24_o> created at line 57
-    Found 6-bit comparator greater for signal <M_pos_q[5]_GND_9_o_LessThan_28_o> created at line 63
+    Found 7-bit register for signal <M_pos_q>.
+    Found 7-bit subtractor for signal <M_pos_q[6]_GND_9_o_sub_7_OUT> created at line 39.
+    Found 7-bit subtractor for signal <M_pos_q[6]_GND_9_o_sub_25_OUT> created at line 60.
+    Found 7-bit adder for signal <M_pos_q[6]_GND_9_o_add_1_OUT> created at line 33.
+    Found 7-bit adder for signal <M_pos_q[6]_GND_9_o_add_12_OUT> created at line 46.
+    Found 64x49-bit Read Only RAM for signal <_n0389>
+    Found 7-bit 7-to-1 multiplexer for signal <_n0978> created at line 56.
+    Found 7-bit 4-to-1 multiplexer for signal <_n0981> created at line 42.
+    Found 7-bit 4-to-1 multiplexer for signal <_n0984> created at line 49.
+    Found 7-bit 4-to-1 multiplexer for signal <_n0987> created at line 42.
+    Found 7-bit comparator greater for signal <M_pos_q[6]_GND_9_o_LessThan_6_o> created at line 36
+    Found 7-bit comparator greater for signal <GND_9_o_M_pos_q[6]_LessThan_12_o> created at line 43
+    Found 7-bit comparator greater for signal <GND_9_o_M_pos_q[6]_LessThan_18_o> created at line 50
+    Found 7-bit comparator greater for signal <M_pos_q[6]_GND_9_o_LessThan_24_o> created at line 57
+    Found 7-bit comparator greater for signal <M_pos_q[6]_GND_9_o_LessThan_28_o> created at line 63
     Summary:
 	inferred   1 RAM(s).
 	inferred   4 Adder/Subtractor(s).
-	inferred   6 D-type flip-flop(s).
+	inferred   7 D-type flip-flop(s).
 	inferred   5 Comparator(s).
-	inferred  37 Multiplexer(s).
+	inferred  40 Multiplexer(s).
 Unit <position_13> synthesized.
 
 =========================================================================
@@ -198,31 +213,32 @@ Macro Statistics
  4-bit adder                                           : 1
  4-bit subtractor                                      : 6
  5-bit subtractor                                      : 2
- 6-bit adder                                           : 3
- 6-bit subtractor                                      : 2
-# Registers                                            : 20
+ 6-bit adder                                           : 1
+ 7-bit adder                                           : 2
+ 7-bit subtractor                                      : 2
+# Registers                                            : 19
  1-bit register                                        : 5
  19-bit register                                       : 1
- 2-bit register                                        : 6
+ 2-bit register                                        : 5
  20-bit register                                       : 5
  4-bit register                                        : 1
  49-bit register                                       : 1
- 6-bit register                                        : 1
+ 7-bit register                                        : 1
 # Comparators                                          : 5
- 6-bit comparator greater                              : 5
-# Multiplexers                                         : 6190
- 1-bit 2-to-1 multiplexer                              : 5880
- 2-bit 2-to-1 multiplexer                              : 163
- 3-bit 2-to-1 multiplexer                              : 14
- 49-bit 2-to-1 multiplexer                             : 106
+ 7-bit comparator greater                              : 5
+# Multiplexers                                         : 1738
+ 1-bit 2-to-1 multiplexer                              : 1617
+ 3-bit 2-to-1 multiplexer                              : 16
+ 49-bit 2-to-1 multiplexer                             : 78
  5-bit 2-to-1 multiplexer                              : 4
- 6-bit 2-to-1 multiplexer                              : 19
- 6-bit 4-to-1 multiplexer                              : 3
- 6-bit 7-to-1 multiplexer                              : 1
+ 7-bit 2-to-1 multiplexer                              : 19
+ 7-bit 4-to-1 multiplexer                              : 3
+ 7-bit 7-to-1 multiplexer                              : 1
 # Logic shifters                                       : 11
  97-bit shifter logical right                          : 11
 # Tristates                                            : 6
  1-bit tristate buffer                                 : 6
+# FSMs                                                 : 1
 
 =========================================================================
 
@@ -244,23 +260,23 @@ Synthesizing (advanced) Unit <display_12>.
 Unit <display_12> synthesized (advanced).
 
 Synthesizing (advanced) Unit <mojo_top_0>.
-	Multiplier <Mmult_BUS_0006_PWR_1_o_MuLt_86_OUT> in block <mojo_top_0> and adder/subtractor <Madd_n6351_Madd> in block <mojo_top_0> are combined into a MAC<Maddsub_BUS_0006_PWR_1_o_MuLt_86_OUT>.
-	Multiplier <Mmult_M_position_row[2]_PWR_1_o_MuLt_81_OUT> in block <mojo_top_0> and adder/subtractor <Madd_n6347_Madd> in block <mojo_top_0> are combined into a MAC<Maddsub_M_position_row[2]_PWR_1_o_MuLt_81_OUT>.
-	Adder/Subtractor <Madd_n6637> in block <mojo_top_0> and  <Maddsub_BUS_0006_PWR_1_o_MuLt_86_OUT> in block <mojo_top_0> are combined into a MAC with pre-adder <Maddsub_BUS_0006_PWR_1_o_MuLt_86_OUT1>.
+	Multiplier <Mmult_BUS_0296_PWR_1_o_MuLt_1687_OUT> in block <mojo_top_0> and adder/subtractor <Madd_n1942_Madd> in block <mojo_top_0> are combined into a MAC<Maddsub_BUS_0296_PWR_1_o_MuLt_1687_OUT>.
+	Multiplier <Mmult_M_position_row[2]_PWR_1_o_MuLt_1682_OUT> in block <mojo_top_0> and adder/subtractor <Madd_n1938_Madd> in block <mojo_top_0> are combined into a MAC<Maddsub_M_position_row[2]_PWR_1_o_MuLt_1682_OUT>.
+	Adder/Subtractor <Madd_n2046> in block <mojo_top_0> and  <Maddsub_BUS_0296_PWR_1_o_MuLt_1687_OUT> in block <mojo_top_0> are combined into a MAC with pre-adder <Maddsub_BUS_0296_PWR_1_o_MuLt_1687_OUT1>.
 Unit <mojo_top_0> synthesized (advanced).
 
 Synthesizing (advanced) Unit <position_13>.
 The following registers are absorbed into counter <M_pos_q>: 1 register on signal <M_pos_q>.
-INFO:Xst:3218 - HDL ADVISOR - The RAM <Mram_green> will be implemented on LUTs either because you have described an asynchronous read or because of currently unsupported block RAM features. If you have described an asynchronous read, making it synchronous would allow you to take advantage of available block RAM resources, for optimized device usage and improved timings. Please refer to your documentation for coding guidelines.
+INFO:Xst:3218 - HDL ADVISOR - The RAM <Mram__n0389> will be implemented on LUTs either because you have described an asynchronous read or because of currently unsupported block RAM features. If you have described an asynchronous read, making it synchronous would allow you to take advantage of available block RAM resources, for optimized device usage and improved timings. Please refer to your documentation for coding guidelines.
     -----------------------------------------------------------------------
     | ram_type           | Distributed                         |          |
     -----------------------------------------------------------------------
     | Port A                                                              |
     |     aspect ratio   | 64-word x 49-bit                    |          |
     |     weA            | connected to signal <GND>           | high     |
-    |     addrA          | connected to signal <M_pos_q>       |          |
+    |     addrA          | connected to signal <M_pos_q<5:0>>  |          |
     |     diA            | connected to signal <GND>           |          |
-    |     doA            | connected to signal <green>         |          |
+    |     doA            | connected to internal node          |          |
     -----------------------------------------------------------------------
 Unit <position_13> synthesized (advanced).
 
@@ -278,54 +294,60 @@ Macro Statistics
 # Adders/Subtractors                                   : 19
  4-bit subtractor                                      : 6
  5-bit subtractor                                      : 2
- 6-bit adder                                           : 9
- 6-bit subtractor                                      : 2
+ 6-bit adder                                           : 7
+ 7-bit adder                                           : 2
+ 7-bit subtractor                                      : 2
 # Counters                                             : 7
  19-bit up counter                                     : 1
  20-bit up counter                                     : 5
- 6-bit up counter                                      : 1
-# Registers                                            : 70
- Flip-Flops                                            : 70
+ 7-bit up counter                                      : 1
+# Registers                                            : 68
+ Flip-Flops                                            : 68
 # Comparators                                          : 5
- 6-bit comparator greater                              : 5
-# Multiplexers                                         : 6190
- 1-bit 2-to-1 multiplexer                              : 5880
- 2-bit 2-to-1 multiplexer                              : 163
- 3-bit 2-to-1 multiplexer                              : 14
- 49-bit 2-to-1 multiplexer                             : 106
+ 7-bit comparator greater                              : 5
+# Multiplexers                                         : 1738
+ 1-bit 2-to-1 multiplexer                              : 1617
+ 3-bit 2-to-1 multiplexer                              : 16
+ 49-bit 2-to-1 multiplexer                             : 78
  5-bit 2-to-1 multiplexer                              : 4
- 6-bit 2-to-1 multiplexer                              : 19
- 6-bit 4-to-1 multiplexer                              : 3
- 6-bit 7-to-1 multiplexer                              : 1
+ 7-bit 2-to-1 multiplexer                              : 19
+ 7-bit 4-to-1 multiplexer                              : 3
+ 7-bit 7-to-1 multiplexer                              : 1
 # Logic shifters                                       : 11
  97-bit shifter logical right                          : 11
+# FSMs                                                 : 1
 
 =========================================================================
 
 =========================================================================
 *                         Low Level Synthesis                           *
 =========================================================================
+Analyzing FSM <MFsm> for best encoding.
+Optimizing FSM <FSM_0> on signal <M_check_q[1:2]> with gray encoding.
+-------------------
+ State | Encoding
+-------------------
+ 00    | 00
+ 01    | 01
+ 10    | 11
+-------------------
 
 Optimizing unit <mojo_top_0> ...
 
 Optimizing unit <display_12> ...
 
 Optimizing unit <position_13> ...
-WARNING:Xst:1293 - FF/Latch <M_row_q_0> has a constant value of 0 in block <mojo_top_0>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_row_q_1> has a constant value of 0 in block <mojo_top_0>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_row_q_13> has a constant value of 0 in block <mojo_top_0>. This FF/Latch will be trimmed during the optimization process.
 
 Mapping all equations...
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 160.
-Optimizing block <mojo_top_0> to meet ratio 100 (+ 0) of 1430 slices :
-WARNING:Xst:2254 - Area constraint could not be met for block <mojo_top_0>, final ratio is 188.
-FlipFlop position/M_pos_q_0 has been replicated 5 time(s)
-FlipFlop position/M_pos_q_1 has been replicated 5 time(s)
-FlipFlop position/M_pos_q_2 has been replicated 5 time(s)
-FlipFlop position/M_pos_q_3 has been replicated 5 time(s)
-FlipFlop position/M_pos_q_4 has been replicated 5 time(s)
-FlipFlop position/M_pos_q_5 has been replicated 5 time(s)
+Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 50.
+FlipFlop position/M_pos_q_0 has been replicated 2 time(s)
+FlipFlop position/M_pos_q_1 has been replicated 3 time(s)
+FlipFlop position/M_pos_q_2 has been replicated 3 time(s)
+FlipFlop position/M_pos_q_3 has been replicated 3 time(s)
+FlipFlop position/M_pos_q_4 has been replicated 3 time(s)
+FlipFlop position/M_pos_q_5 has been replicated 3 time(s)
+FlipFlop position/M_pos_q_6 has been replicated 3 time(s)
 
 Final Macro Processing ...
 
@@ -342,8 +364,8 @@ Unit <mojo_top_0> processed.
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 212
- Flip-Flops                                            : 212
+# Registers                                            : 206
+ Flip-Flops                                            : 206
 # Shift Registers                                      : 5
  2-bit shift register                                  : 5
 
@@ -363,14 +385,13 @@ Partition Implementation Status
 =========================================================================
 *                            Design Summary                             *
 =========================================================================
-WARNING:Xst:1336 -  (*) More than 100% of Device resources are used
 
 Clock Information:
 ------------------
 -----------------------------------+------------------------+-------+
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
-clk                                | BUFGP                  | 222   |
+clk                                | BUFGP                  | 216   |
 -----------------------------------+------------------------+-------+
 
 Asynchronous Control Signals Information:
@@ -381,9 +402,9 @@ Timing Summary:
 ---------------
 Speed Grade: -2
 
-   Minimum period: 19.046ns (Maximum Frequency: 52.504MHz)
+   Minimum period: 17.273ns (Maximum Frequency: 57.894MHz)
    Minimum input arrival time before clock: 3.526ns
-   Maximum output required time after clock: 13.704ns
+   Maximum output required time after clock: 13.866ns
    Maximum combinational path delay: No path found
 
 =========================================================================

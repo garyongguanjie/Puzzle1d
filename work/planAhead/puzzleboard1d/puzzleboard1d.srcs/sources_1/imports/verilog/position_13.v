@@ -15,7 +15,7 @@ module position_13 (
   
   
   
-  reg [5:0] M_pos_d, M_pos_q = 1'h0;
+  reg [6:0] M_pos_d, M_pos_q = 1'h0;
   
   always @* begin
     M_pos_d = M_pos_q;

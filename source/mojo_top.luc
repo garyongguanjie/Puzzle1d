@@ -103,40 +103,40 @@ module mojo_top (
         //blocking out the corners
         if(position.row==1 && position.column==1){
             check.d = 1;}
-        if(position.row==1 && position.column==2){
+        else if(position.row==1 && position.column==2){
             check.d = 1;}
-        if(position.row==1 && position.column==6){
+        else if(position.row==1 && position.column==6){
             check.d = 1;}
-        if(position.row==1 && position.column==7){
+        else if(position.row==1 && position.column==7){
             check.d = 1;}
-        if(position.row==2 && position.column==1){
+        else if(position.row==2 && position.column==1){
             check.d = 1;}
-        if(position.row==2 && position.column==2){
+        else if(position.row==2 && position.column==2){
             check.d = 1;}
-        if(position.row==2 && position.column==6){
+        else if(position.row==2 && position.column==6){
             check.d = 1;}
-        if(position.row==2 && position.column==7){
+        else if(position.row==2 && position.column==7){
             check.d = 1;}
-        if(position.row==6 && position.column==1){
+        else if(position.row==6 && position.column==1){
             check.d = 1;}
-        if(position.row==6 && position.column==2){
+        else if(position.row==6 && position.column==2){
             check.d = 1;}
-        if(position.row==6 && position.column==6){
+        else if(position.row==6 && position.column==6){
             check.d = 1;}
-        if(position.row==6 && position.column==7){
+        else if(position.row==6 && position.column==7){
             check.d = 1;}
-        if(position.row==7 && position.column==1){
+        else if(position.row==7 && position.column==1){
             check.d = 1;}
-        if(position.row==7 && position.column==2){
+        else if(position.row==7 && position.column==2){
             check.d = 1;}
-        if(position.row==7 && position.column==6){
+        else if(position.row==7 && position.column==6){
             check.d = 1;}
         if(position.row==7 && position.column==7){
             check.d = 1;}
         
       
         //edge
-        if(position.row==1 && position.column==3){
+        else if(position.row==1 && position.column==3){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -161,7 +161,7 @@ module mojo_top (
                 check.d=1;}
           }
           
-          if(position.row==1 && position.column==4){
+          else if(position.row==1 && position.column==4){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -180,7 +180,7 @@ module mojo_top (
                 check.d=1;}
           }
           
-          if(position.row==1 && position.column==5){
+          else if(position.row==1 && position.column==5){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -205,7 +205,7 @@ module mojo_top (
                 }else{check.d=1;}}
           }
       
-          if(position.row==2 && position.column==3){
+          else if(position.row==2 && position.column==3){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -230,7 +230,7 @@ module mojo_top (
                 check.d=1;}
           }
           
-          if(position.row==2 && position.column==4){
+          else if(position.row==2 && position.column==4){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -249,7 +249,7 @@ module mojo_top (
                 check.d=1;}
           }
           
-          if(position.row==2 && position.column==5){
+          else if(position.row==2 && position.column==5){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -274,7 +274,7 @@ module mojo_top (
                 }else{check.d=1;}}
           }
        
-          if(position.row==3 && position.column==1){
+          else if(position.row==3 && position.column==1){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -288,9 +288,9 @@ module mojo_top (
                      check.d = 1;
                 }else{check.d=1;}}
              if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
+               if(row.q[position.row-1][6-position.column]==1 && row.q[position.row-1][5-position.column]==0){
+                     row.d[position.row-1][6-position.column] = 0;
+                     row.d[position.row-1][5-position.column]= 1;
                      row.d[position.row-1][7-position.column] = 0;
                      move_counter.d = move_counter.q+1;
                      check.d = 1;
@@ -299,7 +299,7 @@ module mojo_top (
                 check.d=1;}
           }
       
-          if(position.row==3 && position.column==2){
+          else if(position.row==3 && position.column==2){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -313,9 +313,9 @@ module mojo_top (
                      check.d = 1;
                 }else{check.d=1;}}
              if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
+                if(row.q[position.row-1][6-position.column]==1 && row.q[position.row-1][5-position.column]==0){
+                     row.d[position.row-1][6-position.column] = 0;
+                     row.d[position.row-1][5-position.column]= 1;
                      row.d[position.row-1][7-position.column] = 0;
                      move_counter.d = move_counter.q+1;
                      check.d = 1;
@@ -324,7 +324,7 @@ module mojo_top (
                 check.d=1;}
           }
       
-          if(position.row==4 && position.column==1){
+          else if(position.row==4 && position.column==1){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -332,9 +332,9 @@ module mojo_top (
             if(edge_detector_down.out){//down
                 check.d=1;}
              if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
+                if(row.q[position.row-1][6-position.column]==1 && row.q[position.row-1][5-position.column]==0){
+                     row.d[position.row-1][6-position.column] = 0;
+                     row.d[position.row-1][5-position.column]= 1;
                      row.d[position.row-1][7-position.column] = 0;
                      move_counter.d = move_counter.q+1;
                      check.d = 1;
@@ -343,7 +343,7 @@ module mojo_top (
                 check.d=1;}
           }
       
-          if(position.row==4 && position.column==2){
+          else if(position.row==4 && position.column==2){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -351,9 +351,9 @@ module mojo_top (
             if(edge_detector_down.out){//down
                 check.d=1;}
              if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
+                if(row.q[position.row-1][6-position.column]==1 && row.q[position.row-1][5-position.column]==0){
+                     row.d[position.row-1][6-position.column] = 0;
+                     row.d[position.row-1][5-position.column]= 1;
                      row.d[position.row-1][7-position.column] = 0;
                      move_counter.d = move_counter.q+1;
                      check.d = 1;
@@ -362,32 +362,7 @@ module mojo_top (
                 check.d=1;}
           }
       
-          if(position.row==5 && position.column==1){
-            if(row.q[position.row-1][7-position.column]==0){
-                check.d=1;}
-            if(edge_detector_up.out){//up
-                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
-                     row.d[position.row-2][7-position.column] = 0;
-                     row.d[position.row-3][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-            if(edge_detector_down.out){//down
-                check.d=1;}
-             if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_left.out){//left
-                check.d=1;}
-          }
-      
-          if(position.row==5 && position.column==2){
+          else if(position.row==5 && position.column==1){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -401,9 +376,9 @@ module mojo_top (
             if(edge_detector_down.out){//down
                 check.d=1;}
              if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
+                if(row.q[position.row-1][6-position.column]==1 && row.q[position.row-1][5-position.column]==0){
+                     row.d[position.row-1][6-position.column] = 0;
+                     row.d[position.row-1][5-position.column]= 1;
                      row.d[position.row-1][7-position.column] = 0;
                      move_counter.d = move_counter.q+1;
                      check.d = 1;
@@ -412,7 +387,7 @@ module mojo_top (
                 check.d=1;}
           }
       
-          if(position.row==6 && position.column==3){
+          else if(position.row==5 && position.column==2){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -426,9 +401,9 @@ module mojo_top (
             if(edge_detector_down.out){//down
                 check.d=1;}
              if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
+                if(row.q[position.row-1][6-position.column]==1 && row.q[position.row-1][5-position.column]==0){
+                     row.d[position.row-1][6-position.column] = 0;
+                     row.d[position.row-1][5-position.column]= 1;
                      row.d[position.row-1][7-position.column] = 0;
                      move_counter.d = move_counter.q+1;
                      check.d = 1;
@@ -437,7 +412,32 @@ module mojo_top (
                 check.d=1;}
           }
       
-          if(position.row==6 && position.column==4){
+          else if(position.row==6 && position.column==3){
+            if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                if(row.q[position.row-1][6-position.column]==1 && row.q[position.row-1][5-position.column]==0){
+                     row.d[position.row-1][6-position.column] = 0;
+                     row.d[position.row-1][5-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+             if(edge_detector_left.out){//left
+                check.d=1;}
+          }
+      
+          else if(position.row==6 && position.column==4){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -456,7 +456,7 @@ module mojo_top (
                 check.d=1;}
           }
       
-          if(position.row==6 && position.column==5){
+          else if(position.row==6 && position.column==5){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -481,7 +481,7 @@ module mojo_top (
                 }else{check.d=1;}}
           }
       
-          if(position.row==7 && position.column==3){
+          else if(position.row==7 && position.column==3){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -495,9 +495,9 @@ module mojo_top (
             if(edge_detector_down.out){//down
                 check.d=1;}
              if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
+                if(row.q[position.row-1][6-position.column]==1 && row.q[position.row-1][5-position.column]==0){
+                     row.d[position.row-1][6-position.column] = 0;
+                     row.d[position.row-1][5-position.column]= 1;
                      row.d[position.row-1][7-position.column] = 0;
                      move_counter.d = move_counter.q+1;
                      check.d = 1;
@@ -506,7 +506,7 @@ module mojo_top (
                 check.d=1;}
           }
       
-          if(position.row==7 && position.column==4){
+          else if(position.row==7 && position.column==4){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -525,7 +525,7 @@ module mojo_top (
                 check.d=1;}
           }
       
-          if(position.row==7 && position.column==5){
+          else if(position.row==7 && position.column==5){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -550,7 +550,7 @@ module mojo_top (
                 }else{check.d=1;}}
           }
       
-          if(position.row==3 && position.column==6){
+          else if(position.row==3 && position.column==6){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -575,7 +575,7 @@ module mojo_top (
                 }else{check.d=1;}}
           }
       
-          if(position.row==3 && position.column==7){
+          else if(position.row==3 && position.column==7){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -600,7 +600,7 @@ module mojo_top (
                 }else{check.d=1;}}
           }
       
-          if(position.row==4 && position.column==6){
+          else if(position.row==4 && position.column==6){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -619,7 +619,7 @@ module mojo_top (
                 }else{check.d=1;}}
           }
       
-          if(position.row==4 && position.column==7){
+          else if(position.row==4 && position.column==7){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -638,32 +638,7 @@ module mojo_top (
                 }else{check.d=1;}}
           }
       
-          if(position.row==5 && position.column==6){
-            if(row.q[position.row-1][7-position.column]==0){
-                check.d=1;}
-            if(edge_detector_up.out){//up
-                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
-                     row.d[position.row-2][7-position.column] = 0;
-                     row.d[position.row-3][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-            if(edge_detector_down.out){//down
-                check.d=1;}
-             if(edge_detector_right.out){//right
-                check.d=1;}
-             if(edge_detector_left.out){//left
-                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
-                     row.d[position.row-1][8-position.column] = 0;
-                     row.d[position.row-1][9-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-          }
-      
-          if(position.row==5 && position.column==7){
+          else if(position.row==5 && position.column==6){
             if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
@@ -688,9 +663,31 @@ module mojo_top (
                 }else{check.d=1;}}
           }
       
-      
-          if(position.row==3 && position.column==3){
+          else if(position.row==5 && position.column==7){
             if(row.q[position.row-1][7-position.column]==0){
+                check.d=1;}
+            if(edge_detector_up.out){//up
+                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
+                     row.d[position.row-2][7-position.column] = 0;
+                     row.d[position.row-3][7-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+            if(edge_detector_down.out){//down
+                check.d=1;}
+             if(edge_detector_right.out){//right
+                check.d=1;}
+             if(edge_detector_left.out){//left
+                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
+                     row.d[position.row-1][8-position.column] = 0;
+                     row.d[position.row-1][9-position.column]= 1;
+                     row.d[position.row-1][7-position.column] = 0;
+                     move_counter.d = move_counter.q+1;
+                     check.d = 1;
+                }else{check.d=1;}}
+          }
+          else{if(row.q[position.row-1][7-position.column]==0){
                 check.d=1;}
             if(edge_detector_up.out){//up
                 if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
@@ -709,9 +706,9 @@ module mojo_top (
                      check.d = 1;
                 }else{check.d=1;}}
              if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
+                if(row.q[position.row-1][6-position.column]==1 && row.q[position.row-1][5-position.column]==0){
+                     row.d[position.row-1][6-position.column] = 0;
+                     row.d[position.row-1][5-position.column]= 1;
                      row.d[position.row-1][7-position.column] = 0;
                      move_counter.d = move_counter.q+1;
                      check.d = 1;
@@ -723,299 +720,8 @@ module mojo_top (
                      row.d[position.row-1][7-position.column] = 0;
                      move_counter.d = move_counter.q+1;
                      check.d = 1;
-                }else{check.d=1;}}
-          }
-      
-          if(position.row==3 && position.column==4){
-            if(row.q[position.row-1][7-position.column]==0){
-                check.d=1;}
-            if(edge_detector_up.out){//up
-                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
-                     row.d[position.row-2][7-position.column] = 0;
-                     row.d[position.row-3][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-            if(edge_detector_down.out){//down
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_left.out){//left
-                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
-                     row.d[position.row-1][8-position.column] = 0;
-                     row.d[position.row-1][9-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-          }
-          if(position.row==3 && position.column==5){
-            if(row.q[position.row-1][7-position.column]==0){
-                check.d=1;}
-            if(edge_detector_up.out){//up
-                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
-                     row.d[position.row-2][7-position.column] = 0;
-                     row.d[position.row-3][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-            if(edge_detector_down.out){//down
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_left.out){//left
-                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
-                     row.d[position.row-1][8-position.column] = 0;
-                     row.d[position.row-1][9-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-          }
-          if(position.row==4 && position.column==3){
-            if(row.q[position.row-1][7-position.column]==0){
-                check.d=1;}
-            if(edge_detector_up.out){//up
-                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
-                     row.d[position.row-2][7-position.column] = 0;
-                     row.d[position.row-3][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-            if(edge_detector_down.out){//down
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_left.out){//left
-                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
-                     row.d[position.row-1][8-position.column] = 0;
-                     row.d[position.row-1][9-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-          }
-      
-          if(position.row==4 && position.column==4){
-            if(row.q[position.row-1][7-position.column]==0){
-                check.d=1;}
-            if(edge_detector_up.out){//up
-                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
-                     row.d[position.row-2][7-position.column] = 0;
-                     row.d[position.row-3][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-            if(edge_detector_down.out){//down
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_left.out){//left
-                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
-                     row.d[position.row-1][8-position.column] = 0;
-                     row.d[position.row-1][9-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-          }
-          if(position.row==4 && position.column==5){
-            if(row.q[position.row-1][7-position.column]==0){
-                check.d=1;}
-            if(edge_detector_up.out){//up
-                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
-                     row.d[position.row-2][7-position.column] = 0;
-                     row.d[position.row-3][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-            if(edge_detector_down.out){//down
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_left.out){//left
-                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
-                     row.d[position.row-1][8-position.column] = 0;
-                     row.d[position.row-1][9-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-          }
-          if(position.row==5 && position.column==3){
-            if(row.q[position.row-1][7-position.column]==0){
-                check.d=1;}
-            if(edge_detector_up.out){//up
-                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
-                     row.d[position.row-2][7-position.column] = 0;
-                     row.d[position.row-3][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-            if(edge_detector_down.out){//down
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_left.out){//left
-                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
-                     row.d[position.row-1][8-position.column] = 0;
-                     row.d[position.row-1][9-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-          }
-      
-          if(position.row==5 && position.column==4){
-            if(row.q[position.row-1][7-position.column]==0){
-                check.d=1;}
-            if(edge_detector_up.out){//up
-                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
-                     row.d[position.row-2][7-position.column] = 0;
-                     row.d[position.row-3][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-            if(edge_detector_down.out){//down
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_left.out){//left
-                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
-                     row.d[position.row-1][8-position.column] = 0;
-                     row.d[position.row-1][9-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-          }
-          if(position.row==5 && position.column==5){
-            if(row.q[position.row-1][7-position.column]==0){
-                check.d=1;}
-            if(edge_detector_up.out){//up
-                if(row.q[position.row-2][7-position.column]==1 && row.q[position.row-3][7-position.column]==0){
-                     row.d[position.row-2][7-position.column] = 0;
-                     row.d[position.row-3][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-            if(edge_detector_down.out){//down
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_right.out){//right
-                if(row.q[position.row][7-position.column]==1 && row.q[position.row+1][7-position.column]==0){
-                     row.d[position.row][7-position.column] = 0;
-                     row.d[position.row+1][7-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-             if(edge_detector_left.out){//left
-                if(row.q[position.row-1][8-position.column]==1 && row.q[position.row-1][9-position.column]==0){
-                     row.d[position.row-1][8-position.column] = 0;
-                     row.d[position.row-1][9-position.column]= 1;
-                     row.d[position.row-1][7-position.column] = 0;
-                     move_counter.d = move_counter.q+1;
-                     check.d = 1;
-                }else{check.d=1;}}
-          }
+                }else{check.d=1;}}}
+ 
       
       
           
