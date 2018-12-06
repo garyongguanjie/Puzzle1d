@@ -107,38 +107,38 @@ INFO:Xst:3210 - "E:/Downloads/Puzzle1d/work/planAhead/puzzleboard1d/puzzleboard1
     | Encoding           | auto                                           |
     | Implementation     | LUT                                            |
     -----------------------------------------------------------------------
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1720_OUT> created at line 1069.
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1722_OUT> created at line 1069.
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1726_OUT> created at line 1069.
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1794_OUT> created at line 1097.
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1796_OUT> created at line 1097.
-    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1802_OUT> created at line 1097.
-    Found 5-bit subtractor for signal <GND_1_o_GND_1_o_sub_1834_OUT> created at line 1111.
-    Found 5-bit subtractor for signal <GND_1_o_GND_1_o_sub_1840_OUT> created at line 1111.
-    Found 32-bit adder for signal <n2142> created at line 285.
-    Found 32-bit adder for signal <n2217> created at line 1069.
-    Found 32-bit adder for signal <n2221> created at line 1069.
-    Found 32-bit adder for signal <n2238> created at line 1083.
-    Found 4-bit adder for signal <n2483> created at line 1083.
-    Found 32-bit adder for signal <n2242> created at line 1083.
-    Found 32-bit adder for signal <n2260> created at line 1097.
-    Found 32-bit adder for signal <n2263> created at line 1097.
-    Found 32-bit adder for signal <n2279> created at line 1111.
-    Found 32-bit adder for signal <n2282> created at line 1111.
-    Found 97-bit shifter logical right for signal <n2143> created at line 285
-    Found 32x3-bit multiplier for signal <n2215> created at line 1069.
-    Found 97-bit shifter logical right for signal <n2218> created at line 1069
-    Found 32x3-bit multiplier for signal <n2220> created at line 1069.
-    Found 97-bit shifter logical right for signal <n2222> created at line 1069
-    Found 3x3-bit multiplier for signal <M_position_row[2]_PWR_1_o_MuLt_1757_OUT> created at line 1083.
-    Found 97-bit shifter logical right for signal <n2239> created at line 1083
-    Found 4x3-bit multiplier for signal <BUS_0228_PWR_1_o_MuLt_1763_OUT> created at line 1083.
-    Found 97-bit shifter logical right for signal <n2243> created at line 1083
-    Found 32x3-bit multiplier for signal <n2258> created at line 1097.
-    Found 97-bit shifter logical right for signal <n2261> created at line 1097
-    Found 97-bit shifter logical right for signal <n2264> created at line 1097
-    Found 97-bit shifter logical right for signal <n2280> created at line 1111
-    Found 97-bit shifter logical right for signal <n2283> created at line 1111
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1719_OUT> created at line 1069.
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1721_OUT> created at line 1069.
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1725_OUT> created at line 1069.
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1793_OUT> created at line 1097.
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1795_OUT> created at line 1097.
+    Found 4-bit subtractor for signal <GND_1_o_GND_1_o_sub_1801_OUT> created at line 1097.
+    Found 5-bit subtractor for signal <GND_1_o_GND_1_o_sub_1833_OUT> created at line 1111.
+    Found 5-bit subtractor for signal <GND_1_o_GND_1_o_sub_1839_OUT> created at line 1111.
+    Found 32-bit adder for signal <n2141> created at line 285.
+    Found 32-bit adder for signal <n2216> created at line 1069.
+    Found 32-bit adder for signal <n2220> created at line 1069.
+    Found 32-bit adder for signal <n2237> created at line 1083.
+    Found 4-bit adder for signal <n2482> created at line 1083.
+    Found 32-bit adder for signal <n2241> created at line 1083.
+    Found 32-bit adder for signal <n2259> created at line 1097.
+    Found 32-bit adder for signal <n2262> created at line 1097.
+    Found 32-bit adder for signal <n2278> created at line 1111.
+    Found 32-bit adder for signal <n2281> created at line 1111.
+    Found 97-bit shifter logical right for signal <n2142> created at line 285
+    Found 32x3-bit multiplier for signal <n2214> created at line 1069.
+    Found 97-bit shifter logical right for signal <n2217> created at line 1069
+    Found 32x3-bit multiplier for signal <n2219> created at line 1069.
+    Found 97-bit shifter logical right for signal <n2221> created at line 1069
+    Found 3x3-bit multiplier for signal <M_position_row[2]_PWR_1_o_MuLt_1756_OUT> created at line 1083.
+    Found 97-bit shifter logical right for signal <n2238> created at line 1083
+    Found 4x3-bit multiplier for signal <BUS_0228_PWR_1_o_MuLt_1762_OUT> created at line 1083.
+    Found 97-bit shifter logical right for signal <n2242> created at line 1083
+    Found 32x3-bit multiplier for signal <n2257> created at line 1097.
+    Found 97-bit shifter logical right for signal <n2260> created at line 1097
+    Found 97-bit shifter logical right for signal <n2263> created at line 1097
+    Found 97-bit shifter logical right for signal <n2279> created at line 1111
+    Found 97-bit shifter logical right for signal <n2282> created at line 1111
     Found 16-bit 4-to-1 multiplexer for signal <M_alu_a> created at line 224.
     Found 16-bit 4-to-1 multiplexer for signal <M_alu_b> created at line 224.
     Found 6-bit 4-to-1 multiplexer for signal <M_alu_alufn> created at line 224.
@@ -454,9 +454,9 @@ Synthesizing (advanced) Unit <display_15>.
 Unit <display_15> synthesized (advanced).
 
 Synthesizing (advanced) Unit <mojo_top_0>.
-	Multiplier <Mmult_BUS_0228_PWR_1_o_MuLt_1763_OUT> in block <mojo_top_0> and adder/subtractor <Madd_n2242_Madd> in block <mojo_top_0> are combined into a MAC<Maddsub_BUS_0228_PWR_1_o_MuLt_1763_OUT>.
-	Multiplier <Mmult_M_position_row[2]_PWR_1_o_MuLt_1757_OUT> in block <mojo_top_0> and adder/subtractor <Madd_n2238_Madd> in block <mojo_top_0> are combined into a MAC<Maddsub_M_position_row[2]_PWR_1_o_MuLt_1757_OUT>.
-	Adder/Subtractor <Madd_n2483> in block <mojo_top_0> and  <Maddsub_BUS_0228_PWR_1_o_MuLt_1763_OUT> in block <mojo_top_0> are combined into a MAC with pre-adder <Maddsub_BUS_0228_PWR_1_o_MuLt_1763_OUT1>.
+	Multiplier <Mmult_BUS_0228_PWR_1_o_MuLt_1762_OUT> in block <mojo_top_0> and adder/subtractor <Madd_n2241_Madd> in block <mojo_top_0> are combined into a MAC<Maddsub_BUS_0228_PWR_1_o_MuLt_1762_OUT>.
+	Multiplier <Mmult_M_position_row[2]_PWR_1_o_MuLt_1756_OUT> in block <mojo_top_0> and adder/subtractor <Madd_n2237_Madd> in block <mojo_top_0> are combined into a MAC<Maddsub_M_position_row[2]_PWR_1_o_MuLt_1756_OUT>.
+	Adder/Subtractor <Madd_n2482> in block <mojo_top_0> and  <Maddsub_BUS_0228_PWR_1_o_MuLt_1762_OUT> in block <mojo_top_0> are combined into a MAC with pre-adder <Maddsub_BUS_0228_PWR_1_o_MuLt_1762_OUT1>.
 Unit <mojo_top_0> synthesized (advanced).
 
 Synthesizing (advanced) Unit <position_16>.

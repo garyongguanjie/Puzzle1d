@@ -144,7 +144,7 @@ module mojo_top (
         alu.b=0;
         alu.alufn=6b110011;
         check.d=alu.out;
-        if(check.q==1){
+        if(check.q){
             state.d=state.GAME;}
         else if(position.row==1 && position.column==3){
             if(edge_detector_up.out){//up

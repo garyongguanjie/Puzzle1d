@@ -8,7 +8,7 @@ Target Device  : xc6slx9
 Target Package : tqg144
 Target Speed   : -2
 Mapper Version : spartan6 -- $Revision: 1.55 $
-Mapped Date    : Fri Dec 07 01:32:58 2018
+Mapped Date    : Fri Dec 07 01:52:47 2018
 
 Design Summary
 --------------
@@ -22,8 +22,8 @@ Slice Logic Utilization:
     Number used as AND/OR logics:                2
   Number of Slice LUTs:                      3,425 out of   5,720   59%
     Number used as logic:                    3,412 out of   5,720   59%
-      Number using O6 output only:           2,951
-      Number using O5 output only:             128
+      Number using O6 output only:           2,953
+      Number using O5 output only:             126
       Number using O5 and O6:                  333
       Number used as ROM:                        0
     Number used as Memory:                       4 out of   1,440    1%
@@ -39,12 +39,12 @@ Slice Logic Utilization:
       Number with other load:                    1
 
 Slice Logic Distribution:
-  Number of occupied Slices:                 1,026 out of   1,430   71%
+  Number of occupied Slices:                 1,048 out of   1,430   73%
   Number of MUXCYs used:                       456 out of   2,860   15%
-  Number of LUT Flip Flop pairs used:        3,425
-    Number with an unused Flip Flop:         3,187 out of   3,425   93%
-    Number with an unused LUT:                   0 out of   3,425    0%
-    Number of fully used LUT-FF pairs:         238 out of   3,425    6%
+  Number of LUT Flip Flop pairs used:        3,426
+    Number with an unused Flip Flop:         3,188 out of   3,426   93%
+    Number with an unused LUT:                   1 out of   3,426    1%
+    Number of fully used LUT-FF pairs:         237 out of   3,426    6%
     Number of unique control sets:              16
     Number of slice register sites lost
       to control set restrictions:              68 out of  11,440    1%
@@ -86,9 +86,9 @@ Specific Feature Utilization:
 
 Average Fanout of Non-Clock Nets:                5.00
 
-Peak Memory Usage:  414 MB
-Total REAL time to MAP completion:  1 mins 1 secs 
-Total CPU time to MAP completion (all processors):   1 mins 12 secs 
+Peak Memory Usage:  445 MB
+Total REAL time to MAP completion:  56 secs 
+Total CPU time to MAP completion (all processors):   1 mins 2 secs 
 
 Table of Contents
 -----------------

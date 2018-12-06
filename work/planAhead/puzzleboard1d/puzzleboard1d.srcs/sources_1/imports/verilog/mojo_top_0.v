@@ -286,7 +286,7 @@ module mojo_top_0 (
         M_alu_b = 1'h0;
         M_alu_alufn = 6'h33;
         M_check_d = M_alu_out;
-        if (M_check_q == 1'h1) begin
+        if (M_check_q) begin
           M_state_d = GAME_state;
         end else begin
           if (M_position_row == 1'h1 && M_position_column == 2'h3) begin
