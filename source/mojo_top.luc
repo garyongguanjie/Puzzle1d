@@ -10,13 +10,16 @@ module mojo_top (
     output spi_channel [4], // AVR general purpose pins (used by default to select ADC channel)
     input avr_tx,           // AVR TX (FPGA RX)    
     output avr_rx,          // AVR RX (FPGA TX)
-    input avr_rx_busy,       // AVR RX buffer full    
+    input avr_rx_busy,       // AVR RX buffer full  
+    input button_reset,  
     input button_right,
     input button_up,
     input button_down,
     input button_left,
     input button_select,
     
+    output seg_1[7],
+    output seg_2[7],
     output rows[7],
     //output red[7],
     output green[7],
@@ -41,11 +44,14 @@ module mojo_top (
     button_conditioner button_cond_left;
     edge_detector edge_detector_select(#RISE(1), #FALL(0));
     button_conditioner button_cond_select;
+    edge_detector edge_detector_reset(#RISE(1), #FALL(0));
+    button_conditioner button_cond_reset;
     
     
     .rst(rst){
       display display;
       position position;
+      seven_Seg score;
       dff row[7][7];
       dff check[2];  
       dff move_counter[6];    
@@ -66,6 +72,8 @@ module mojo_top (
     edge_detector_left.in = button_cond_left.out;
     button_cond_select.in = button_select;
     edge_detector_select.in = button_cond_select.out;
+    button_cond_reset.in = button_reset;
+    edge_detector_reset.in = button_cond_reset.out;
     reset_cond.in = ~rst_n; // input raw inverted reset signal
     rst = reset_cond.out;   // conditioned reset
     
@@ -721,17 +729,17 @@ module mojo_top (
                      move_counter.d = move_counter.q+1;
                      check.d = 1;
                 }else{check.d=1;}}}
- 
-      
-      
           
       
-    }     
+    }  
+    if(edge_detector_reset.out){//reset
+          move_counter.d=0;
+          check.d=0;}   
 
          
     
 
-    
+    score.move_counter = move_counter.q;
     
     display.blue[0] = row.q[0];
     display.blue[1] = row.q[1];
@@ -743,7 +751,8 @@ module mojo_top (
     display.green = position.green;
 
 
-    
+    seg_1 = ~ score.out_ones;
+    seg_2 = ~ score.out_tens;
     green = display.out_green;
     blue = display.out_blue;
     rows = display.rows; 

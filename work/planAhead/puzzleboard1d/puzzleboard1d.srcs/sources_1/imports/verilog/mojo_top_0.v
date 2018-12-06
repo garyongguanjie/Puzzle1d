@@ -17,11 +17,14 @@ module mojo_top_0 (
     input avr_tx,
     output reg avr_rx,
     input avr_rx_busy,
+    input button_reset,
     input button_right,
     input button_up,
     input button_down,
     input button_left,
     input button_select,
+    output reg [6:0] seg_1,
+    output reg [6:0] seg_2,
     output reg [6:0] rows,
     output reg [6:0] green,
     output reg [6:0] blue
@@ -108,12 +111,26 @@ module mojo_top_0 (
     .in(M_button_cond_select_in),
     .out(M_button_cond_select_out)
   );
+  wire [1-1:0] M_edge_detector_reset_out;
+  reg [1-1:0] M_edge_detector_reset_in;
+  edge_detector_2 edge_detector_reset (
+    .clk(clk),
+    .in(M_edge_detector_reset_in),
+    .out(M_edge_detector_reset_out)
+  );
+  wire [1-1:0] M_button_cond_reset_out;
+  reg [1-1:0] M_button_cond_reset_in;
+  button_conditioner_3 button_cond_reset (
+    .clk(clk),
+    .in(M_button_cond_reset_in),
+    .out(M_button_cond_reset_out)
+  );
   wire [7-1:0] M_display_rows;
   wire [7-1:0] M_display_out_blue;
   wire [7-1:0] M_display_out_green;
   reg [49-1:0] M_display_blue;
   reg [49-1:0] M_display_green;
-  display_12 display (
+  display_14 display (
     .clk(clk),
     .rst(rst),
     .blue(M_display_blue),
@@ -126,13 +143,23 @@ module mojo_top_0 (
   wire [3-1:0] M_position_row;
   wire [3-1:0] M_position_column;
   reg [5-1:0] M_position_move;
-  position_13 position (
+  position_15 position (
     .clk(clk),
     .rst(rst),
     .move(M_position_move),
     .green(M_position_green),
     .row(M_position_row),
     .column(M_position_column)
+  );
+  wire [7-1:0] M_score_out_ones;
+  wire [7-1:0] M_score_out_tens;
+  reg [6-1:0] M_score_move_counter;
+  seven_Seg_16 score (
+    .clk(clk),
+    .rst(rst),
+    .move_counter(M_score_move_counter),
+    .out_ones(M_score_out_ones),
+    .out_tens(M_score_out_tens)
   );
   reg [48:0] M_row_d, M_row_q = 1'h0;
   reg [1:0] M_check_d, M_check_q = 1'h0;
@@ -153,6 +180,8 @@ module mojo_top_0 (
     M_edge_detector_left_in = M_button_cond_left_out;
     M_button_cond_select_in = button_select;
     M_edge_detector_select_in = M_button_cond_select_out;
+    M_button_cond_reset_in = button_reset;
+    M_edge_detector_reset_in = M_button_cond_reset_out;
     M_reset_cond_in = ~rst_n;
     rst = M_reset_cond_out;
     led = 8'h00;
@@ -1051,6 +1080,11 @@ module mojo_top_0 (
         end
       end
     end
+    if (M_edge_detector_reset_out) begin
+      M_move_counter_d = 1'h0;
+      M_check_d = 1'h0;
+    end
+    M_score_move_counter = M_move_counter_q;
     M_display_blue[0+6-:7] = M_row_q[0+6-:7];
     M_display_blue[7+6-:7] = M_row_q[7+6-:7];
     M_display_blue[14+6-:7] = M_row_q[14+6-:7];
@@ -1059,6 +1093,8 @@ module mojo_top_0 (
     M_display_blue[35+6-:7] = M_row_q[35+6-:7];
     M_display_blue[42+6-:7] = M_row_q[42+6-:7];
     M_display_green = M_position_green;
+    seg_1 = ~M_score_out_ones;
+    seg_2 = ~M_score_out_tens;
     green = M_display_out_green;
     blue = M_display_out_blue;
     rows = M_display_rows;

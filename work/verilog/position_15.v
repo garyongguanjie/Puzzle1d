@@ -4,7 +4,7 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
-module position_13 (
+module position_15 (
     input clk,
     input rst,
     input [4:0] move,
@@ -15,7 +15,7 @@ module position_13 (
   
   
   
-  reg [6:0] M_pos_d, M_pos_q = 1'h0;
+  reg [5:0] M_pos_d, M_pos_q = 1'h0;
   
   always @* begin
     M_pos_d = M_pos_q;
@@ -30,38 +30,38 @@ module position_13 (
     row = 1'h0;
     column = 1'h0;
     if (M_pos_q == 1'h0) begin
-      M_pos_d = M_pos_q + 1'h1;
+      M_pos_d = M_pos_q + 5'h19;
     end
     if (move == 1'h1) begin
-      if (M_pos_q - 3'h7 < 1'h1) begin
+      if (M_pos_q - 3'h7 < 1'h1 || M_pos_q - 3'h7 > 6'h31 || M_pos_q - 3'h7 == 1'h1 || M_pos_q - 3'h7 == 2'h2 || M_pos_q - 3'h7 == 3'h6 || M_pos_q - 3'h7 == 3'h7 || M_pos_q - 3'h7 == 4'h8 || M_pos_q - 3'h7 == 4'h9 || M_pos_q - 3'h7 == 4'hd || M_pos_q - 3'h7 == 4'h8 || M_pos_q - 3'h7 == 4'h9 || M_pos_q - 3'h7 == 4'hd || M_pos_q - 3'h7 == 4'he || M_pos_q - 3'h7 == 6'h31 || M_pos_q - 3'h7 == 6'h30 || M_pos_q - 3'h7 == 6'h2c || M_pos_q - 3'h7 == 6'h2b || M_pos_q - 3'h7 == 6'h2a || M_pos_q - 3'h7 == 6'h29 || M_pos_q - 3'h7 == 6'h25 || M_pos_q - 3'h7 == 6'h24) begin
         
       end else begin
         M_pos_d = M_pos_q - 3'h7;
       end
     end
     if (move == 2'h2) begin
-      if (M_pos_q + 3'h7 > 6'h31) begin
+      if (M_pos_q + 3'h7 > 6'h31 || M_pos_q + 3'h7 == 1'h1 || M_pos_q + 3'h7 == 2'h2 || M_pos_q + 3'h7 == 3'h6 || M_pos_q + 3'h7 == 3'h7 || M_pos_q + 3'h7 == 4'h8 || M_pos_q + 3'h7 == 4'h9 || M_pos_q + 3'h7 == 4'hd || M_pos_q + 3'h7 == 4'h8 || M_pos_q + 3'h7 == 4'h9 || M_pos_q + 3'h7 == 4'hd || M_pos_q + 3'h7 == 4'he || M_pos_q + 3'h7 == 6'h31 || M_pos_q + 3'h7 == 6'h30 || M_pos_q + 3'h7 == 6'h2c || M_pos_q + 3'h7 == 6'h2b || M_pos_q + 3'h7 == 6'h2a || M_pos_q + 3'h7 == 6'h29 || M_pos_q + 3'h7 == 6'h25 || M_pos_q + 3'h7 == 6'h24) begin
         
       end else begin
         M_pos_d = M_pos_q + 3'h7;
       end
     end
     if (move == 2'h3) begin
-      if (M_pos_q + 1'h1 > 6'h31) begin
+      if (M_pos_q + 1'h1 > 6'h31 || M_pos_q + 1'h1 == 1'h1 || M_pos_q + 1'h1 == 2'h2 || M_pos_q + 1'h1 == 3'h6 || M_pos_q + 1'h1 == 3'h7 || M_pos_q + 1'h1 == 4'h8 || M_pos_q + 1'h1 == 4'h9 || M_pos_q + 1'h1 == 4'hd || M_pos_q + 1'h1 == 4'h8 || M_pos_q + 1'h1 == 4'h9 || M_pos_q + 1'h1 == 4'hd || M_pos_q + 1'h1 == 4'he || M_pos_q + 1'h1 == 6'h31 || M_pos_q + 1'h1 == 6'h30 || M_pos_q + 1'h1 == 6'h2c || M_pos_q + 1'h1 == 6'h2b || M_pos_q + 1'h1 == 6'h2a || M_pos_q + 1'h1 == 6'h29 || M_pos_q + 1'h1 == 6'h25 || M_pos_q + 1'h1 == 6'h24) begin
         
       end else begin
         M_pos_d = M_pos_q + 1'h1;
       end
     end
     if (move == 3'h4) begin
-      if (M_pos_q - 1'h1 < 1'h1) begin
+      if (M_pos_q - 1'h1 < 1'h1 || M_pos_q - 1'h1 == 1'h1 || M_pos_q - 1'h1 == 2'h2 || M_pos_q - 1'h1 == 3'h6 || M_pos_q - 1'h1 == 3'h7 || M_pos_q - 1'h1 == 4'h8 || M_pos_q - 1'h1 == 4'h9 || M_pos_q - 1'h1 == 4'hd || M_pos_q - 1'h1 == 4'h8 || M_pos_q - 1'h1 == 4'h9 || M_pos_q - 1'h1 == 4'hd || M_pos_q - 1'h1 == 4'he || M_pos_q - 1'h1 == 6'h31 || M_pos_q - 1'h1 == 6'h30 || M_pos_q - 1'h1 == 6'h2c || M_pos_q - 1'h1 == 6'h2b || M_pos_q - 1'h1 == 6'h2a || M_pos_q - 1'h1 == 6'h29 || M_pos_q - 1'h1 == 6'h25 || M_pos_q - 1'h1 == 6'h24) begin
         
       end else begin
         M_pos_d = M_pos_q - 1'h1;
       end
     end
     if (M_pos_q < 1'h1) begin
-      M_pos_d = 1'h1;
+      M_pos_d = 5'h1a;
     end
     if (M_pos_q == 1'h1) begin
       green[0+6-:7] = 7'h40;

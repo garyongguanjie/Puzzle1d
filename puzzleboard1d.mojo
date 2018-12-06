@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="puzzleboard1d" board="Mojo V3" language="Lucid">
   <files>
+    <src>seven_Seg.luc</src>
     <src>display.luc</src>
     <src top="true">mojo_top.luc</src>
     <src>position.luc</src>

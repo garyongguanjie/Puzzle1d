@@ -7,7 +7,7 @@ module position (
     output column[3]
   ) {
   
-  dff pos[7](.clk(clk), .rst(rst));
+  dff pos[6](.clk(clk), .rst(rst));
   always {
       green[0] = 7b1000001;
       green[1] = 7b0000000;
@@ -19,31 +19,31 @@ module position (
       row = 0;
       column = 0;
     if (pos.q==0){
-      pos.d=pos.q+1;
+      pos.d=pos.q+25;
     }
     if (move==1){ 
-      if(pos.q - 7 < 1){}
+      if(pos.q - 7 < 1 || pos.q - 7 > 49 || pos.q - 7 == 1 || pos.q - 7 == 2 || pos.q - 7 == 6 || pos.q - 7 ==7 || pos.q - 7 ==8 || pos.q - 7 ==9 || pos.q - 7 ==13 || pos.q - 7 ==8 || pos.q - 7 ==9 || pos.q - 7 ==13 || pos.q - 7 ==14 || pos.q - 7 ==49 || pos.q - 7 ==48 || pos.q - 7 ==44 || pos.q - 7 ==43 || pos.q - 7 ==42 || pos.q - 7 ==41 || pos.q - 7 ==37 || pos.q - 7 ==36){}
       else{        
         pos.d = pos.q-7;}
     }
     if (move==2){
-      if(pos.q + 7 > 49){}
+      if(pos.q + 7 > 49 || pos.q + 7 == 1 || pos.q + 7 == 2 || pos.q + 7 == 6 || pos.q + 7 ==7 || pos.q + 7 ==8 || pos.q + 7 ==9 || pos.q + 7 ==13 || pos.q + 7 ==8 || pos.q + 7 ==9 || pos.q + 7 ==13 || pos.q + 7 ==14 || pos.q + 7 ==49 || pos.q + 7 ==48 || pos.q + 7 ==44 || pos.q + 7 ==43 || pos.q + 7 ==42 || pos.q + 7 ==41 || pos.q + 7 ==37 || pos.q + 7 ==36){}
       else{
         pos.d = pos.q+7;}
     }
     if (move==3){
-      if(pos.q + 1 > 49){}
+      if(pos.q + 1 > 49 || pos.q +1 == 1 || pos.q +1 == 2 || pos.q +1 == 6 || pos.q +1 ==7 || pos.q +1 ==8 || pos.q +1 ==9 || pos.q +1 ==13 || pos.q +1 ==8 || pos.q +1 ==9 || pos.q +1 ==13 || pos.q +1 ==14 || pos.q +1 ==49 || pos.q +1 ==48 || pos.q +1 ==44 || pos.q +1 ==43 || pos.q +1 ==42 || pos.q +1 ==41 || pos.q +1 ==37 || pos.q +1 ==36){}
       else{
         pos.d = pos.q+1;}
     }
     if (move==4){
-      if(pos.q - 1 < 1){}
+      if(pos.q - 1 < 1 || pos.q - 1 == 1 || pos.q - 1 == 2 || pos.q - 1 == 6 || pos.q - 1 ==7 || pos.q - 1 ==8 || pos.q - 1 ==9 || pos.q - 1 ==13 || pos.q - 1 ==8 || pos.q - 1 ==9 || pos.q - 1 ==13 || pos.q - 1 ==14 || pos.q - 1 ==49 || pos.q - 1 ==48 || pos.q - 1 ==44 || pos.q - 1 ==43 || pos.q - 1 ==42 || pos.q - 1 ==41 || pos.q - 1 ==37 || pos.q - 1 ==36){}
       else{
         pos.d = pos.q-1;}
     }
     
     if (pos.q < 1){
-      pos.d = 1;
+      pos.d = 26;
     }        
     
     if (pos.q==1){

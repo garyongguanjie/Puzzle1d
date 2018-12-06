@@ -53,6 +53,44 @@ NET "blue[5]" IOSTANDARD = LVTTL;
 NET "blue[6]" LOC = P21;
 NET "blue[6]" IOSTANDARD = LVTTL;
 
+NET "seg_2[0]" LOC = P84;
+NET "seg_2[0]" IOSTANDARD = LVTTL;
+NET "seg_2[1]" LOC = P82;
+NET "seg_2[1]" IOSTANDARD = LVTTL;
+NET "seg_2[2]" LOC = P80;
+NET "seg_2[2]" IOSTANDARD = LVTTL;
+NET "seg_2[3]" LOC = P78;
+NET "seg_2[3]" IOSTANDARD = LVTTL;
+NET "seg_2[4]" LOC = P74;
+NET "seg_2[4]" IOSTANDARD = LVTTL;
+NET "seg_2[5]" LOC = P66;
+NET "seg_2[5]" IOSTANDARD = LVTTL;
+NET "seg_2[6]" LOC = P57;
+NET "seg_2[6]" IOSTANDARD = LVTTL;
+NET "seg_2<6>" LOC = P57 | IOSTANDARD = LVTTL
+
+//NET "seg_1<7>" LOC = P87 | IOSTANDARD = LVTTL;
+//NET "seg_1<8>" LOC = P92 | IOSTANDARD = LVTTL;
+//NET "seg_1<9>" LOC = P94 | IOSTANDARD = LVTTL;
+
+NET "seg_1[0]" LOC = P87;
+NET "seg_1[0]" IOSTANDARD = LVTTL;
+NET "seg_1[1]" LOC = P92;
+NET "seg_1[1]" IOSTANDARD = LVTTL;
+NET "seg_1[2]" LOC = P94;
+NET "seg_1[2]" IOSTANDARD = LVTTL;
+NET "seg_1[3]" LOC = P97;
+NET "seg_1[3]" IOSTANDARD = LVTTL;
+NET "seg_1[4]" LOC = P99;
+NET "seg_1[4]" IOSTANDARD = LVTTL;
+NET "seg_1[5]" LOC = P101;
+NET "seg_1[5]" IOSTANDARD = LVTTL;
+NET "seg_1[6]" LOC = P104;
+NET "seg_1[6]" IOSTANDARD = LVTTL;
+//NET "seg_2<7>" LOC = P35 | IOSTANDARD = LVTTL;
+//NET "seg_2<8>" LOC = P33 | IOSTANDARD = LVTTL;
+//NET "seg_2<9>" LOC = P30 | IOSTANDARD = LVTTL;
+
 NET "button_right" LOC = P58;
 NET "button_right" IOSTANDARD = LVTTL;
 NET "button_right" PULLUP;
@@ -68,3 +106,6 @@ NET "button_left" PULLUP;
 NET "button_select" LOC = P81;
 NET "button_select" IOSTANDARD = LVTTL;
 NET "button_select" PULLUP;
+NET "button_reset" LOC = P111;
+NET "button_reset" IOSTANDARD = LVTTL;
+NET "button_reset" PULLUP;
