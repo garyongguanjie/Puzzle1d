@@ -4,10 +4,10 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
-module position_15 (
+module position_16 (
     input clk,
     input rst,
-    input [4:0] move,
+    input [15:0] posit,
     output reg [48:0] green,
     output reg [2:0] row,
     output reg [2:0] column
@@ -15,11 +15,7 @@ module position_15 (
   
   
   
-  reg [5:0] M_pos_d, M_pos_q = 1'h0;
-  
   always @* begin
-    M_pos_d = M_pos_q;
-    
     green[0+6-:7] = 7'h41;
     green[7+6-:7] = 7'h00;
     green[14+6-:7] = 7'h00;
@@ -29,41 +25,7 @@ module position_15 (
     green[42+6-:7] = 7'h41;
     row = 1'h0;
     column = 1'h0;
-    if (M_pos_q == 1'h0) begin
-      M_pos_d = M_pos_q + 5'h19;
-    end
-    if (move == 1'h1) begin
-      if (M_pos_q - 3'h7 < 1'h1 || M_pos_q - 3'h7 > 6'h31 || M_pos_q - 3'h7 == 1'h1 || M_pos_q - 3'h7 == 2'h2 || M_pos_q - 3'h7 == 3'h6 || M_pos_q - 3'h7 == 3'h7 || M_pos_q - 3'h7 == 4'h8 || M_pos_q - 3'h7 == 4'h9 || M_pos_q - 3'h7 == 4'hd || M_pos_q - 3'h7 == 4'h8 || M_pos_q - 3'h7 == 4'h9 || M_pos_q - 3'h7 == 4'hd || M_pos_q - 3'h7 == 4'he || M_pos_q - 3'h7 == 6'h31 || M_pos_q - 3'h7 == 6'h30 || M_pos_q - 3'h7 == 6'h2c || M_pos_q - 3'h7 == 6'h2b || M_pos_q - 3'h7 == 6'h2a || M_pos_q - 3'h7 == 6'h29 || M_pos_q - 3'h7 == 6'h25 || M_pos_q - 3'h7 == 6'h24) begin
-        
-      end else begin
-        M_pos_d = M_pos_q - 3'h7;
-      end
-    end
-    if (move == 2'h2) begin
-      if (M_pos_q + 3'h7 > 6'h31 || M_pos_q + 3'h7 == 1'h1 || M_pos_q + 3'h7 == 2'h2 || M_pos_q + 3'h7 == 3'h6 || M_pos_q + 3'h7 == 3'h7 || M_pos_q + 3'h7 == 4'h8 || M_pos_q + 3'h7 == 4'h9 || M_pos_q + 3'h7 == 4'hd || M_pos_q + 3'h7 == 4'h8 || M_pos_q + 3'h7 == 4'h9 || M_pos_q + 3'h7 == 4'hd || M_pos_q + 3'h7 == 4'he || M_pos_q + 3'h7 == 6'h31 || M_pos_q + 3'h7 == 6'h30 || M_pos_q + 3'h7 == 6'h2c || M_pos_q + 3'h7 == 6'h2b || M_pos_q + 3'h7 == 6'h2a || M_pos_q + 3'h7 == 6'h29 || M_pos_q + 3'h7 == 6'h25 || M_pos_q + 3'h7 == 6'h24) begin
-        
-      end else begin
-        M_pos_d = M_pos_q + 3'h7;
-      end
-    end
-    if (move == 2'h3) begin
-      if (M_pos_q + 1'h1 > 6'h31 || M_pos_q + 1'h1 == 1'h1 || M_pos_q + 1'h1 == 2'h2 || M_pos_q + 1'h1 == 3'h6 || M_pos_q + 1'h1 == 3'h7 || M_pos_q + 1'h1 == 4'h8 || M_pos_q + 1'h1 == 4'h9 || M_pos_q + 1'h1 == 4'hd || M_pos_q + 1'h1 == 4'h8 || M_pos_q + 1'h1 == 4'h9 || M_pos_q + 1'h1 == 4'hd || M_pos_q + 1'h1 == 4'he || M_pos_q + 1'h1 == 6'h31 || M_pos_q + 1'h1 == 6'h30 || M_pos_q + 1'h1 == 6'h2c || M_pos_q + 1'h1 == 6'h2b || M_pos_q + 1'h1 == 6'h2a || M_pos_q + 1'h1 == 6'h29 || M_pos_q + 1'h1 == 6'h25 || M_pos_q + 1'h1 == 6'h24) begin
-        
-      end else begin
-        M_pos_d = M_pos_q + 1'h1;
-      end
-    end
-    if (move == 3'h4) begin
-      if (M_pos_q - 1'h1 < 1'h1 || M_pos_q - 1'h1 == 1'h1 || M_pos_q - 1'h1 == 2'h2 || M_pos_q - 1'h1 == 3'h6 || M_pos_q - 1'h1 == 3'h7 || M_pos_q - 1'h1 == 4'h8 || M_pos_q - 1'h1 == 4'h9 || M_pos_q - 1'h1 == 4'hd || M_pos_q - 1'h1 == 4'h8 || M_pos_q - 1'h1 == 4'h9 || M_pos_q - 1'h1 == 4'hd || M_pos_q - 1'h1 == 4'he || M_pos_q - 1'h1 == 6'h31 || M_pos_q - 1'h1 == 6'h30 || M_pos_q - 1'h1 == 6'h2c || M_pos_q - 1'h1 == 6'h2b || M_pos_q - 1'h1 == 6'h2a || M_pos_q - 1'h1 == 6'h29 || M_pos_q - 1'h1 == 6'h25 || M_pos_q - 1'h1 == 6'h24) begin
-        
-      end else begin
-        M_pos_d = M_pos_q - 1'h1;
-      end
-    end
-    if (M_pos_q < 1'h1) begin
-      M_pos_d = 5'h1a;
-    end
-    if (M_pos_q == 1'h1) begin
+    if (posit == 1'h1) begin
       green[0+6-:7] = 7'h40;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -74,7 +36,7 @@ module position_15 (
       row = 1'h1;
       column = 1'h1;
     end
-    if (M_pos_q == 2'h2) begin
+    if (posit == 2'h2) begin
       green[0+6-:7] = 7'h20;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -85,7 +47,7 @@ module position_15 (
       row = 1'h1;
       column = 2'h2;
     end
-    if (M_pos_q == 2'h3) begin
+    if (posit == 2'h3) begin
       green[0+6-:7] = 7'h10;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -96,7 +58,7 @@ module position_15 (
       row = 1'h1;
       column = 2'h3;
     end
-    if (M_pos_q == 3'h4) begin
+    if (posit == 3'h4) begin
       green[0+6-:7] = 7'h08;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -107,7 +69,7 @@ module position_15 (
       row = 1'h1;
       column = 3'h4;
     end
-    if (M_pos_q == 3'h5) begin
+    if (posit == 3'h5) begin
       green[0+6-:7] = 7'h04;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -118,7 +80,7 @@ module position_15 (
       row = 1'h1;
       column = 3'h5;
     end
-    if (M_pos_q == 3'h6) begin
+    if (posit == 3'h6) begin
       green[0+6-:7] = 7'h02;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -129,7 +91,7 @@ module position_15 (
       row = 1'h1;
       column = 3'h6;
     end
-    if (M_pos_q == 3'h7) begin
+    if (posit == 3'h7) begin
       green[0+6-:7] = 7'h01;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -140,7 +102,7 @@ module position_15 (
       row = 1'h1;
       column = 3'h7;
     end
-    if (M_pos_q == 4'h8) begin
+    if (posit == 4'h8) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h40;
       green[14+6-:7] = 7'h00;
@@ -151,7 +113,7 @@ module position_15 (
       row = 2'h2;
       column = 1'h1;
     end
-    if (M_pos_q == 4'h9) begin
+    if (posit == 4'h9) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h20;
       green[14+6-:7] = 7'h00;
@@ -162,7 +124,7 @@ module position_15 (
       row = 2'h2;
       column = 2'h2;
     end
-    if (M_pos_q == 4'ha) begin
+    if (posit == 4'ha) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h10;
       green[14+6-:7] = 7'h00;
@@ -173,7 +135,7 @@ module position_15 (
       row = 2'h2;
       column = 2'h3;
     end
-    if (M_pos_q == 4'hb) begin
+    if (posit == 4'hb) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h08;
       green[14+6-:7] = 7'h00;
@@ -184,7 +146,7 @@ module position_15 (
       row = 2'h2;
       column = 3'h4;
     end
-    if (M_pos_q == 4'hc) begin
+    if (posit == 4'hc) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h04;
       green[14+6-:7] = 7'h00;
@@ -195,7 +157,7 @@ module position_15 (
       row = 2'h2;
       column = 3'h5;
     end
-    if (M_pos_q == 4'hd) begin
+    if (posit == 4'hd) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h02;
       green[14+6-:7] = 7'h00;
@@ -206,7 +168,7 @@ module position_15 (
       row = 2'h2;
       column = 3'h6;
     end
-    if (M_pos_q == 4'he) begin
+    if (posit == 4'he) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h01;
       green[14+6-:7] = 7'h00;
@@ -217,7 +179,7 @@ module position_15 (
       row = 2'h2;
       column = 3'h7;
     end
-    if (M_pos_q == 4'hf) begin
+    if (posit == 4'hf) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h40;
@@ -228,7 +190,7 @@ module position_15 (
       row = 2'h3;
       column = 1'h1;
     end
-    if (M_pos_q == 5'h10) begin
+    if (posit == 5'h10) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h20;
@@ -239,7 +201,7 @@ module position_15 (
       row = 2'h3;
       column = 2'h2;
     end
-    if (M_pos_q == 5'h11) begin
+    if (posit == 5'h11) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h10;
@@ -250,7 +212,7 @@ module position_15 (
       row = 2'h3;
       column = 2'h3;
     end
-    if (M_pos_q == 5'h12) begin
+    if (posit == 5'h12) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h08;
@@ -261,7 +223,7 @@ module position_15 (
       row = 2'h3;
       column = 3'h4;
     end
-    if (M_pos_q == 5'h13) begin
+    if (posit == 5'h13) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h04;
@@ -272,7 +234,7 @@ module position_15 (
       row = 2'h3;
       column = 3'h5;
     end
-    if (M_pos_q == 5'h14) begin
+    if (posit == 5'h14) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h02;
@@ -283,7 +245,7 @@ module position_15 (
       row = 2'h3;
       column = 3'h6;
     end
-    if (M_pos_q == 5'h15) begin
+    if (posit == 5'h15) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h01;
@@ -294,7 +256,7 @@ module position_15 (
       row = 2'h3;
       column = 3'h7;
     end
-    if (M_pos_q == 5'h16) begin
+    if (posit == 5'h16) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -305,7 +267,7 @@ module position_15 (
       row = 3'h4;
       column = 1'h1;
     end
-    if (M_pos_q == 5'h17) begin
+    if (posit == 5'h17) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -316,7 +278,7 @@ module position_15 (
       row = 3'h4;
       column = 2'h2;
     end
-    if (M_pos_q == 5'h18) begin
+    if (posit == 5'h18) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -327,7 +289,7 @@ module position_15 (
       row = 3'h4;
       column = 2'h3;
     end
-    if (M_pos_q == 5'h19) begin
+    if (posit == 5'h19) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -338,7 +300,7 @@ module position_15 (
       row = 3'h4;
       column = 3'h4;
     end
-    if (M_pos_q == 5'h1a) begin
+    if (posit == 5'h1a) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -349,7 +311,7 @@ module position_15 (
       row = 3'h4;
       column = 3'h5;
     end
-    if (M_pos_q == 5'h1b) begin
+    if (posit == 5'h1b) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -360,7 +322,7 @@ module position_15 (
       row = 3'h4;
       column = 3'h6;
     end
-    if (M_pos_q == 5'h1c) begin
+    if (posit == 5'h1c) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -371,7 +333,7 @@ module position_15 (
       row = 3'h4;
       column = 3'h7;
     end
-    if (M_pos_q == 5'h1d) begin
+    if (posit == 5'h1d) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -382,7 +344,7 @@ module position_15 (
       row = 3'h5;
       column = 1'h1;
     end
-    if (M_pos_q == 5'h1e) begin
+    if (posit == 5'h1e) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -393,7 +355,7 @@ module position_15 (
       row = 3'h5;
       column = 2'h2;
     end
-    if (M_pos_q == 5'h1f) begin
+    if (posit == 5'h1f) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -404,7 +366,7 @@ module position_15 (
       row = 3'h5;
       column = 2'h3;
     end
-    if (M_pos_q == 6'h20) begin
+    if (posit == 6'h20) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -415,7 +377,7 @@ module position_15 (
       row = 3'h5;
       column = 3'h4;
     end
-    if (M_pos_q == 6'h21) begin
+    if (posit == 6'h21) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -426,7 +388,7 @@ module position_15 (
       row = 3'h5;
       column = 3'h5;
     end
-    if (M_pos_q == 6'h22) begin
+    if (posit == 6'h22) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -437,7 +399,7 @@ module position_15 (
       row = 3'h5;
       column = 3'h6;
     end
-    if (M_pos_q == 6'h23) begin
+    if (posit == 6'h23) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -448,7 +410,7 @@ module position_15 (
       row = 3'h5;
       column = 3'h7;
     end
-    if (M_pos_q == 6'h24) begin
+    if (posit == 6'h24) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -459,7 +421,7 @@ module position_15 (
       row = 3'h6;
       column = 1'h1;
     end
-    if (M_pos_q == 6'h25) begin
+    if (posit == 6'h25) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -470,7 +432,7 @@ module position_15 (
       row = 3'h6;
       column = 2'h2;
     end
-    if (M_pos_q == 6'h26) begin
+    if (posit == 6'h26) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -481,7 +443,7 @@ module position_15 (
       row = 3'h6;
       column = 2'h3;
     end
-    if (M_pos_q == 6'h27) begin
+    if (posit == 6'h27) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -492,7 +454,7 @@ module position_15 (
       row = 3'h6;
       column = 3'h4;
     end
-    if (M_pos_q == 6'h28) begin
+    if (posit == 6'h28) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -503,7 +465,7 @@ module position_15 (
       row = 3'h6;
       column = 3'h5;
     end
-    if (M_pos_q == 6'h29) begin
+    if (posit == 6'h29) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -514,7 +476,7 @@ module position_15 (
       row = 3'h6;
       column = 3'h6;
     end
-    if (M_pos_q == 6'h2a) begin
+    if (posit == 6'h2a) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -525,7 +487,7 @@ module position_15 (
       row = 3'h6;
       column = 3'h7;
     end
-    if (M_pos_q == 6'h2b) begin
+    if (posit == 6'h2b) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -536,7 +498,7 @@ module position_15 (
       row = 3'h7;
       column = 1'h1;
     end
-    if (M_pos_q == 6'h2c) begin
+    if (posit == 6'h2c) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -547,7 +509,7 @@ module position_15 (
       row = 3'h7;
       column = 2'h2;
     end
-    if (M_pos_q == 6'h2d) begin
+    if (posit == 6'h2d) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -558,7 +520,7 @@ module position_15 (
       row = 3'h7;
       column = 2'h3;
     end
-    if (M_pos_q == 6'h2e) begin
+    if (posit == 6'h2e) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -569,7 +531,7 @@ module position_15 (
       row = 3'h7;
       column = 3'h4;
     end
-    if (M_pos_q == 6'h2f) begin
+    if (posit == 6'h2f) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -580,7 +542,7 @@ module position_15 (
       row = 3'h7;
       column = 3'h5;
     end
-    if (M_pos_q == 6'h30) begin
+    if (posit == 6'h30) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -591,7 +553,7 @@ module position_15 (
       row = 3'h7;
       column = 3'h6;
     end
-    if (M_pos_q == 6'h31) begin
+    if (posit == 6'h31) begin
       green[0+6-:7] = 7'h00;
       green[7+6-:7] = 7'h00;
       green[14+6-:7] = 7'h00;
@@ -603,13 +565,4 @@ module position_15 (
       column = 3'h7;
     end
   end
-  
-  always @(posedge clk) begin
-    if (rst == 1'b1) begin
-      M_pos_q <= 1'h0;
-    end else begin
-      M_pos_q <= M_pos_d;
-    end
-  end
-  
 endmodule

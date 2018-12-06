@@ -34,93 +34,110 @@ module mojo_top_0 (
   
   reg rst;
   
+  wire [16-1:0] M_alu_out;
+  wire [1-1:0] M_alu_z;
+  wire [1-1:0] M_alu_v;
+  wire [1-1:0] M_alu_n;
+  reg [6-1:0] M_alu_alufn;
+  reg [16-1:0] M_alu_a;
+  reg [16-1:0] M_alu_b;
+  alu_1 alu (
+    .alufn(M_alu_alufn),
+    .a(M_alu_a),
+    .b(M_alu_b),
+    .out(M_alu_out),
+    .z(M_alu_z),
+    .v(M_alu_v),
+    .n(M_alu_n)
+  );
+  
   wire [1-1:0] M_reset_cond_out;
   reg [1-1:0] M_reset_cond_in;
-  reset_conditioner_1 reset_cond (
+  reset_conditioner_2 reset_cond (
     .clk(clk),
     .in(M_reset_cond_in),
     .out(M_reset_cond_out)
   );
   wire [1-1:0] M_edge_detector_right_out;
   reg [1-1:0] M_edge_detector_right_in;
-  edge_detector_2 edge_detector_right (
+  edge_detector_3 edge_detector_right (
     .clk(clk),
     .in(M_edge_detector_right_in),
     .out(M_edge_detector_right_out)
   );
   wire [1-1:0] M_button_cond_right_out;
   reg [1-1:0] M_button_cond_right_in;
-  button_conditioner_3 button_cond_right (
+  button_conditioner_4 button_cond_right (
     .clk(clk),
     .in(M_button_cond_right_in),
     .out(M_button_cond_right_out)
   );
   wire [1-1:0] M_edge_detector_up_out;
   reg [1-1:0] M_edge_detector_up_in;
-  edge_detector_2 edge_detector_up (
+  edge_detector_3 edge_detector_up (
     .clk(clk),
     .in(M_edge_detector_up_in),
     .out(M_edge_detector_up_out)
   );
   wire [1-1:0] M_button_cond_up_out;
   reg [1-1:0] M_button_cond_up_in;
-  button_conditioner_3 button_cond_up (
+  button_conditioner_4 button_cond_up (
     .clk(clk),
     .in(M_button_cond_up_in),
     .out(M_button_cond_up_out)
   );
   wire [1-1:0] M_edge_detector_down_out;
   reg [1-1:0] M_edge_detector_down_in;
-  edge_detector_2 edge_detector_down (
+  edge_detector_3 edge_detector_down (
     .clk(clk),
     .in(M_edge_detector_down_in),
     .out(M_edge_detector_down_out)
   );
   wire [1-1:0] M_button_cond_down_out;
   reg [1-1:0] M_button_cond_down_in;
-  button_conditioner_3 button_cond_down (
+  button_conditioner_4 button_cond_down (
     .clk(clk),
     .in(M_button_cond_down_in),
     .out(M_button_cond_down_out)
   );
   wire [1-1:0] M_edge_detector_left_out;
   reg [1-1:0] M_edge_detector_left_in;
-  edge_detector_2 edge_detector_left (
+  edge_detector_3 edge_detector_left (
     .clk(clk),
     .in(M_edge_detector_left_in),
     .out(M_edge_detector_left_out)
   );
   wire [1-1:0] M_button_cond_left_out;
   reg [1-1:0] M_button_cond_left_in;
-  button_conditioner_3 button_cond_left (
+  button_conditioner_4 button_cond_left (
     .clk(clk),
     .in(M_button_cond_left_in),
     .out(M_button_cond_left_out)
   );
   wire [1-1:0] M_edge_detector_select_out;
   reg [1-1:0] M_edge_detector_select_in;
-  edge_detector_2 edge_detector_select (
+  edge_detector_3 edge_detector_select (
     .clk(clk),
     .in(M_edge_detector_select_in),
     .out(M_edge_detector_select_out)
   );
   wire [1-1:0] M_button_cond_select_out;
   reg [1-1:0] M_button_cond_select_in;
-  button_conditioner_3 button_cond_select (
+  button_conditioner_4 button_cond_select (
     .clk(clk),
     .in(M_button_cond_select_in),
     .out(M_button_cond_select_out)
   );
   wire [1-1:0] M_edge_detector_reset_out;
   reg [1-1:0] M_edge_detector_reset_in;
-  edge_detector_2 edge_detector_reset (
+  edge_detector_3 edge_detector_reset (
     .clk(clk),
     .in(M_edge_detector_reset_in),
     .out(M_edge_detector_reset_out)
   );
   wire [1-1:0] M_button_cond_reset_out;
   reg [1-1:0] M_button_cond_reset_in;
-  button_conditioner_3 button_cond_reset (
+  button_conditioner_4 button_cond_reset (
     .clk(clk),
     .in(M_button_cond_reset_in),
     .out(M_button_cond_reset_out)
@@ -130,7 +147,7 @@ module mojo_top_0 (
   wire [7-1:0] M_display_out_green;
   reg [49-1:0] M_display_blue;
   reg [49-1:0] M_display_green;
-  display_14 display (
+  display_15 display (
     .clk(clk),
     .rst(rst),
     .blue(M_display_blue),
@@ -142,19 +159,19 @@ module mojo_top_0 (
   wire [49-1:0] M_position_green;
   wire [3-1:0] M_position_row;
   wire [3-1:0] M_position_column;
-  reg [5-1:0] M_position_move;
-  position_15 position (
+  reg [16-1:0] M_position_posit;
+  position_16 position (
     .clk(clk),
     .rst(rst),
-    .move(M_position_move),
+    .posit(M_position_posit),
     .green(M_position_green),
     .row(M_position_row),
     .column(M_position_column)
   );
   wire [7-1:0] M_score_out_ones;
   wire [7-1:0] M_score_out_tens;
-  reg [6-1:0] M_score_move_counter;
-  seven_Seg_16 score (
+  reg [16-1:0] M_score_move_counter;
+  seven_Seg_17 score (
     .clk(clk),
     .rst(rst),
     .move_counter(M_score_move_counter),
@@ -162,12 +179,20 @@ module mojo_top_0 (
     .out_tens(M_score_out_tens)
   );
   reg [48:0] M_row_d, M_row_q = 1'h0;
-  reg [1:0] M_check_d, M_check_q = 1'h0;
-  reg [5:0] M_move_counter_d, M_move_counter_q = 1'h0;
+  reg [15:0] M_move_counter_d, M_move_counter_q = 1'h0;
+  reg [15:0] M_posit_d, M_posit_q = 1'h0;
+  reg [0:0] M_check_d, M_check_q = 1'h0;
+  localparam FIRST_state = 2'd0;
+  localparam GAME_state = 2'd1;
+  localparam SELECT_state = 2'd2;
+  
+  reg [1:0] M_state_d, M_state_q = FIRST_state;
   
   always @* begin
+    M_state_d = M_state_q;
     M_check_d = M_check_q;
     M_move_counter_d = M_move_counter_q;
+    M_posit_d = M_posit_q;
     M_row_d = M_row_q;
     
     M_button_cond_right_in = button_right;
@@ -188,328 +213,292 @@ module mojo_top_0 (
     spi_miso = 1'bz;
     spi_channel = 4'bzzzz;
     avr_rx = 1'bz;
-    M_position_move = 4'h8;
-    if (M_check_q == 1'h0) begin
-      M_row_d[0+6-:7] = 7'h1c;
-      M_row_d[7+6-:7] = 7'h1c;
-      M_row_d[14+6-:7] = 7'h7f;
-      M_row_d[21+6-:7] = 7'h77;
-      M_row_d[28+6-:7] = 7'h7f;
-      M_row_d[35+6-:7] = 7'h1c;
-      M_row_d[42+6-:7] = 7'h1c;
-      M_check_d = 1'h1;
+    M_alu_a = 1'h0;
+    M_alu_b = 1'h0;
+    M_alu_alufn = 1'h0;
+    if (M_posit_q < 1'h1) begin
+      M_posit_d = 5'h19;
     end
-    if (M_check_q == 1'h1) begin
-      if (M_edge_detector_up_out) begin
-        M_position_move = 1'h1;
+    M_position_posit = M_posit_q;
+    
+    case (M_state_q)
+      FIRST_state: begin
+        M_row_d[0+6-:7] = 7'h1c;
+        M_row_d[7+6-:7] = 7'h1c;
+        M_row_d[14+6-:7] = 7'h7f;
+        M_row_d[21+6-:7] = 7'h77;
+        M_row_d[28+6-:7] = 7'h7f;
+        M_row_d[35+6-:7] = 7'h1c;
+        M_row_d[42+6-:7] = 7'h1c;
+        M_state_d = GAME_state;
       end
-      if (M_edge_detector_down_out) begin
-        M_position_move = 2'h2;
-      end
-      if (M_edge_detector_right_out) begin
-        M_position_move = 2'h3;
-      end
-      if (M_edge_detector_left_out) begin
-        M_position_move = 3'h4;
-      end
-      if (M_edge_detector_select_out) begin
-        M_check_d = 2'h2;
-      end
-    end
-    if (M_check_q == 2'h2) begin
-      if (M_position_row == 1'h1 && M_position_column == 1'h1) begin
-        M_check_d = 1'h1;
-      end else begin
-        if (M_position_row == 1'h1 && M_position_column == 2'h2) begin
-          M_check_d = 1'h1;
-        end else begin
-          if (M_position_row == 1'h1 && M_position_column == 3'h6) begin
-            M_check_d = 1'h1;
+      GAME_state: begin
+        if (M_edge_detector_up_out) begin
+          M_alu_a = M_posit_q;
+          M_alu_b = 3'h7;
+          M_alu_alufn = 1'h1;
+          if (M_alu_out < 1'h1 || M_alu_out > 6'h31 || M_alu_out == 1'h1 || M_alu_out == 2'h2 || M_alu_out == 3'h6 || M_alu_out == 3'h7 || M_alu_out == 4'h8 || M_alu_out == 4'h9 || M_alu_out == 4'hd || M_alu_out == 4'h8 || M_alu_out == 4'h9 || M_alu_out == 4'hd || M_alu_out == 4'he || M_alu_out == 6'h31 || M_alu_out == 6'h30 || M_alu_out == 6'h2c || M_alu_out == 6'h2b || M_alu_out == 6'h2a || M_alu_out == 6'h29 || M_alu_out == 6'h25 || M_alu_out == 6'h24) begin
+            
           end else begin
-            if (M_position_row == 1'h1 && M_position_column == 3'h7) begin
-              M_check_d = 1'h1;
-            end else begin
-              if (M_position_row == 2'h2 && M_position_column == 1'h1) begin
-                M_check_d = 1'h1;
-              end else begin
-                if (M_position_row == 2'h2 && M_position_column == 2'h2) begin
-                  M_check_d = 1'h1;
-                end else begin
-                  if (M_position_row == 2'h2 && M_position_column == 3'h6) begin
-                    M_check_d = 1'h1;
-                  end else begin
-                    if (M_position_row == 2'h2 && M_position_column == 3'h7) begin
-                      M_check_d = 1'h1;
-                    end else begin
-                      if (M_position_row == 3'h6 && M_position_column == 1'h1) begin
-                        M_check_d = 1'h1;
-                      end else begin
-                        if (M_position_row == 3'h6 && M_position_column == 2'h2) begin
-                          M_check_d = 1'h1;
-                        end else begin
-                          if (M_position_row == 3'h6 && M_position_column == 3'h6) begin
-                            M_check_d = 1'h1;
-                          end else begin
-                            if (M_position_row == 3'h6 && M_position_column == 3'h7) begin
-                              M_check_d = 1'h1;
-                            end else begin
-                              if (M_position_row == 3'h7 && M_position_column == 1'h1) begin
-                                M_check_d = 1'h1;
-                              end else begin
-                                if (M_position_row == 3'h7 && M_position_column == 2'h2) begin
-                                  M_check_d = 1'h1;
-                                end else begin
-                                  if (M_position_row == 3'h7 && M_position_column == 3'h6) begin
-                                    M_check_d = 1'h1;
-                                  end
-                                end
-                              end
-                            end
-                          end
-                        end
-                      end
-                    end
-                  end
-                end
-              end
-            end
+            M_posit_d = M_alu_out;
           end
         end
+        if (M_edge_detector_down_out) begin
+          M_alu_a = M_posit_q;
+          M_alu_b = 3'h7;
+          M_alu_alufn = 1'h0;
+          if (M_alu_out < 1'h1 || M_alu_out > 6'h31 || M_alu_out == 1'h1 || M_alu_out == 2'h2 || M_alu_out == 3'h6 || M_alu_out == 3'h7 || M_alu_out == 4'h8 || M_alu_out == 4'h9 || M_alu_out == 4'hd || M_alu_out == 4'h8 || M_alu_out == 4'h9 || M_alu_out == 4'hd || M_alu_out == 4'he || M_alu_out == 6'h31 || M_alu_out == 6'h30 || M_alu_out == 6'h2c || M_alu_out == 6'h2b || M_alu_out == 6'h2a || M_alu_out == 6'h29 || M_alu_out == 6'h25 || M_alu_out == 6'h24) begin
+            
+          end else begin
+            M_posit_d = M_alu_out;
+          end
+        end
+        if (M_edge_detector_right_out) begin
+          M_alu_a = M_posit_q;
+          M_alu_b = 1'h1;
+          M_alu_alufn = 1'h0;
+          if (M_alu_out < 1'h1 || M_alu_out > 6'h31 || M_alu_out == 1'h1 || M_alu_out == 2'h2 || M_alu_out == 3'h6 || M_alu_out == 3'h7 || M_alu_out == 4'h8 || M_alu_out == 4'h9 || M_alu_out == 4'hd || M_alu_out == 4'h8 || M_alu_out == 4'h9 || M_alu_out == 4'hd || M_alu_out == 4'he || M_alu_out == 6'h31 || M_alu_out == 6'h30 || M_alu_out == 6'h2c || M_alu_out == 6'h2b || M_alu_out == 6'h2a || M_alu_out == 6'h29 || M_alu_out == 6'h25 || M_alu_out == 6'h24) begin
+            
+          end else begin
+            M_posit_d = M_alu_out;
+          end
+        end
+        if (M_edge_detector_left_out) begin
+          M_alu_a = M_posit_q;
+          M_alu_b = 1'h1;
+          M_alu_alufn = 1'h1;
+          if (M_alu_out < 1'h1 || M_alu_out > 6'h31 || M_alu_out == 1'h1 || M_alu_out == 2'h2 || M_alu_out == 3'h6 || M_alu_out == 3'h7 || M_alu_out == 4'h8 || M_alu_out == 4'h9 || M_alu_out == 4'hd || M_alu_out == 4'h8 || M_alu_out == 4'h9 || M_alu_out == 4'hd || M_alu_out == 4'he || M_alu_out == 6'h31 || M_alu_out == 6'h30 || M_alu_out == 6'h2c || M_alu_out == 6'h2b || M_alu_out == 6'h2a || M_alu_out == 6'h29 || M_alu_out == 6'h25 || M_alu_out == 6'h24) begin
+            
+          end else begin
+            M_posit_d = M_alu_out;
+          end
+        end
+        if (M_edge_detector_select_out) begin
+          M_state_d = SELECT_state;
+        end
+        if (M_edge_detector_reset_out) begin
+          M_move_counter_d = 1'h0;
+          M_state_d = FIRST_state;
+        end
       end
-      if (M_position_row == 3'h7 && M_position_column == 3'h7) begin
-        M_check_d = 1'h1;
-      end else begin
-        if (M_position_row == 1'h1 && M_position_column == 2'h3) begin
-          if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-            M_check_d = 1'h1;
-          end
-          if (M_edge_detector_up_out) begin
-            M_check_d = 1'h1;
-          end
-          if (M_edge_detector_down_out) begin
-            if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-              M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-              M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-              M_move_counter_d = M_move_counter_q + 1'h1;
-              M_check_d = 1'h1;
-            end else begin
-              M_check_d = 1'h1;
-            end
-          end
-          if (M_edge_detector_right_out) begin
-            if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
-              M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
-              M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
-              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-              M_move_counter_d = M_move_counter_q + 1'h1;
-              M_check_d = 1'h1;
-            end else begin
-              M_check_d = 1'h1;
-            end
-          end
-          if (M_edge_detector_left_out) begin
-            M_check_d = 1'h1;
-          end
+      SELECT_state: begin
+        M_alu_a = M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1];
+        M_alu_b = 1'h0;
+        M_alu_alufn = 6'h33;
+        M_check_d = M_alu_out;
+        if (M_check_q == 1'h1) begin
+          M_state_d = GAME_state;
         end else begin
-          if (M_position_row == 1'h1 && M_position_column == 3'h4) begin
-            if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-              M_check_d = 1'h1;
-            end
+          if (M_position_row == 1'h1 && M_position_column == 2'h3) begin
             if (M_edge_detector_up_out) begin
-              M_check_d = 1'h1;
+              M_state_d = GAME_state;
             end
             if (M_edge_detector_down_out) begin
               if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                 M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                 M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                 M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                M_move_counter_d = M_move_counter_q + 1'h1;
-                M_check_d = 1'h1;
+                M_alu_a = M_move_counter_q;
+                M_alu_b = 1'h1;
+                M_alu_alufn = 1'h0;
+                M_move_counter_d = M_alu_out;
+                M_state_d = GAME_state;
               end else begin
-                M_check_d = 1'h1;
+                M_state_d = GAME_state;
               end
             end
             if (M_edge_detector_right_out) begin
-              M_check_d = 1'h1;
+              if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                M_alu_a = M_move_counter_q;
+                M_alu_b = 1'h1;
+                M_alu_alufn = 1'h0;
+                M_move_counter_d = M_alu_out;
+                M_state_d = GAME_state;
+              end else begin
+                M_state_d = GAME_state;
+              end
             end
             if (M_edge_detector_left_out) begin
-              M_check_d = 1'h1;
+              M_state_d = GAME_state;
             end
           end else begin
-            if (M_position_row == 1'h1 && M_position_column == 3'h5) begin
-              if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                M_check_d = 1'h1;
-              end
+            if (M_position_row == 1'h1 && M_position_column == 3'h4) begin
               if (M_edge_detector_up_out) begin
-                M_check_d = 1'h1;
+                M_state_d = GAME_state;
               end
               if (M_edge_detector_down_out) begin
                 if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                   M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                   M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                   M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                  M_move_counter_d = M_move_counter_q + 1'h1;
-                  M_check_d = 1'h1;
+                  M_alu_a = M_move_counter_q;
+                  M_alu_b = 1'h1;
+                  M_alu_alufn = 1'h0;
+                  M_move_counter_d = M_alu_out;
+                  M_state_d = GAME_state;
                 end else begin
-                  M_check_d = 1'h1;
+                  M_state_d = GAME_state;
                 end
               end
               if (M_edge_detector_right_out) begin
-                M_check_d = 1'h1;
+                M_state_d = GAME_state;
               end
               if (M_edge_detector_left_out) begin
-                if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-                  M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-                  M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-                  M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                  M_move_counter_d = M_move_counter_q + 1'h1;
-                  M_check_d = 1'h1;
-                end else begin
-                  M_check_d = 1'h1;
-                end
+                M_state_d = GAME_state;
               end
             end else begin
-              if (M_position_row == 2'h2 && M_position_column == 2'h3) begin
-                if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                  M_check_d = 1'h1;
-                end
+              if (M_position_row == 1'h1 && M_position_column == 3'h5) begin
                 if (M_edge_detector_up_out) begin
-                  M_check_d = 1'h1;
+                  M_state_d = GAME_state;
                 end
                 if (M_edge_detector_down_out) begin
                   if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                     M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                     M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                     M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                    M_move_counter_d = M_move_counter_q + 1'h1;
-                    M_check_d = 1'h1;
+                    M_alu_a = M_move_counter_q;
+                    M_alu_b = 1'h1;
+                    M_alu_alufn = 1'h0;
+                    M_move_counter_d = M_alu_out;
+                    M_state_d = GAME_state;
                   end else begin
-                    M_check_d = 1'h1;
+                    M_state_d = GAME_state;
                   end
                 end
                 if (M_edge_detector_right_out) begin
-                  if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
-                    M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
-                    M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
-                    M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                    M_move_counter_d = M_move_counter_q + 1'h1;
-                    M_check_d = 1'h1;
-                  end else begin
-                    M_check_d = 1'h1;
-                  end
+                  M_state_d = GAME_state;
                 end
                 if (M_edge_detector_left_out) begin
-                  M_check_d = 1'h1;
+                  if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                    M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                    M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                    M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                    M_alu_a = M_move_counter_q;
+                    M_alu_b = 1'h1;
+                    M_alu_alufn = 1'h0;
+                    M_move_counter_d = M_alu_out;
+                    M_state_d = GAME_state;
+                  end else begin
+                    M_state_d = GAME_state;
+                  end
                 end
               end else begin
-                if (M_position_row == 2'h2 && M_position_column == 3'h4) begin
-                  if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                    M_check_d = 1'h1;
-                  end
+                if (M_position_row == 2'h2 && M_position_column == 2'h3) begin
                   if (M_edge_detector_up_out) begin
-                    M_check_d = 1'h1;
+                    M_state_d = GAME_state;
                   end
                   if (M_edge_detector_down_out) begin
                     if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                       M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                       M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                       M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                      M_move_counter_d = M_move_counter_q + 1'h1;
-                      M_check_d = 1'h1;
+                      M_alu_a = M_move_counter_q;
+                      M_alu_b = 1'h1;
+                      M_alu_alufn = 1'h0;
+                      M_move_counter_d = M_alu_out;
+                      M_state_d = GAME_state;
                     end else begin
-                      M_check_d = 1'h1;
+                      M_state_d = GAME_state;
                     end
                   end
                   if (M_edge_detector_right_out) begin
-                    M_check_d = 1'h1;
+                    if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                      M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                      M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                      M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                      M_alu_a = M_move_counter_q;
+                      M_alu_b = 1'h1;
+                      M_alu_alufn = 1'h0;
+                      M_move_counter_d = M_alu_out;
+                      M_state_d = GAME_state;
+                    end else begin
+                      M_state_d = GAME_state;
+                    end
                   end
                   if (M_edge_detector_left_out) begin
-                    M_check_d = 1'h1;
+                    M_state_d = GAME_state;
                   end
                 end else begin
-                  if (M_position_row == 2'h2 && M_position_column == 3'h5) begin
-                    if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                      M_check_d = 1'h1;
-                    end
+                  if (M_position_row == 2'h2 && M_position_column == 3'h4) begin
                     if (M_edge_detector_up_out) begin
-                      M_check_d = 1'h1;
+                      M_state_d = GAME_state;
                     end
                     if (M_edge_detector_down_out) begin
                       if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                         M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                         M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                         M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                        M_move_counter_d = M_move_counter_q + 1'h1;
-                        M_check_d = 1'h1;
+                        M_alu_a = M_move_counter_q;
+                        M_alu_b = 1'h1;
+                        M_alu_alufn = 1'h0;
+                        M_move_counter_d = M_alu_out;
+                        M_state_d = GAME_state;
                       end else begin
-                        M_check_d = 1'h1;
+                        M_state_d = GAME_state;
                       end
                     end
                     if (M_edge_detector_right_out) begin
-                      M_check_d = 1'h1;
+                      M_state_d = GAME_state;
                     end
                     if (M_edge_detector_left_out) begin
-                      if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-                        M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-                        M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-                        M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                        M_move_counter_d = M_move_counter_q + 1'h1;
-                        M_check_d = 1'h1;
-                      end else begin
-                        M_check_d = 1'h1;
-                      end
+                      M_state_d = GAME_state;
                     end
                   end else begin
-                    if (M_position_row == 2'h3 && M_position_column == 1'h1) begin
-                      if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                        M_check_d = 1'h1;
-                      end
+                    if (M_position_row == 2'h2 && M_position_column == 3'h5) begin
                       if (M_edge_detector_up_out) begin
-                        M_check_d = 1'h1;
+                        M_state_d = GAME_state;
                       end
                       if (M_edge_detector_down_out) begin
                         if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                           M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                           M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                           M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                          M_move_counter_d = M_move_counter_q + 1'h1;
-                          M_check_d = 1'h1;
+                          M_alu_a = M_move_counter_q;
+                          M_alu_b = 1'h1;
+                          M_alu_alufn = 1'h0;
+                          M_move_counter_d = M_alu_out;
+                          M_state_d = GAME_state;
                         end else begin
-                          M_check_d = 1'h1;
+                          M_state_d = GAME_state;
                         end
                       end
                       if (M_edge_detector_right_out) begin
-                        if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
-                          M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
-                          M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
-                          M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                          M_move_counter_d = M_move_counter_q + 1'h1;
-                          M_check_d = 1'h1;
-                        end else begin
-                          M_check_d = 1'h1;
-                        end
+                        M_state_d = GAME_state;
                       end
                       if (M_edge_detector_left_out) begin
-                        M_check_d = 1'h1;
+                        if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                          M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                          M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                          M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                          M_alu_a = M_move_counter_q;
+                          M_alu_b = 1'h1;
+                          M_alu_alufn = 1'h0;
+                          M_move_counter_d = M_alu_out;
+                          M_state_d = GAME_state;
+                        end else begin
+                          M_state_d = GAME_state;
+                        end
                       end
                     end else begin
-                      if (M_position_row == 2'h3 && M_position_column == 2'h2) begin
-                        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                          M_check_d = 1'h1;
-                        end
+                      if (M_position_row == 2'h3 && M_position_column == 1'h1) begin
                         if (M_edge_detector_up_out) begin
-                          M_check_d = 1'h1;
+                          M_state_d = GAME_state;
                         end
                         if (M_edge_detector_down_out) begin
                           if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                             M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                             M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                             M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                            M_move_counter_d = M_move_counter_q + 1'h1;
-                            M_check_d = 1'h1;
+                            M_alu_a = M_move_counter_q;
+                            M_alu_b = 1'h1;
+                            M_alu_alufn = 1'h0;
+                            M_move_counter_d = M_alu_out;
+                            M_state_d = GAME_state;
                           end else begin
-                            M_check_d = 1'h1;
+                            M_state_d = GAME_state;
                           end
                         end
                         if (M_edge_detector_right_out) begin
@@ -517,541 +506,620 @@ module mojo_top_0 (
                             M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
                             M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
                             M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                            M_move_counter_d = M_move_counter_q + 1'h1;
-                            M_check_d = 1'h1;
+                            M_alu_a = M_move_counter_q;
+                            M_alu_b = 1'h1;
+                            M_alu_alufn = 1'h0;
+                            M_move_counter_d = M_alu_out;
+                            M_state_d = GAME_state;
                           end else begin
-                            M_check_d = 1'h1;
+                            M_state_d = GAME_state;
                           end
                         end
                         if (M_edge_detector_left_out) begin
-                          M_check_d = 1'h1;
+                          M_state_d = GAME_state;
                         end
                       end else begin
-                        if (M_position_row == 3'h4 && M_position_column == 1'h1) begin
-                          if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                            M_check_d = 1'h1;
-                          end
+                        if (M_position_row == 2'h3 && M_position_column == 2'h2) begin
                           if (M_edge_detector_up_out) begin
-                            M_check_d = 1'h1;
+                            M_state_d = GAME_state;
                           end
                           if (M_edge_detector_down_out) begin
-                            M_check_d = 1'h1;
+                            if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                              M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                              M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                              M_alu_a = M_move_counter_q;
+                              M_alu_b = 1'h1;
+                              M_alu_alufn = 1'h0;
+                              M_move_counter_d = M_alu_out;
+                              M_state_d = GAME_state;
+                            end else begin
+                              M_state_d = GAME_state;
+                            end
                           end
                           if (M_edge_detector_right_out) begin
                             if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
                               M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
                               M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
                               M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                              M_move_counter_d = M_move_counter_q + 1'h1;
-                              M_check_d = 1'h1;
+                              M_alu_a = M_move_counter_q;
+                              M_alu_b = 1'h1;
+                              M_alu_alufn = 1'h0;
+                              M_move_counter_d = M_alu_out;
+                              M_state_d = GAME_state;
                             end else begin
-                              M_check_d = 1'h1;
+                              M_state_d = GAME_state;
                             end
                           end
                           if (M_edge_detector_left_out) begin
-                            M_check_d = 1'h1;
+                            M_state_d = GAME_state;
                           end
                         end else begin
-                          if (M_position_row == 3'h4 && M_position_column == 2'h2) begin
-                            if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                              M_check_d = 1'h1;
-                            end
+                          if (M_position_row == 3'h4 && M_position_column == 1'h1) begin
                             if (M_edge_detector_up_out) begin
-                              M_check_d = 1'h1;
+                              M_state_d = GAME_state;
                             end
                             if (M_edge_detector_down_out) begin
-                              M_check_d = 1'h1;
+                              M_state_d = GAME_state;
                             end
                             if (M_edge_detector_right_out) begin
                               if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
                                 M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
                                 M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
                                 M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                M_move_counter_d = M_move_counter_q + 1'h1;
-                                M_check_d = 1'h1;
+                                M_alu_a = M_move_counter_q;
+                                M_alu_b = 1'h1;
+                                M_alu_alufn = 1'h0;
+                                M_move_counter_d = M_alu_out;
+                                M_state_d = GAME_state;
                               end else begin
-                                M_check_d = 1'h1;
+                                M_state_d = GAME_state;
                               end
                             end
                             if (M_edge_detector_left_out) begin
-                              M_check_d = 1'h1;
+                              M_state_d = GAME_state;
                             end
                           end else begin
-                            if (M_position_row == 3'h5 && M_position_column == 1'h1) begin
-                              if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                M_check_d = 1'h1;
-                              end
+                            if (M_position_row == 3'h4 && M_position_column == 2'h2) begin
                               if (M_edge_detector_up_out) begin
-                                if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                  M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                  M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-                                  M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                  M_move_counter_d = M_move_counter_q + 1'h1;
-                                  M_check_d = 1'h1;
-                                end else begin
-                                  M_check_d = 1'h1;
-                                end
+                                M_state_d = GAME_state;
                               end
                               if (M_edge_detector_down_out) begin
-                                M_check_d = 1'h1;
+                                M_state_d = GAME_state;
                               end
                               if (M_edge_detector_right_out) begin
                                 if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
                                   M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
                                   M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
                                   M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                  M_move_counter_d = M_move_counter_q + 1'h1;
-                                  M_check_d = 1'h1;
+                                  M_alu_a = M_move_counter_q;
+                                  M_alu_b = 1'h1;
+                                  M_alu_alufn = 1'h0;
+                                  M_move_counter_d = M_alu_out;
+                                  M_state_d = GAME_state;
                                 end else begin
-                                  M_check_d = 1'h1;
+                                  M_state_d = GAME_state;
                                 end
                               end
                               if (M_edge_detector_left_out) begin
-                                M_check_d = 1'h1;
+                                M_state_d = GAME_state;
                               end
                             end else begin
-                              if (M_position_row == 3'h5 && M_position_column == 2'h2) begin
-                                if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                  M_check_d = 1'h1;
-                                end
+                              if (M_position_row == 3'h5 && M_position_column == 1'h1) begin
                                 if (M_edge_detector_up_out) begin
                                   if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                                     M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                                     M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                                     M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                    M_move_counter_d = M_move_counter_q + 1'h1;
-                                    M_check_d = 1'h1;
+                                    M_alu_a = M_move_counter_q;
+                                    M_alu_b = 1'h1;
+                                    M_alu_alufn = 1'h0;
+                                    M_move_counter_d = M_alu_out;
+                                    M_state_d = GAME_state;
                                   end else begin
-                                    M_check_d = 1'h1;
+                                    M_state_d = GAME_state;
                                   end
                                 end
                                 if (M_edge_detector_down_out) begin
-                                  M_check_d = 1'h1;
+                                  M_state_d = GAME_state;
                                 end
                                 if (M_edge_detector_right_out) begin
                                   if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
                                     M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
                                     M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
                                     M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                    M_move_counter_d = M_move_counter_q + 1'h1;
-                                    M_check_d = 1'h1;
+                                    M_alu_a = M_move_counter_q;
+                                    M_alu_b = 1'h1;
+                                    M_alu_alufn = 1'h0;
+                                    M_move_counter_d = M_alu_out;
+                                    M_state_d = GAME_state;
                                   end else begin
-                                    M_check_d = 1'h1;
+                                    M_state_d = GAME_state;
                                   end
                                 end
                                 if (M_edge_detector_left_out) begin
-                                  M_check_d = 1'h1;
+                                  M_state_d = GAME_state;
                                 end
                               end else begin
-                                if (M_position_row == 3'h6 && M_position_column == 2'h3) begin
-                                  if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                    M_check_d = 1'h1;
-                                  end
+                                if (M_position_row == 3'h5 && M_position_column == 2'h2) begin
                                   if (M_edge_detector_up_out) begin
                                     if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                                       M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                                       M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                                       M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                      M_move_counter_d = M_move_counter_q + 1'h1;
-                                      M_check_d = 1'h1;
+                                      M_alu_a = M_move_counter_q;
+                                      M_alu_b = 1'h1;
+                                      M_alu_alufn = 1'h0;
+                                      M_move_counter_d = M_alu_out;
+                                      M_state_d = GAME_state;
                                     end else begin
-                                      M_check_d = 1'h1;
+                                      M_state_d = GAME_state;
                                     end
                                   end
                                   if (M_edge_detector_down_out) begin
-                                    M_check_d = 1'h1;
+                                    M_state_d = GAME_state;
                                   end
                                   if (M_edge_detector_right_out) begin
                                     if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
                                       M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
                                       M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
                                       M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                      M_move_counter_d = M_move_counter_q + 1'h1;
-                                      M_check_d = 1'h1;
+                                      M_alu_a = M_move_counter_q;
+                                      M_alu_b = 1'h1;
+                                      M_alu_alufn = 1'h0;
+                                      M_move_counter_d = M_alu_out;
+                                      M_state_d = GAME_state;
                                     end else begin
-                                      M_check_d = 1'h1;
+                                      M_state_d = GAME_state;
                                     end
                                   end
                                   if (M_edge_detector_left_out) begin
-                                    M_check_d = 1'h1;
+                                    M_state_d = GAME_state;
                                   end
                                 end else begin
-                                  if (M_position_row == 3'h6 && M_position_column == 3'h4) begin
-                                    if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                      M_check_d = 1'h1;
-                                    end
+                                  if (M_position_row == 3'h6 && M_position_column == 2'h3) begin
                                     if (M_edge_detector_up_out) begin
                                       if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                                         M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                                         M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                                         M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                        M_move_counter_d = M_move_counter_q + 1'h1;
-                                        M_check_d = 1'h1;
+                                        M_alu_a = M_move_counter_q;
+                                        M_alu_b = 1'h1;
+                                        M_alu_alufn = 1'h0;
+                                        M_move_counter_d = M_alu_out;
+                                        M_state_d = GAME_state;
                                       end else begin
-                                        M_check_d = 1'h1;
+                                        M_state_d = GAME_state;
                                       end
                                     end
                                     if (M_edge_detector_down_out) begin
-                                      M_check_d = 1'h1;
+                                      M_state_d = GAME_state;
                                     end
                                     if (M_edge_detector_right_out) begin
-                                      M_check_d = 1'h1;
+                                      if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                                        M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                                        M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                                        M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                        M_alu_a = M_move_counter_q;
+                                        M_alu_b = 1'h1;
+                                        M_alu_alufn = 1'h0;
+                                        M_move_counter_d = M_alu_out;
+                                        M_state_d = GAME_state;
+                                      end else begin
+                                        M_state_d = GAME_state;
+                                      end
                                     end
                                     if (M_edge_detector_left_out) begin
-                                      M_check_d = 1'h1;
+                                      M_state_d = GAME_state;
                                     end
                                   end else begin
-                                    if (M_position_row == 3'h6 && M_position_column == 3'h5) begin
-                                      if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                        M_check_d = 1'h1;
-                                      end
+                                    if (M_position_row == 3'h6 && M_position_column == 3'h4) begin
                                       if (M_edge_detector_up_out) begin
                                         if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                                           M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                                           M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                                           M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                          M_move_counter_d = M_move_counter_q + 1'h1;
-                                          M_check_d = 1'h1;
+                                          M_alu_a = M_move_counter_q;
+                                          M_alu_b = 1'h1;
+                                          M_alu_alufn = 1'h0;
+                                          M_move_counter_d = M_alu_out;
+                                          M_state_d = GAME_state;
                                         end else begin
-                                          M_check_d = 1'h1;
+                                          M_state_d = GAME_state;
                                         end
                                       end
                                       if (M_edge_detector_down_out) begin
-                                        M_check_d = 1'h1;
+                                        M_state_d = GAME_state;
                                       end
                                       if (M_edge_detector_right_out) begin
-                                        M_check_d = 1'h1;
+                                        M_state_d = GAME_state;
                                       end
                                       if (M_edge_detector_left_out) begin
-                                        if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-                                          M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-                                          M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-                                          M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                          M_move_counter_d = M_move_counter_q + 1'h1;
-                                          M_check_d = 1'h1;
-                                        end else begin
-                                          M_check_d = 1'h1;
-                                        end
+                                        M_state_d = GAME_state;
                                       end
                                     end else begin
-                                      if (M_position_row == 3'h7 && M_position_column == 2'h3) begin
-                                        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                          M_check_d = 1'h1;
-                                        end
+                                      if (M_position_row == 3'h6 && M_position_column == 3'h5) begin
                                         if (M_edge_detector_up_out) begin
                                           if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                                             M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                                             M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                                             M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                            M_move_counter_d = M_move_counter_q + 1'h1;
-                                            M_check_d = 1'h1;
+                                            M_alu_a = M_move_counter_q;
+                                            M_alu_b = 1'h1;
+                                            M_alu_alufn = 1'h0;
+                                            M_move_counter_d = M_alu_out;
+                                            M_state_d = GAME_state;
                                           end else begin
-                                            M_check_d = 1'h1;
+                                            M_state_d = GAME_state;
                                           end
                                         end
                                         if (M_edge_detector_down_out) begin
-                                          M_check_d = 1'h1;
+                                          M_state_d = GAME_state;
                                         end
                                         if (M_edge_detector_right_out) begin
-                                          if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
-                                            M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
-                                            M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
-                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                            M_move_counter_d = M_move_counter_q + 1'h1;
-                                            M_check_d = 1'h1;
-                                          end else begin
-                                            M_check_d = 1'h1;
-                                          end
+                                          M_state_d = GAME_state;
                                         end
                                         if (M_edge_detector_left_out) begin
-                                          M_check_d = 1'h1;
+                                          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                            M_alu_a = M_move_counter_q;
+                                            M_alu_b = 1'h1;
+                                            M_alu_alufn = 1'h0;
+                                            M_move_counter_d = M_alu_out;
+                                            M_state_d = GAME_state;
+                                          end else begin
+                                            M_state_d = GAME_state;
+                                          end
                                         end
                                       end else begin
-                                        if (M_position_row == 3'h7 && M_position_column == 3'h4) begin
-                                          if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                            M_check_d = 1'h1;
-                                          end
+                                        if (M_position_row == 3'h7 && M_position_column == 2'h3) begin
                                           if (M_edge_detector_up_out) begin
                                             if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                                               M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                                               M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                                               M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                              M_move_counter_d = M_move_counter_q + 1'h1;
-                                              M_check_d = 1'h1;
+                                              M_alu_a = M_move_counter_q;
+                                              M_alu_b = 1'h1;
+                                              M_alu_alufn = 1'h0;
+                                              M_move_counter_d = M_alu_out;
+                                              M_state_d = GAME_state;
                                             end else begin
-                                              M_check_d = 1'h1;
+                                              M_state_d = GAME_state;
                                             end
                                           end
                                           if (M_edge_detector_down_out) begin
-                                            M_check_d = 1'h1;
+                                            M_state_d = GAME_state;
                                           end
                                           if (M_edge_detector_right_out) begin
-                                            M_check_d = 1'h1;
+                                            if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                                              M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                                              M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                                              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                              M_alu_a = M_move_counter_q;
+                                              M_alu_b = 1'h1;
+                                              M_alu_alufn = 1'h0;
+                                              M_move_counter_d = M_alu_out;
+                                              M_state_d = GAME_state;
+                                            end else begin
+                                              M_state_d = GAME_state;
+                                            end
                                           end
                                           if (M_edge_detector_left_out) begin
-                                            M_check_d = 1'h1;
+                                            M_state_d = GAME_state;
                                           end
                                         end else begin
-                                          if (M_position_row == 3'h7 && M_position_column == 3'h5) begin
-                                            if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                              M_check_d = 1'h1;
-                                            end
+                                          if (M_position_row == 3'h7 && M_position_column == 3'h4) begin
                                             if (M_edge_detector_up_out) begin
                                               if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                                                 M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                                                 M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                                                 M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                M_move_counter_d = M_move_counter_q + 1'h1;
-                                                M_check_d = 1'h1;
+                                                M_alu_a = M_move_counter_q;
+                                                M_alu_b = 1'h1;
+                                                M_alu_alufn = 1'h0;
+                                                M_move_counter_d = M_alu_out;
+                                                M_state_d = GAME_state;
                                               end else begin
-                                                M_check_d = 1'h1;
+                                                M_state_d = GAME_state;
                                               end
                                             end
                                             if (M_edge_detector_down_out) begin
-                                              M_check_d = 1'h1;
+                                              M_state_d = GAME_state;
                                             end
                                             if (M_edge_detector_right_out) begin
-                                              M_check_d = 1'h1;
+                                              M_state_d = GAME_state;
                                             end
                                             if (M_edge_detector_left_out) begin
-                                              if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-                                                M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-                                                M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                M_move_counter_d = M_move_counter_q + 1'h1;
-                                                M_check_d = 1'h1;
-                                              end else begin
-                                                M_check_d = 1'h1;
-                                              end
+                                              M_state_d = GAME_state;
                                             end
                                           end else begin
-                                            if (M_position_row == 2'h3 && M_position_column == 3'h6) begin
-                                              if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                M_check_d = 1'h1;
-                                              end
+                                            if (M_position_row == 3'h7 && M_position_column == 3'h5) begin
                                               if (M_edge_detector_up_out) begin
-                                                M_check_d = 1'h1;
-                                              end
-                                              if (M_edge_detector_down_out) begin
-                                                if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                  M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                  M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                  M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                  M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                                                   M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                  M_move_counter_d = M_move_counter_q + 1'h1;
-                                                  M_check_d = 1'h1;
+                                                  M_alu_a = M_move_counter_q;
+                                                  M_alu_b = 1'h1;
+                                                  M_alu_alufn = 1'h0;
+                                                  M_move_counter_d = M_alu_out;
+                                                  M_state_d = GAME_state;
                                                 end else begin
-                                                  M_check_d = 1'h1;
+                                                  M_state_d = GAME_state;
                                                 end
                                               end
+                                              if (M_edge_detector_down_out) begin
+                                                M_state_d = GAME_state;
+                                              end
                                               if (M_edge_detector_right_out) begin
-                                                M_check_d = 1'h1;
+                                                M_state_d = GAME_state;
                                               end
                                               if (M_edge_detector_left_out) begin
                                                 if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
                                                   M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
                                                   M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
                                                   M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                  M_move_counter_d = M_move_counter_q + 1'h1;
-                                                  M_check_d = 1'h1;
+                                                  M_alu_a = M_move_counter_q;
+                                                  M_alu_b = 1'h1;
+                                                  M_alu_alufn = 1'h0;
+                                                  M_move_counter_d = M_alu_out;
+                                                  M_state_d = GAME_state;
                                                 end else begin
-                                                  M_check_d = 1'h1;
+                                                  M_state_d = GAME_state;
                                                 end
                                               end
                                             end else begin
-                                              if (M_position_row == 2'h3 && M_position_column == 3'h7) begin
-                                                if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                  M_check_d = 1'h1;
-                                                end
+                                              if (M_position_row == 2'h3 && M_position_column == 3'h6) begin
                                                 if (M_edge_detector_up_out) begin
-                                                  M_check_d = 1'h1;
+                                                  M_state_d = GAME_state;
                                                 end
                                                 if (M_edge_detector_down_out) begin
                                                   if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                                                     M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                                                     M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                                                     M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                    M_move_counter_d = M_move_counter_q + 1'h1;
-                                                    M_check_d = 1'h1;
+                                                    M_alu_a = M_move_counter_q;
+                                                    M_alu_b = 1'h1;
+                                                    M_alu_alufn = 1'h0;
+                                                    M_move_counter_d = M_alu_out;
+                                                    M_state_d = GAME_state;
                                                   end else begin
-                                                    M_check_d = 1'h1;
+                                                    M_state_d = GAME_state;
                                                   end
                                                 end
                                                 if (M_edge_detector_right_out) begin
-                                                  M_check_d = 1'h1;
+                                                  M_state_d = GAME_state;
                                                 end
                                                 if (M_edge_detector_left_out) begin
                                                   if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
                                                     M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
                                                     M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
                                                     M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                    M_move_counter_d = M_move_counter_q + 1'h1;
-                                                    M_check_d = 1'h1;
+                                                    M_alu_a = M_move_counter_q;
+                                                    M_alu_b = 1'h1;
+                                                    M_alu_alufn = 1'h0;
+                                                    M_move_counter_d = M_alu_out;
+                                                    M_state_d = GAME_state;
                                                   end else begin
-                                                    M_check_d = 1'h1;
+                                                    M_state_d = GAME_state;
                                                   end
                                                 end
                                               end else begin
-                                                if (M_position_row == 3'h4 && M_position_column == 3'h6) begin
-                                                  if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                    M_check_d = 1'h1;
-                                                  end
+                                                if (M_position_row == 2'h3 && M_position_column == 3'h7) begin
                                                   if (M_edge_detector_up_out) begin
-                                                    M_check_d = 1'h1;
+                                                    M_state_d = GAME_state;
                                                   end
                                                   if (M_edge_detector_down_out) begin
-                                                    M_check_d = 1'h1;
+                                                    if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                      M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                      M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                      M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                      M_alu_a = M_move_counter_q;
+                                                      M_alu_b = 1'h1;
+                                                      M_alu_alufn = 1'h0;
+                                                      M_move_counter_d = M_alu_out;
+                                                      M_state_d = GAME_state;
+                                                    end else begin
+                                                      M_state_d = GAME_state;
+                                                    end
                                                   end
                                                   if (M_edge_detector_right_out) begin
-                                                    M_check_d = 1'h1;
+                                                    M_state_d = GAME_state;
                                                   end
                                                   if (M_edge_detector_left_out) begin
                                                     if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
                                                       M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
                                                       M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
                                                       M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                      M_move_counter_d = M_move_counter_q + 1'h1;
-                                                      M_check_d = 1'h1;
+                                                      M_alu_a = M_move_counter_q;
+                                                      M_alu_b = 1'h1;
+                                                      M_alu_alufn = 1'h0;
+                                                      M_move_counter_d = M_alu_out;
+                                                      M_state_d = GAME_state;
                                                     end else begin
-                                                      M_check_d = 1'h1;
+                                                      M_state_d = GAME_state;
                                                     end
                                                   end
                                                 end else begin
-                                                  if (M_position_row == 3'h4 && M_position_column == 3'h7) begin
-                                                    if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                      M_check_d = 1'h1;
-                                                    end
+                                                  if (M_position_row == 3'h4 && M_position_column == 3'h6) begin
                                                     if (M_edge_detector_up_out) begin
-                                                      M_check_d = 1'h1;
+                                                      M_state_d = GAME_state;
                                                     end
                                                     if (M_edge_detector_down_out) begin
-                                                      M_check_d = 1'h1;
+                                                      M_state_d = GAME_state;
                                                     end
                                                     if (M_edge_detector_right_out) begin
-                                                      M_check_d = 1'h1;
+                                                      M_state_d = GAME_state;
                                                     end
                                                     if (M_edge_detector_left_out) begin
                                                       if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
                                                         M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
                                                         M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
                                                         M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                        M_move_counter_d = M_move_counter_q + 1'h1;
-                                                        M_check_d = 1'h1;
+                                                        M_alu_a = M_move_counter_q;
+                                                        M_alu_b = 1'h1;
+                                                        M_alu_alufn = 1'h0;
+                                                        M_move_counter_d = M_alu_out;
+                                                        M_state_d = GAME_state;
                                                       end else begin
-                                                        M_check_d = 1'h1;
+                                                        M_state_d = GAME_state;
                                                       end
                                                     end
                                                   end else begin
-                                                    if (M_position_row == 3'h5 && M_position_column == 3'h6) begin
-                                                      if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                        M_check_d = 1'h1;
-                                                      end
+                                                    if (M_position_row == 3'h4 && M_position_column == 3'h7) begin
                                                       if (M_edge_detector_up_out) begin
-                                                        if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                          M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                          M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-                                                          M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                          M_move_counter_d = M_move_counter_q + 1'h1;
-                                                          M_check_d = 1'h1;
-                                                        end else begin
-                                                          M_check_d = 1'h1;
-                                                        end
+                                                        M_state_d = GAME_state;
                                                       end
                                                       if (M_edge_detector_down_out) begin
-                                                        M_check_d = 1'h1;
+                                                        M_state_d = GAME_state;
                                                       end
                                                       if (M_edge_detector_right_out) begin
-                                                        M_check_d = 1'h1;
+                                                        M_state_d = GAME_state;
                                                       end
                                                       if (M_edge_detector_left_out) begin
                                                         if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
                                                           M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
                                                           M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
                                                           M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                          M_move_counter_d = M_move_counter_q + 1'h1;
-                                                          M_check_d = 1'h1;
+                                                          M_alu_a = M_move_counter_q;
+                                                          M_alu_b = 1'h1;
+                                                          M_alu_alufn = 1'h0;
+                                                          M_move_counter_d = M_alu_out;
+                                                          M_state_d = GAME_state;
                                                         end else begin
-                                                          M_check_d = 1'h1;
+                                                          M_state_d = GAME_state;
                                                         end
                                                       end
                                                     end else begin
-                                                      if (M_position_row == 3'h5 && M_position_column == 3'h7) begin
-                                                        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                          M_check_d = 1'h1;
-                                                        end
+                                                      if (M_position_row == 3'h5 && M_position_column == 3'h6) begin
                                                         if (M_edge_detector_up_out) begin
                                                           if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
                                                             M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
                                                             M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
                                                             M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                            M_move_counter_d = M_move_counter_q + 1'h1;
-                                                            M_check_d = 1'h1;
+                                                            M_alu_a = M_move_counter_q;
+                                                            M_alu_b = 1'h1;
+                                                            M_alu_alufn = 1'h0;
+                                                            M_move_counter_d = M_alu_out;
+                                                            M_state_d = GAME_state;
                                                           end else begin
-                                                            M_check_d = 1'h1;
+                                                            M_state_d = GAME_state;
                                                           end
                                                         end
                                                         if (M_edge_detector_down_out) begin
-                                                          M_check_d = 1'h1;
+                                                          M_state_d = GAME_state;
                                                         end
                                                         if (M_edge_detector_right_out) begin
-                                                          M_check_d = 1'h1;
+                                                          M_state_d = GAME_state;
                                                         end
                                                         if (M_edge_detector_left_out) begin
                                                           if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
                                                             M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
                                                             M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
                                                             M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                            M_move_counter_d = M_move_counter_q + 1'h1;
-                                                            M_check_d = 1'h1;
+                                                            M_alu_a = M_move_counter_q;
+                                                            M_alu_b = 1'h1;
+                                                            M_alu_alufn = 1'h0;
+                                                            M_move_counter_d = M_alu_out;
+                                                            M_state_d = GAME_state;
                                                           end else begin
-                                                            M_check_d = 1'h1;
+                                                            M_state_d = GAME_state;
                                                           end
                                                         end
                                                       end else begin
-                                                        if (M_row_q[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                          M_check_d = 1'h1;
-                                                        end
-                                                        if (M_edge_detector_up_out) begin
-                                                          if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                            M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                            M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                            M_move_counter_d = M_move_counter_q + 1'h1;
-                                                            M_check_d = 1'h1;
-                                                          end else begin
-                                                            M_check_d = 1'h1;
+                                                        if (M_position_row == 3'h5 && M_position_column == 3'h7) begin
+                                                          if (M_edge_detector_up_out) begin
+                                                            if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                              M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_alu_a = M_move_counter_q;
+                                                              M_alu_b = 1'h1;
+                                                              M_alu_alufn = 1'h0;
+                                                              M_move_counter_d = M_alu_out;
+                                                              M_state_d = GAME_state;
+                                                            end else begin
+                                                              M_state_d = GAME_state;
+                                                            end
                                                           end
-                                                        end
-                                                        if (M_edge_detector_down_out) begin
-                                                          if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                            M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                            M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
-                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                            M_move_counter_d = M_move_counter_q + 1'h1;
-                                                            M_check_d = 1'h1;
-                                                          end else begin
-                                                            M_check_d = 1'h1;
+                                                          if (M_edge_detector_down_out) begin
+                                                            M_state_d = GAME_state;
                                                           end
-                                                        end
-                                                        if (M_edge_detector_right_out) begin
-                                                          if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
-                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
-                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                            M_move_counter_d = M_move_counter_q + 1'h1;
-                                                            M_check_d = 1'h1;
-                                                          end else begin
-                                                            M_check_d = 1'h1;
+                                                          if (M_edge_detector_right_out) begin
+                                                            M_state_d = GAME_state;
                                                           end
-                                                        end
-                                                        if (M_edge_detector_left_out) begin
-                                                          if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
-                                                            M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
-                                                            M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
-                                                            M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
-                                                            M_move_counter_d = M_move_counter_q + 1'h1;
-                                                            M_check_d = 1'h1;
-                                                          end else begin
-                                                            M_check_d = 1'h1;
+                                                          if (M_edge_detector_left_out) begin
+                                                            if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                              M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                                              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_alu_a = M_move_counter_q;
+                                                              M_alu_b = 1'h1;
+                                                              M_alu_alufn = 1'h0;
+                                                              M_move_counter_d = M_alu_out;
+                                                              M_state_d = GAME_state;
+                                                            end else begin
+                                                              M_state_d = GAME_state;
+                                                            end
+                                                          end
+                                                        end else begin
+                                                          if (M_edge_detector_up_out) begin
+                                                            if (M_row_q[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                              M_row_d[(M_position_row - 2'h2)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_row_d[(M_position_row - 2'h3)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_alu_a = M_move_counter_q;
+                                                              M_alu_b = 1'h1;
+                                                              M_alu_alufn = 1'h0;
+                                                              M_move_counter_d = M_alu_out;
+                                                              M_state_d = GAME_state;
+                                                            end else begin
+                                                              M_state_d = GAME_state;
+                                                            end
+                                                          end
+                                                          if (M_edge_detector_down_out) begin
+                                                            if (M_row_q[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                              M_row_d[(M_position_row)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_row_d[(M_position_row + 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h1;
+                                                              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_alu_a = M_move_counter_q;
+                                                              M_alu_b = 1'h1;
+                                                              M_alu_alufn = 1'h0;
+                                                              M_move_counter_d = M_alu_out;
+                                                              M_state_d = GAME_state;
+                                                            end else begin
+                                                              M_state_d = GAME_state;
+                                                            end
+                                                          end
+                                                          if (M_edge_detector_right_out) begin
+                                                            if (M_row_q[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                              M_row_d[(M_position_row - 1'h1)*7+(3'h6 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_row_d[(M_position_row - 1'h1)*7+(3'h5 - M_position_column)*1+0-:1] = 1'h1;
+                                                              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_alu_a = M_move_counter_q;
+                                                              M_alu_b = 1'h1;
+                                                              M_alu_alufn = 1'h0;
+                                                              M_move_counter_d = M_alu_out;
+                                                              M_state_d = GAME_state;
+                                                            end else begin
+                                                              M_state_d = GAME_state;
+                                                            end
+                                                          end
+                                                          if (M_edge_detector_left_out) begin
+                                                            if (M_row_q[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] == 1'h1 && M_row_q[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] == 1'h0) begin
+                                                              M_row_d[(M_position_row - 1'h1)*7+(4'h8 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_row_d[(M_position_row - 1'h1)*7+(4'h9 - M_position_column)*1+0-:1] = 1'h1;
+                                                              M_row_d[(M_position_row - 1'h1)*7+(3'h7 - M_position_column)*1+0-:1] = 1'h0;
+                                                              M_alu_a = M_move_counter_q;
+                                                              M_alu_b = 1'h1;
+                                                              M_alu_alufn = 1'h0;
+                                                              M_move_counter_d = M_alu_out;
+                                                              M_state_d = GAME_state;
+                                                            end else begin
+                                                              M_state_d = GAME_state;
+                                                            end
                                                           end
                                                         end
                                                       end
@@ -1078,12 +1146,12 @@ module mojo_top_0 (
             end
           end
         end
+        if (M_edge_detector_reset_out) begin
+          M_move_counter_d = 1'h0;
+          M_state_d = FIRST_state;
+        end
       end
-    end
-    if (M_edge_detector_reset_out) begin
-      M_move_counter_d = 1'h0;
-      M_check_d = 1'h0;
-    end
+    endcase
     M_score_move_counter = M_move_counter_q;
     M_display_blue[0+6-:7] = M_row_q[0+6-:7];
     M_display_blue[7+6-:7] = M_row_q[7+6-:7];
@@ -1103,12 +1171,16 @@ module mojo_top_0 (
   always @(posedge clk) begin
     if (rst == 1'b1) begin
       M_row_q <= 1'h0;
-      M_check_q <= 1'h0;
       M_move_counter_q <= 1'h0;
+      M_posit_q <= 1'h0;
+      M_check_q <= 1'h0;
+      M_state_q <= 1'h0;
     end else begin
       M_row_q <= M_row_d;
-      M_check_q <= M_check_d;
       M_move_counter_q <= M_move_counter_d;
+      M_posit_q <= M_posit_d;
+      M_check_q <= M_check_d;
+      M_state_q <= M_state_d;
     end
   end
   

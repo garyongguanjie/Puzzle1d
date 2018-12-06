@@ -4,7 +4,7 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
-module display_14 (
+module display_15 (
     input clk,
     input rst,
     input [48:0] blue,
@@ -17,7 +17,7 @@ module display_14 (
   
   
   wire [3-1:0] M_mycounter_value;
-  counter_23 mycounter (
+  counter_28 mycounter (
     .clk(clk),
     .rst(rst),
     .value(M_mycounter_value)

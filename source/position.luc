@@ -1,13 +1,12 @@
 module position (
     input clk,  // clock
     input rst,  // reset
-    input move[5],
+    input posit[16],
     output green[7][7],
     output row[3],
-    output column[3]
+    output column[3]  
   ) {
   
-  dff pos[6](.clk(clk), .rst(rst));
   always {
       green[0] = 7b1000001;
       green[1] = 7b0000000;
@@ -17,36 +16,10 @@ module position (
       green[5] = 7b0000000;
       green[6] = 7b1000001;
       row = 0;
-      column = 0;
-    if (pos.q==0){
-      pos.d=pos.q+25;
-    }
-    if (move==1){ 
-      if(pos.q - 7 < 1 || pos.q - 7 > 49 || pos.q - 7 == 1 || pos.q - 7 == 2 || pos.q - 7 == 6 || pos.q - 7 ==7 || pos.q - 7 ==8 || pos.q - 7 ==9 || pos.q - 7 ==13 || pos.q - 7 ==8 || pos.q - 7 ==9 || pos.q - 7 ==13 || pos.q - 7 ==14 || pos.q - 7 ==49 || pos.q - 7 ==48 || pos.q - 7 ==44 || pos.q - 7 ==43 || pos.q - 7 ==42 || pos.q - 7 ==41 || pos.q - 7 ==37 || pos.q - 7 ==36){}
-      else{        
-        pos.d = pos.q-7;}
-    }
-    if (move==2){
-      if(pos.q + 7 > 49 || pos.q + 7 == 1 || pos.q + 7 == 2 || pos.q + 7 == 6 || pos.q + 7 ==7 || pos.q + 7 ==8 || pos.q + 7 ==9 || pos.q + 7 ==13 || pos.q + 7 ==8 || pos.q + 7 ==9 || pos.q + 7 ==13 || pos.q + 7 ==14 || pos.q + 7 ==49 || pos.q + 7 ==48 || pos.q + 7 ==44 || pos.q + 7 ==43 || pos.q + 7 ==42 || pos.q + 7 ==41 || pos.q + 7 ==37 || pos.q + 7 ==36){}
-      else{
-        pos.d = pos.q+7;}
-    }
-    if (move==3){
-      if(pos.q + 1 > 49 || pos.q +1 == 1 || pos.q +1 == 2 || pos.q +1 == 6 || pos.q +1 ==7 || pos.q +1 ==8 || pos.q +1 ==9 || pos.q +1 ==13 || pos.q +1 ==8 || pos.q +1 ==9 || pos.q +1 ==13 || pos.q +1 ==14 || pos.q +1 ==49 || pos.q +1 ==48 || pos.q +1 ==44 || pos.q +1 ==43 || pos.q +1 ==42 || pos.q +1 ==41 || pos.q +1 ==37 || pos.q +1 ==36){}
-      else{
-        pos.d = pos.q+1;}
-    }
-    if (move==4){
-      if(pos.q - 1 < 1 || pos.q - 1 == 1 || pos.q - 1 == 2 || pos.q - 1 == 6 || pos.q - 1 ==7 || pos.q - 1 ==8 || pos.q - 1 ==9 || pos.q - 1 ==13 || pos.q - 1 ==8 || pos.q - 1 ==9 || pos.q - 1 ==13 || pos.q - 1 ==14 || pos.q - 1 ==49 || pos.q - 1 ==48 || pos.q - 1 ==44 || pos.q - 1 ==43 || pos.q - 1 ==42 || pos.q - 1 ==41 || pos.q - 1 ==37 || pos.q - 1 ==36){}
-      else{
-        pos.d = pos.q-1;}
-    }
+      column = 0; 
+
     
-    if (pos.q < 1){
-      pos.d = 26;
-    }        
-    
-    if (pos.q==1){
+    if (posit==1){
       green[0] = 7b1000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -57,7 +30,7 @@ module position (
       row = 1;
       column = 1;
     }
-    if (pos.q==2){
+    if (posit==2){
       green[0] = 7b0100000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -68,7 +41,7 @@ module position (
       row = 1;
       column = 2;
     }
-    if (pos.q==3){
+    if (posit==3){
       green[0] = 7b0010000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -79,7 +52,7 @@ module position (
       row = 1;
       column = 3;
     }
-    if (pos.q==4){
+    if (posit==4){
       green[0] = 7b0001000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -90,7 +63,7 @@ module position (
       row = 1;
       column = 4;
     }
-    if (pos.q==5){
+    if (posit==5){
       green[0] = 7b0000100;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -101,7 +74,7 @@ module position (
       row = 1;
       column = 5;
     }
-    if (pos.q==6){
+    if (posit==6){
       green[0] = 7b0000010;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -112,7 +85,7 @@ module position (
       row = 1;
       column = 6;
     }
-    if (pos.q==7){
+    if (posit==7){
       green[0] = 7b0000001;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -123,7 +96,7 @@ module position (
       row = 1;
       column = 7;
     }
-    if (pos.q==8){
+    if (posit==8){
       green[0] = 7b0000000;
       green[1] = 7b1000000;
       green[2] = 7b0000000;
@@ -134,7 +107,7 @@ module position (
       row = 2;
       column = 1;
     }
-    if (pos.q==9){
+    if (posit==9){
       green[0] = 7b0000000;
       green[1] = 7b0100000;
       green[2] = 7b0000000;
@@ -145,7 +118,7 @@ module position (
       row = 2;
       column = 2;
     }
-    if (pos.q==10){
+    if (posit==10){
       green[0] = 7b0000000;
       green[1] = 7b0010000;
       green[2] = 7b0000000;
@@ -156,7 +129,7 @@ module position (
       row = 2;
       column = 3;
     }
-    if (pos.q==11){
+    if (posit==11){
       green[0] = 7b0000000;
       green[1] = 7b0001000;
       green[2] = 7b0000000;
@@ -167,7 +140,7 @@ module position (
       row = 2;
       column = 4;
     }
-    if (pos.q==12){
+    if (posit==12){
       green[0] = 7b0000000;
       green[1] = 7b0000100;
       green[2] = 7b0000000;
@@ -178,7 +151,7 @@ module position (
       row = 2;
       column = 5;
     }
-    if (pos.q==13){
+    if (posit==13){
       green[0] = 7b0000000;
       green[1] = 7b0000010;
       green[2] = 7b0000000;
@@ -189,7 +162,7 @@ module position (
       row = 2;
       column = 6;
     }
-    if (pos.q==14){
+    if (posit==14){
       green[0] = 7b0000000;
       green[1] = 7b0000001;
       green[2] = 7b0000000;
@@ -200,7 +173,7 @@ module position (
       row = 2;
       column = 7;
     }
-    if (pos.q==15){
+    if (posit==15){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b1000000;
@@ -211,7 +184,7 @@ module position (
       row = 3;
       column = 1;
     }
-    if (pos.q==16){
+    if (posit==16){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0100000;
@@ -222,7 +195,7 @@ module position (
       row = 3;
       column = 2;
     }
-    if (pos.q==17){
+    if (posit==17){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0010000;
@@ -233,7 +206,7 @@ module position (
       row = 3;
       column = 3;
     }
-    if (pos.q==18){
+    if (posit==18){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0001000;
@@ -244,7 +217,7 @@ module position (
       row = 3;
       column = 4;
     }
-    if (pos.q==19){
+    if (posit==19){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000100;
@@ -255,7 +228,7 @@ module position (
       row = 3;
       column = 5;
     }
-    if (pos.q==20){
+    if (posit==20){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000010;
@@ -266,7 +239,7 @@ module position (
       row = 3;
       column = 6;
     }
-    if (pos.q==21){
+    if (posit==21){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000001;
@@ -277,7 +250,7 @@ module position (
       row = 3;
       column = 7;
     }
-    if (pos.q==22){
+    if (posit==22){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -288,7 +261,7 @@ module position (
       row = 4;
       column = 1;
     }
-    if (pos.q==23){
+    if (posit==23){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -299,7 +272,7 @@ module position (
       row = 4;
       column = 2;
     }
-    if (pos.q==24){
+    if (posit==24){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -310,7 +283,7 @@ module position (
       row = 4;
       column = 3;
     }
-    if (pos.q==25){
+    if (posit==25){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -321,7 +294,7 @@ module position (
       row = 4;
       column = 4;
     }
-    if (pos.q==26){
+    if (posit==26){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -332,7 +305,7 @@ module position (
       row = 4;
       column = 5;
     }
-    if (pos.q==27){
+    if (posit==27){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -343,7 +316,7 @@ module position (
       row = 4;
       column = 6;
     }
-    if (pos.q==28){
+    if (posit==28){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -354,7 +327,7 @@ module position (
       row = 4;
       column = 7;
     }
-    if (pos.q==29){
+    if (posit==29){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -365,7 +338,7 @@ module position (
       row = 5;
       column = 1;
     }
-    if (pos.q==30){
+    if (posit==30){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -376,7 +349,7 @@ module position (
       row = 5;
       column = 2;
     }
-    if (pos.q==31){
+    if (posit==31){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -387,7 +360,7 @@ module position (
       row = 5;
       column = 3;
     }
-    if (pos.q==32){
+    if (posit==32){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -398,7 +371,7 @@ module position (
       row = 5;
       column = 4;
     }
-    if (pos.q==33){
+    if (posit==33){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -409,7 +382,7 @@ module position (
       row = 5;
       column = 5;
     }
-    if (pos.q==34){
+    if (posit==34){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -420,7 +393,7 @@ module position (
       row = 5;
       column = 6;
     }
-    if (pos.q==35){
+    if (posit==35){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -431,7 +404,7 @@ module position (
       row = 5;
       column = 7;
     }
-    if (pos.q==36){
+    if (posit==36){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -442,7 +415,7 @@ module position (
       row = 6;
       column = 1;
     }
-    if (pos.q==37){
+    if (posit==37){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -453,7 +426,7 @@ module position (
       row = 6;
       column = 2;
     }
-    if (pos.q==38){
+    if (posit==38){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -464,7 +437,7 @@ module position (
       row = 6;
       column = 3;
     }
-    if (pos.q==39){
+    if (posit==39){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -475,7 +448,7 @@ module position (
       row = 6;
       column = 4;
     }
-    if (pos.q==40){
+    if (posit==40){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -486,7 +459,7 @@ module position (
       row = 6;
       column = 5;
     }
-    if (pos.q==41){
+    if (posit==41){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -497,7 +470,7 @@ module position (
       row = 6;
       column = 6;
     }
-    if (pos.q==42){
+    if (posit==42){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -508,7 +481,7 @@ module position (
       row = 6;
       column = 7;
     }
-    if (pos.q==43){
+    if (posit==43){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -519,7 +492,7 @@ module position (
       row = 7;
       column = 1;
     }
-    if (pos.q==44){
+    if (posit==44){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -530,7 +503,7 @@ module position (
       row = 7;
       column = 2;
     }
-    if (pos.q==45){
+    if (posit==45){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -541,7 +514,7 @@ module position (
       row = 7;
       column = 3;
     }
-    if (pos.q==46){
+    if (posit==46){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -552,7 +525,7 @@ module position (
       row = 7;
       column = 4;
     }
-    if (pos.q==47){
+    if (posit==47){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -563,7 +536,7 @@ module position (
       row = 7;
       column = 5;
     }
-    if (pos.q==48){
+    if (posit==48){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;
@@ -574,7 +547,7 @@ module position (
       row = 7;
       column = 6;
     }
-    if (pos.q==49){
+    if (posit==49){
       green[0] = 7b0000000;
       green[1] = 7b0000000;
       green[2] = 7b0000000;

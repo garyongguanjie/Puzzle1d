@@ -1,7 +1,7 @@
 module seven_Seg (
     input clk,  // clock
     input rst,  // reset
-    input move_counter[6],
+    input move_counter[16],
     output out_ones[7],
     output out_tens[7]
   ) {

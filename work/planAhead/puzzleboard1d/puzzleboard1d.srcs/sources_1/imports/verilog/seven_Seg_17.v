@@ -4,10 +4,10 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
-module seven_Seg_16 (
+module seven_Seg_17 (
     input clk,
     input rst,
-    input [5:0] move_counter,
+    input [15:0] move_counter,
     output reg [6:0] out_ones,
     output reg [6:0] out_tens
   );
